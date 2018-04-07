@@ -1,0 +1,23 @@
+#  Server tutorial
+#      by MartenM
+#For an example config with more explaining look at the spigot page!
+no permission command: "&cYou do not have permission to execute this command."
+no permission tutorial: "&cYou do not have enough permissions to play this tutorial."
+enable first join tutorial: false
+first join tutorial id: ""
+
+language: English
+
+npc:
+  remove-invalid: true
+  retry-time: 5
+
+datasource:
+  mysql:
+    #Should we use MySql to store data?
+    #If not: FlatFile option enabled.
+    enabled: false
+    username: root
+    password: root
+    host: localhost
+    database: minecraft
