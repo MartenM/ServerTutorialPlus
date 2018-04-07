@@ -1,4 +1,4 @@
-# ServerTutorialPlus
+# Server Tutorial Plus
 A simple to use but feature rich plugin to guide players around your server.
 
 Spigot resource page: https://www.spigotmc.org/resources/server-tutorial-plus.37741/
