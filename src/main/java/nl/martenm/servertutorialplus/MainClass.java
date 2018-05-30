@@ -192,6 +192,7 @@ public class MainClass extends JavaPlugin{
         pm.registerEvents(new OnPlayerQuitEvent(this), this);
         pm.registerEvents(new OnInventoryClickEvent(this), this);
         pm.registerEvents(new OnPlayerToggleFlight(this), this);
+        pm.registerEvents(new OnCommandPreprocessEvent(this), this);
     }
 
     public void loadTutorials(){
@@ -208,7 +209,9 @@ public class MainClass extends JavaPlugin{
                 serverTutorial.plays = tutorialSaves.getInt("tutorials." + ID + ".stats.plays");
                 serverTutorial.invisiblePlayer = tutorialSaves.getBoolean("tutorials." + ID + ".invisible");
                 serverTutorial.setNeedsPermission(tutorialSaves.getBoolean("tutorials." + ID + ".permission"));
+                serverTutorial.setBlocksCommands(tutorialSaves.getBoolean("tutorials." + ID + ".blocks-commands"));
                 serverTutorial.setRewards(tutorialSaves.getStringList("tutorials." + ID + ".rewards"));
+                serverTutorial.setCommandWhiteList(tutorialSaves.getStringList("tutorials." + ID + ".command-whitelist"));
 
                 if (tutorialSaves.isConfigurationSection("tutorials." + ID + ".points")) {
 
@@ -262,8 +265,10 @@ public class MainClass extends JavaPlugin{
             tutorialSaves.set("tutorials." + serverTutorial.getId() + ".stats.plays", serverTutorial.plays);
             tutorialSaves.set("tutorials." + serverTutorial.getId() + ".invisible", serverTutorial.invisiblePlayer);
             tutorialSaves.set("tutorials." + serverTutorial.getId() + ".permission", serverTutorial.getNeedsPermission());
+            tutorialSaves.set("tutorials." + serverTutorial.getId() + ".blocks-commands", serverTutorial.isBlockingCommands());
 
             tutorialSaves.set("tutorials." + serverTutorial.getId() + ".rewards", serverTutorial.getRewards());
+            tutorialSaves.set("tutorials." + serverTutorial.getId() + ".command-whitelist", serverTutorial.getCommandWhiteList());
 
             for(int i = 0; i < serverTutorial.points.size(); i++){
                 ServerTutorialPoint tutorialPoint = serverTutorial.points.get(i);

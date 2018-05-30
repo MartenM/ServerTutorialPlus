@@ -33,6 +33,9 @@ public enum Lang {
     REWARD_COMMANDS("reward-commands", "Reward Commands"),
     NPC_TYPE("npc-type", "NPC type"),
     SERVERTUTORIAL_ID("servertutorial-id", "Server tutorial ID"),
+    BLOCKS_COMMANDS("blocks-commands", "Blocks commands"),
+    WHITELISTED_COMMANDS("white-listed-commands", "Whitelisted commands"),
+    NONE("none", "None"),
 
     ACTION_CANCELLED("action-cancelled", "&eAction has been cancelled"),
     NOTHING_TO_CANCEL("nothhing-to-cancel", "&cThere is nothing to cancel!"),
@@ -62,6 +65,10 @@ public enum Lang {
     COMMAND_SETTING_REWARDS_CLEARED("command-setting-rewards-clear", "&aSuccessfully cleared all reward commands."),
     COMMAND_SETTING_REWARDS_ADDED("command-setting-rewards-added", "&aSuccessfully added the command."),
     COMMAND_SETTING_REWARDS_REMOVED("command-setting-rewards-removed", "&aSuccessfully removed the reward command."),
+
+    COMMAND_SETTING_COMMANDS_CLEARED("command-setting-commands-clear", "&aSuccessfully cleared all whitelisted commands."),
+    COMMAND_SETTING_COMMANDS_ADDED("command-setting-commands-added", "&aSuccessfully added the command to the whitelist."),
+    COMMAND_SETTING_COMMANDS_REMOVED("command-setting-commands-removed", "&aSuccessfully removed the whitelisted command."),
 
     COMMAND_SWITCH_SUCCESSFUL("command-switch-successful", "Successfully switched the points %1% and %2%"),
     COMMAND_MOVE_INFRONT_SUCCESFULL("command-move-successful", "Successfully moved the point %1% in front off %2%"),
@@ -165,6 +172,7 @@ public enum Lang {
     ERROR_INVALID_EFFECT("error-invalid-effect", "&cInvalid potion effect."),
     ERROR_INVALID_TIME("error-invalid-time", "&cThat is not a valid time. (Time is in seconds)"),
     ERROR_INVALID_AMPLIFIER("error-invalid-amplifier", "That is not a valid amplifier."),
+    ERROR_COMMAND_BLOCKED("error-command-blocked", "&cThat command has been blocked during the tutorial."),
 
     TIP_EDITPOINT("tip-editpoint", "&7[&aTIP&7] If you want to edit an point, use /st editpoint"),
 

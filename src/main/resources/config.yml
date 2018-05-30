@@ -1,6 +1,6 @@
 #  Server tutorial
 #      by MartenM
-#For an example config with more explaining look at the spigot page!
+# For an example config with more explaining look at the spigot page!
 no permission command: "&cYou do not have permission to execute this command."
 no permission tutorial: "&cYou do not have enough permissions to play this tutorial."
 enable first join tutorial: false
@@ -8,9 +8,26 @@ first join tutorial id: ""
 
 language: English
 
+# Settings for NPCs
 npc:
+  # Whether the NPC should be removed if it is not found when starting the plugin.
+  # Best to disable this when using Citizens plugin.
   remove-invalid: true
+  # The time between the first attempt to scan for NPCs and the second time. (seconds)
   retry-time: 5
+
+# Blocked commands whitelist
+#  These commands can still be used while in a tutorial, even if the tutorial is set to block commands.
+#  Server tutorial commands are included by default to make sure you can still properly debug tutorials.
+#  Use the command: servertutorial.tutorial.bypass to allow a user to use any commands while in the tutorial.
+command-whitelist:
+  - w
+  - msg
+  - help
+  - list
+  - me
+  - kittycannon #YES
+
 
 datasource:
   mysql:

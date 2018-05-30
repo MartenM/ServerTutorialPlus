@@ -31,6 +31,7 @@ public class ServerTutorial {
         this.rewards = rewards;
     }
 
+
     private String id;
 
     /**
@@ -39,6 +40,10 @@ public class ServerTutorial {
     public int plays;
 
     public boolean invisiblePlayer;
+
+    private boolean blocksCommands;
+
+    private List<String> commandWhiteList;
 
     /**
     * The list of TutorialPoints for this tutorial.
@@ -96,5 +101,30 @@ public class ServerTutorial {
      */
     public void setNeedsPermission(boolean needsPermission) {
         this.needsPermission = needsPermission;
+    }
+
+    /**
+     * Get whether this tutorial blocks commands by other plugins and Bukkit/Spigot it self.
+     * @return
+     */
+    public boolean isBlockingCommands() {
+        return blocksCommands;
+    }
+
+    /**
+     * Set whether this tutorial blocks commands by other plugins and Bukkit/Spigot it self.
+     * @return
+     */
+    public void setBlocksCommands(boolean blocksCommands) {
+        this.blocksCommands = blocksCommands;
+    }
+
+    public List<String> getCommandWhiteList() {
+        return commandWhiteList;
+    }
+
+    public void setCommandWhiteList(List<String> commandWhiteList) {
+        if(commandWhiteList == null) this.commandWhiteList = new ArrayList<>();
+        this.commandWhiteList = commandWhiteList;
     }
 }

@@ -271,6 +271,16 @@ public class ServerTutorialCommands implements CommandExecutor{
                 sender.sendMessage(formatInfo(Lang.TIMES_PLAYED.toString(), String.valueOf(serverTutorial.plays)));
                 sender.sendMessage(formatInfo(Lang.AMOUNT_OF_POINTS.toString() , (serverTutorial.points.size()) + ""));
                 sender.sendMessage(" ");
+                sender.sendMessage(formatInfo(Lang.BLOCKS_COMMANDS.toString(), (serverTutorial.isBlockingCommands() ? ChatColor.DARK_GREEN.toString() : ChatColor.RED.toString()) + serverTutorial.isBlockingCommands() + ""));
+                sender.sendMessage(formatCommand(Lang.WHITELISTED_COMMANDS.toString(), ""));
+                if(serverTutorial.getCommandWhiteList().size() == 0)
+                    sender.sendMessage("   " + ChatColor.YELLOW + Lang.NONE.toString());
+                else {
+                    for(String white : serverTutorial.getCommandWhiteList()) {
+                        sender.sendMessage("  " + ChatColor.GRAY + "-" + ChatColor.YELLOW + white);
+                    }
+                }
+                sender.sendMessage(" ");
                 for(int i = 0; i < serverTutorial.points.size(); i++){
                     ServerTutorialPoint point = serverTutorial.points.get(i);
                     Location loc = point.getLoc().clone();
@@ -440,7 +450,7 @@ public class ServerTutorialCommands implements CommandExecutor{
                 }
 
                 if(args.length < 4){
-                    sender.sendMessage(Lang.WRONG_COMMAND_FORMAT.toString() + "/st edit <server tutorial ID> <invisible/rewards/permission>");
+                    sender.sendMessage(Lang.WRONG_COMMAND_FORMAT.toString() + "/st edit <server tutorial ID> <invisible/rewards/permission/blockcommands/commands>");
                     return true;
                 }
 
@@ -466,7 +476,17 @@ public class ServerTutorialCommands implements CommandExecutor{
                             serverTutorial.setNeedsPermission(Boolean.parseBoolean(args[3]));
                             sender.sendMessage(Lang.COMMAND_SETTING_SET.toString().replace("%setting%", args[2]).replace("%id%", serverTutorial.getId()));
                         } catch (Exception ex) {
-                            sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st edit <server tutorial ID> <invisible/rewards/permission> TRUE/FALSE");
+                            sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st edit <server tutorial ID> <invisible/rewards/permission/blockcommands/commands> TRUE/FALSE");
+                            return true;
+                        }
+                        break;
+
+                    case "blockcommands":
+                        try {
+                            serverTutorial.setBlocksCommands(Boolean.parseBoolean(args[3]));
+                            sender.sendMessage(Lang.COMMAND_SETTING_SET.toString().replace("%setting%", args[2]).replace("%id%", serverTutorial.getId()));
+                        } catch (Exception ex) {
+                            sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st edit <server tutorial ID> <invisible/rewards/permission/blockcommands> TRUE/FALSE");
                             return true;
                         }
                         break;
@@ -526,10 +546,64 @@ public class ServerTutorialCommands implements CommandExecutor{
                                 return false;
                         }
 
+                    case "commands":
+                        if(args.length < 3){
+                            sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st edit <server tutorial ID> commands add/remove/list/clear");
+                            return false;
+                        }
+
+                        switch (args[3]) {
+                            case "clear":
+                                serverTutorial.getCommandWhiteList().clear();
+                                sender.sendMessage(Lang.COMMAND_SETTING_COMMANDS_CLEARED.toString());
+                                return true;
+
+                            case "add":
+                                if (args.length < 5) {
+                                    sender.sendMessage(Lang.ERROR_ATLEAST_ONE_WORD.toString());
+                                    return false;
+                                }
+
+                                String message = StringUtils.join(args, ' ', 4, args.length);
+                                serverTutorial.getCommandWhiteList().add(message);
+
+                                sender.sendMessage(Lang.COMMAND_SETTING_COMMANDS_ADDED.toString());
+                                return true;
+
+                            case "remove":
+                                if (args.length < 5) {
+                                    sender.sendMessage(Lang.ERROR_NO_INDEX.toString());
+                                    return false;
+                                }
+
+                                try {
+                                    serverTutorial.getCommandWhiteList().remove(Integer.parseInt(args[4]) - 1);
+                                } catch (NumberFormatException ex) {
+                                    sender.sendMessage(Lang.ERROR_NO_INDEX.toString());
+                                    return false;
+                                } catch (IndexOutOfBoundsException ex) {
+                                    sender.sendMessage(Lang.ERROR_NOTEXISTING_INDEX.toString());
+                                    return false;
+                                }
+                                sender.sendMessage(Lang.COMMAND_SETTING_COMMANDS_REMOVED.toString());
+                                return true;
+
+                            case "list":
+                                sender.sendMessage(ChatColor.GRAY + "[ " + ChatColor.GOLD + Lang.WHITELISTED_COMMANDS);
+                                for (int i = 0; i < serverTutorial.getRewards().size(); i++) {
+                                    sender.sendMessage(ChatColor.GRAY + "[ " + ChatColor.GREEN + (i + 1) + ChatColor.YELLOW + " " + ChatColor.translateAlternateColorCodes('&', serverTutorial.getRewards().get(i))
+                                    );
+                                }
+                                return false;
+
+                            default:
+                                sender.sendMessage(Lang.WRONG_COMMAND_FORMAT.toString() + "/st edit <server tutorial ID> commands add/remove/list/clear");
+                                return false;
+                        }
 
 
                     default:
-                        sender.sendMessage(Lang.UNKOWN_ARGUMENT + "<invisible/rewards/permission>");
+                        sender.sendMessage(Lang.UNKOWN_ARGUMENT + "<invisible/rewards/permission/commands>");
                         sender.sendMessage(Lang.TIP_EDITPOINT.toString());
                         break;
                 }
