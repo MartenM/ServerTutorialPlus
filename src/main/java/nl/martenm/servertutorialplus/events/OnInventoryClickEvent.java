@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.events;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.gui.GuiInventories;
 import nl.martenm.servertutorialplus.gui.inventoryHolders.Holder_MainMenu;
 import nl.martenm.servertutorialplus.gui.inventoryHolders.Holder_ServerTutorial;
@@ -21,8 +21,8 @@ import org.bukkit.inventory.ItemStack;
  */
 public class OnInventoryClickEvent implements Listener{
 
-    private MainClass plugin;
-    public OnInventoryClickEvent(MainClass plugin){
+    private ServerTutorialPlus plugin;
+    public OnInventoryClickEvent(ServerTutorialPlus plugin){
         this.plugin = plugin;
     }
 

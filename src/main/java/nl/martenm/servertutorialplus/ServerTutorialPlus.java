@@ -38,7 +38,7 @@ import java.util.logging.Logger;
  * ServerTutorialPlus
  * Created by Marten on 5-3-2017.
  */
-public class MainClass extends JavaPlugin{
+public class ServerTutorialPlus extends JavaPlugin{
 
     public Logger logger;
 
@@ -65,7 +65,7 @@ public class MainClass extends JavaPlugin{
 
     private ClickManager clickManager;
 
-    protected MainClass instance;
+    protected ServerTutorialPlus instance;
 
     public void onEnable(){
         instance = this;

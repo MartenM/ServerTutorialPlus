@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.data;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
@@ -18,8 +18,8 @@ import java.util.UUID;
  */
 public class FlatDataSource implements DataSource {
 
-    private MainClass plugin;
-    public FlatDataSource(MainClass plugin){
+    private ServerTutorialPlus plugin;
+    public FlatDataSource(ServerTutorialPlus plugin){
         this.plugin = plugin;
     }
 

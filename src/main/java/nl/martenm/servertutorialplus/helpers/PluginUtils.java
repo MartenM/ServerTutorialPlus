@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.helpers;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.objects.NPCInfo;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import me.clip.placeholderapi.PlaceholderAPI;
@@ -21,7 +21,7 @@ import java.util.UUID;
  */
 public abstract class PluginUtils {
 
-    public static ServerTutorial getTutorial(MainClass plugin, String ID){
+    public static ServerTutorial getTutorial(ServerTutorialPlus plugin, String ID){
         if (ID == null) return null;
         for(ServerTutorial serverTutorial : plugin.serverTutorials){
             if(serverTutorial.getId().equalsIgnoreCase(ID)){
@@ -33,7 +33,7 @@ public abstract class PluginUtils {
         return null;
     }
 
-    public static NPCInfo getNPC(MainClass plugin, String ID){
+    public static NPCInfo getNPC(ServerTutorialPlus plugin, String ID){
         if(ID == null) return null;
         for(NPCInfo info : plugin.clickableNPCs.values()){
             if(info.getId().equalsIgnoreCase(ID)){
@@ -71,7 +71,7 @@ public abstract class PluginUtils {
         return result;
     }
 
-    public static Location fromString(MainClass plugin, String message){
+    public static Location fromString(ServerTutorialPlus plugin, String message){
             String[] data = message.split(" ");
             String world = data[0];
             double x = Double.parseDouble(data[1]);
@@ -104,7 +104,7 @@ public abstract class PluginUtils {
         return "VILLAGER, ZOMBIE, HUSK, WITCH, SPIDER, SLIME, SKELETON, CREEPER, PIG_ZOMBIE, BLAZE, CAVE_SPIDER, ENDERMAN, BAT, MAGMA_CUBE, WITHER, RABBIT, PIG, COW, SHEEP, CHICKEN, WOLF, ENDERMITE, BLAZE, GUARDIAN, HORSE, POLAR_BEAR";
     }
 
-    public static boolean createNpc(MainClass plugin, LivingEntity entity, String id, Player player, ServerTutorial tutorial) {
+    public static boolean createNpc(ServerTutorialPlus plugin, LivingEntity entity, String id, Player player, ServerTutorial tutorial) {
 
         if (!(entity instanceof LivingEntity)) {
             player.sendMessage(ChatColor.RED + "The entity has to be of a living type!");

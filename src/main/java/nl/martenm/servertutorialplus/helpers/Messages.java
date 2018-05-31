@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.helpers;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import net.md_5.bungee.api.ChatColor;
 
 /**
@@ -8,7 +8,7 @@ import net.md_5.bungee.api.ChatColor;
  */
 public class Messages {
 
-    public static String noPermissionTutorial(MainClass plugin){
+    public static String noPermissionTutorial(ServerTutorialPlus plugin){
         return ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("no permission tutorial"));
     }
 }

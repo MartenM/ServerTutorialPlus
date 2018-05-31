@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.data;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 import java.sql.Connection;
@@ -17,10 +17,10 @@ import java.util.UUID;
  */
 public class MySqlDataSource implements DataSource {
 
-    private MainClass plugin;
+    private ServerTutorialPlus plugin;
     private MysqlDataSource mySql;
 
-    public MySqlDataSource(MainClass plugin){
+    public MySqlDataSource(ServerTutorialPlus plugin){
         this.plugin = plugin;
 
         setup();

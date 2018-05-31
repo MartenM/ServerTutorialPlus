@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.commands;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import net.md_5.bungee.api.ChatColor;
@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author MartenM
@@ -22,7 +21,7 @@ import java.util.UUID;
  */
 public class PlayerLookUp {
 
-    public static void sendLookupAsync(MainClass plugin, CommandSender sender, OfflinePlayer target){
+    public static void sendLookupAsync(ServerTutorialPlus plugin, CommandSender sender, OfflinePlayer target){
         new BukkitRunnable(){
             @Override
             public void run() {

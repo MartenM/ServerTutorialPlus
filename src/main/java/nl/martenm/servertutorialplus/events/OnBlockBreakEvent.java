@@ -1,9 +1,8 @@
 package nl.martenm.servertutorialplus.events;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.objects.TutorialSign;
-import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -14,8 +13,8 @@ import org.bukkit.event.block.BlockBreakEvent;
  */
 public class OnBlockBreakEvent implements Listener {
 
-    private MainClass plugin;
-    public OnBlockBreakEvent(MainClass plugin){
+    private ServerTutorialPlus plugin;
+    public OnBlockBreakEvent(ServerTutorialPlus plugin){
         this.plugin = plugin;
     }
 

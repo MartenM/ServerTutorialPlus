@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.events;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
@@ -12,8 +12,8 @@ import org.bukkit.event.player.PlayerToggleFlightEvent;
  */
 public class OnPlayerToggleFlight implements Listener{
 
-    private MainClass plugin;
-    public OnPlayerToggleFlight(MainClass plugin){
+    private ServerTutorialPlus plugin;
+    public OnPlayerToggleFlight(ServerTutorialPlus plugin){
         this.plugin = plugin;
     }
 

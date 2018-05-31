@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.commands;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.gui.GuiInventories;
 import nl.martenm.servertutorialplus.helpers.*;
 import nl.martenm.servertutorialplus.helpers.dataholders.OldValuesPlayer;
@@ -43,8 +43,8 @@ import java.util.UUID;
  */
 public class ServerTutorialCommands implements CommandExecutor{
 
-    private MainClass plugin;
-    public ServerTutorialCommands(MainClass plugin){
+    private ServerTutorialPlus plugin;
+    public ServerTutorialCommands(ServerTutorialPlus plugin){
         this.plugin = plugin;
     }
 

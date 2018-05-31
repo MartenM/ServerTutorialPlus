@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.objects;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.language.Lang;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -40,7 +40,7 @@ public class TutorialEntitySelector {
         return tutorial;
     }
 
-    public void create(MainClass plugin, PlayerInteractEntityEvent event){
+    public void create(ServerTutorialPlus plugin, PlayerInteractEntityEvent event){
 
         if(!(event.getRightClicked() instanceof LivingEntity)){
             player.sendMessage(Lang.NPC_INVALID_ENTITY.toString());

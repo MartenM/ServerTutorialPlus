@@ -1,8 +1,8 @@
-main: nl.martenm.servertutorialplus.MainClass
+main: nl.martenm.servertutorialplus.ServerTutorialPlus
 name: ServerTutorialPlus
 prefix: Server Tutorial Plus
 author: MartenM
-version: 1.17.0
+version: 1.17.1
 description: "§6The plugin to guide players around your server using tutorials."
 softdepend: [PlaceholderAPI, Multiverse-Core]
 commands:

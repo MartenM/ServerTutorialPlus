@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.api;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import nl.martenm.servertutorialplus.objects.TutorialController;
@@ -16,9 +16,9 @@ import java.util.UUID;
  */
 public class ServerTutorialApi {
 
-    private MainClass plugin;
+    private ServerTutorialPlus plugin;
 
-    public ServerTutorialApi(MainClass plugin){
+    public ServerTutorialApi(ServerTutorialPlus plugin){
         this.plugin = plugin;
     }
 
@@ -91,7 +91,7 @@ public class ServerTutorialApi {
      * @return An Api Object
      */
     public static ServerTutorialApi getApi(){
-        MainClass plugin = (MainClass) Bukkit.getServer().getPluginManager().getPlugin("ServerTutorialPlus");
+        ServerTutorialPlus plugin = (ServerTutorialPlus) Bukkit.getServer().getPluginManager().getPlugin("ServerTutorialPlus");
         return plugin.getApi();
     }
 }

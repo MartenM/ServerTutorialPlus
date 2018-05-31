@@ -1,12 +1,11 @@
 package nl.martenm.servertutorialplus.events;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import nl.martenm.servertutorialplus.objects.TutorialController;
 import nl.martenm.servertutorialplus.objects.TutorialSign;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -20,8 +19,8 @@ import org.bukkit.inventory.EquipmentSlot;
  */
 public class OnPlayerInteractEvent implements Listener{
 
-    private MainClass plugin;
-    public OnPlayerInteractEvent(MainClass plugin){
+    private ServerTutorialPlus plugin;
+    public OnPlayerInteractEvent(ServerTutorialPlus plugin){
         this.plugin = plugin;
     }
 

@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.events;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
 import nl.martenm.servertutorialplus.managers.FlatFileManager;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
@@ -20,8 +20,8 @@ import org.json.simple.JSONObject;
 // TODO: Make it so that it checks the datasource (if mysql) instead of the .hasPlayedBefore();
 public class OnPlayerJoinEvent implements Listener{
 
-    private MainClass plugin;
-    public OnPlayerJoinEvent(MainClass plugin){
+    private ServerTutorialPlus plugin;
+    public OnPlayerJoinEvent(ServerTutorialPlus plugin){
         this.plugin = plugin;
     }
 

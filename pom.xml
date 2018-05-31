@@ -6,7 +6,7 @@
 
     <groupId>nl.martenm</groupId>
     <artifactId>ServerTutorialPlus</artifactId>
-    <version>1.17.0-SNAPSHOT</version>
+    <version>1.17.1-SNAPSHOT</version>
 
     <repositories>
         <!-- Spigot.MC repo -->

@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.managers;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
 import nl.martenm.servertutorialplus.helpers.dataholders.OldValuesPlayer;
 import org.bukkit.GameMode;
@@ -20,7 +20,7 @@ import java.util.UUID;
 @SuppressWarnings("ALL")
 public class FlatFileManager{
 
-    public static JSONObject getPlayerData(MainClass plugin, UUID uuid){
+    public static JSONObject getPlayerData(ServerTutorialPlus plugin, UUID uuid){
         File hostlocation = new File(plugin.getDataFolder() + "/playerdata");
         hostlocation.mkdirs();
 
@@ -45,7 +45,7 @@ public class FlatFileManager{
         return null;
     }
 
-    public static void setPlayerData(MainClass plugin, Player player, JSONObject object){
+    public static void setPlayerData(ServerTutorialPlus plugin, Player player, JSONObject object){
         if(object == null) return;
         new BukkitRunnable(){
             @Override
@@ -61,7 +61,7 @@ public class FlatFileManager{
         }.runTask(plugin);
     }
 
-    public static void deleteFile(MainClass plugin, UUID uuid){
+    public static void deleteFile(ServerTutorialPlus plugin, UUID uuid){
         File file = new File(plugin.getDataFolder() + "/playerdata/" + uuid + ".json");
         if(file.exists()){
             file.delete();
@@ -70,7 +70,7 @@ public class FlatFileManager{
         }
     }
 
-    public static void saveJson(MainClass plugin, OldValuesPlayer info){
+    public static void saveJson(ServerTutorialPlus plugin, OldValuesPlayer info){
         File hostlocation = new File(plugin.getDataFolder() + "/playerdata");
         hostlocation.mkdirs();
 

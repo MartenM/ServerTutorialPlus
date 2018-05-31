@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.objects;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.SpigotUtils;
 import org.bukkit.Location;
 
@@ -13,7 +13,7 @@ import java.util.UUID;
  */
 public class NPCInfo {
 
-    private MainClass plugin;
+    private ServerTutorialPlus plugin;
 
     private String id;
 
@@ -23,7 +23,7 @@ public class NPCInfo {
 
     private Location location;
 
-    public NPCInfo(MainClass plugin, String id, UUID npcId, UUID[] armorstandIDs, String serverTutorialID){
+    public NPCInfo(ServerTutorialPlus plugin, String id, UUID npcId, UUID[] armorstandIDs, String serverTutorialID){
         this.plugin = plugin;
         this.id = id;
         this.npcId = npcId;
@@ -38,7 +38,7 @@ public class NPCInfo {
         }
     }
 
-    public NPCInfo(MainClass plugin, String id, UUID npcId, UUID[] armorstandIDs, String serverTutorialID, Location location){
+    public NPCInfo(ServerTutorialPlus plugin, String id, UUID npcId, UUID[] armorstandIDs, String serverTutorialID, Location location){
         this.plugin = plugin;
         this.id = id;
         this.npcId = npcId;

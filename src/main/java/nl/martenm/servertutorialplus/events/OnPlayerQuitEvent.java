@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.events;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.managers.FlatFileManager;
 import nl.martenm.servertutorialplus.objects.TutorialController;
 import org.bukkit.event.EventHandler;
@@ -14,8 +14,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 public class OnPlayerQuitEvent implements Listener {
 
-    private MainClass plugin;
-    public OnPlayerQuitEvent(MainClass plugin){
+    private ServerTutorialPlus plugin;
+    public OnPlayerQuitEvent(ServerTutorialPlus plugin){
         this.plugin = plugin;
     }
 

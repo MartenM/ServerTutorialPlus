@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.points.custom;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.points.PointType;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
 import org.bukkit.Location;
@@ -11,7 +11,7 @@ import org.bukkit.Location;
  */
 public class TimedPoint extends ServerTutorialPoint {
 
-    public TimedPoint(MainClass plugin, Location loc) {
+    public TimedPoint(ServerTutorialPlus plugin, Location loc) {
         super(plugin, loc, PointType.TIMED);
     }
 

@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.points.custom;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.Color;
 import nl.martenm.servertutorialplus.helpers.Config;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
@@ -43,7 +43,7 @@ public class CheckPoint extends ServerTutorialPoint {
         LINE
     }
 
-    public CheckPoint(MainClass plugin, Location loc) {
+    public CheckPoint(ServerTutorialPlus plugin, Location loc) {
         super(plugin, loc, PointType.CHECKPOINT);
         animationType = AnimationType.CIRCLE;
         color = new Color(244, 153, 0);

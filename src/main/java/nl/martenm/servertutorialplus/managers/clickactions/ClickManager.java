@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.managers.clickactions;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
@@ -18,8 +18,8 @@ public class ClickManager {
 
     private Map<UUID, IClickAction> clickActions;
 
-    private MainClass plugin;
-    public ClickManager(MainClass plugin){
+    private ServerTutorialPlus plugin;
+    public ClickManager(ServerTutorialPlus plugin){
         this.plugin = plugin;
         this.clickActions = new HashMap<>();
     }

@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.points;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.Config;
 import nl.martenm.servertutorialplus.helpers.NeedsReflection;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
@@ -35,7 +35,7 @@ import java.util.List;
  */
 public abstract class ServerTutorialPoint{
 
-    protected MainClass plugin;
+    protected ServerTutorialPlus plugin;
     protected PointType type;
 
     protected Location loc;
@@ -51,7 +51,7 @@ public abstract class ServerTutorialPoint{
     protected double time;
     protected boolean flying;
 
-    public ServerTutorialPoint(MainClass plugin, Location loc, PointType type) {
+    public ServerTutorialPoint(ServerTutorialPlus plugin, Location loc, PointType type) {
         this.plugin = plugin;
         this.loc = loc;
         this.type = type;

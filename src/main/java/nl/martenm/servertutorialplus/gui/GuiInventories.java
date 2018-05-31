@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.gui;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.gui.inventoryHolders.Holder_MainMenu;
 import nl.martenm.servertutorialplus.gui.inventoryHolders.Holder_ServerTutorial;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class GuiInventories {
 
-    public static void openMainMenu(MainClass plugin, Player player){
+    public static void openMainMenu(ServerTutorialPlus plugin, Player player){
         ItemStack option1 = createStack(Material.APPLE, ChatColor.GREEN + "Server tutorials", new ArrayList<>());
         ItemStack option2 = createStack(Material.BEDROCK, ChatColor.GREEN + "§6Soon...", new ArrayList<>());
 
@@ -37,7 +37,7 @@ public class GuiInventories {
         player.openInventory(menu);
     }
 
-    public static void openTutorialMenu(MainClass plugin, Player player, int page){
+    public static void openTutorialMenu(ServerTutorialPlus plugin, Player player, int page){
 
         Inventory menu = Bukkit.createInventory(new Holder_MainMenu("server tutorials", page), 45, ChatColor.DARK_GREEN + "Server Tutorials" + ChatColor.RESET + " | " + ChatColor.DARK_GRAY + " page: " + (page + 1));
 
@@ -89,7 +89,7 @@ public class GuiInventories {
         player.openInventory(menu);
     }
 
-    public static void openIDTutorialMenu(ServerTutorial serverTutorial, MainClass plugin, Player player, int page){
+    public static void openIDTutorialMenu(ServerTutorial serverTutorial, ServerTutorialPlus plugin, Player player, int page){
 
         Inventory menu = Bukkit.createInventory(new Holder_ServerTutorial(serverTutorial, "tutorial", page), 45, ChatColor.DARK_GREEN + "Server Tutorial " + ChatColor.YELLOW + serverTutorial.getId() + ChatColor.RESET + " | " + ChatColor.DARK_GRAY + " page: " + (page + 1));
 

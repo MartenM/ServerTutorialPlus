@@ -1,10 +1,9 @@
 package nl.martenm.servertutorialplus.points.custom;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.Color;
 import nl.martenm.servertutorialplus.helpers.Config;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
-import nl.martenm.servertutorialplus.helpers.SpigotUtils;
 import nl.martenm.servertutorialplus.helpers.dataholders.OldValuesPlayer;
 import nl.martenm.servertutorialplus.managers.clickactions.IClickAction;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
@@ -17,17 +16,14 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
-import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.vehicle.VehicleCollisionEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,13 +39,13 @@ public class ClickBlockPoint extends ServerTutorialPoint {
     private Color particleColor;
     private boolean teleport;
 
-    public ClickBlockPoint(MainClass plugin, Location loc) {
+    public ClickBlockPoint(ServerTutorialPlus plugin, Location loc) {
         super(plugin, loc, PointType.CLICK_BLOCK);
         particleColor = new Color(125, 255, 0);
         clickableBlock = loc.clone();
     }
 
-    public ClickBlockPoint(MainClass plugin, Location loc, boolean enableParticles) {
+    public ClickBlockPoint(ServerTutorialPlus plugin, Location loc, boolean enableParticles) {
         super(plugin, loc, PointType.CLICK_BLOCK);
         clickableBlock = loc.getBlock().getLocation();
         particleColor = new Color(125, 255, 0);

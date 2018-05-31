@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.objects;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import net.md_5.bungee.api.ChatColor;
 import nl.martenm.servertutorialplus.api.events.TutorialEndEvent;
 import nl.martenm.servertutorialplus.api.events.TutorialStartEvent;
@@ -20,7 +20,7 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 public class TutorialController {
 
-    private MainClass plugin;
+    private ServerTutorialPlus plugin;
     private Player player;
     private ServerTutorial serverTutorial;
     private boolean running = true;
@@ -30,7 +30,7 @@ public class TutorialController {
 
     private OldValuesPlayer oldValuesPlayer;
 
-    public TutorialController(MainClass plugin, Player player, ServerTutorial serverTutorial){
+    public TutorialController(ServerTutorialPlus plugin, Player player, ServerTutorial serverTutorial){
         this.plugin = plugin;
         this.player = player;
         this.serverTutorial = serverTutorial;

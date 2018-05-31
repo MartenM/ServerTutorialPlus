@@ -1,6 +1,6 @@
 package nl.martenm.servertutorialplus.events;
 
-import nl.martenm.servertutorialplus.MainClass;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.objects.TutorialController;
 import org.bukkit.entity.Player;
@@ -14,9 +14,9 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
  */
 public class OnCommandPreprocessEvent implements Listener {
 
-    public MainClass plugin;
+    public ServerTutorialPlus plugin;
 
-    public OnCommandPreprocessEvent(MainClass plugin) {
+    public OnCommandPreprocessEvent(ServerTutorialPlus plugin) {
         this.plugin = plugin;
     }
 
