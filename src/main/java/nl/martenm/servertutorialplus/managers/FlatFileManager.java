@@ -52,6 +52,7 @@ public class FlatFileManager{
             public void run() {
                 Double dd = (Double) object.get("walkspeed");
                 player.setWalkSpeed(dd.floatValue());
+                player.setAllowFlight((Boolean) object.get("isAllowedFlight"));
                 player.setFlying((boolean) object.get("isFlying"));
                 Double ff = (Double) object.get("flyspeed");
                 player.setFlySpeed(ff.floatValue());
