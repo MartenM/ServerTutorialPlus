@@ -17,18 +17,21 @@ public class ServerTutorial {
         this.id = id;
         this.points = new ArrayList<>();
         this.rewards = new ArrayList<>();
+        this.commandWhiteList = new ArrayList<>();
     }
 
     public ServerTutorial(String id, List<ServerTutorialPoint> points){
         this.id = id;
         this.points = points;
         this.rewards = new ArrayList<>();
+        this.commandWhiteList = new ArrayList<>();
     }
 
     public ServerTutorial(String id, List<ServerTutorialPoint> points, List<String> rewards){
         this.id = id;
         this.points = points;
         this.rewards = rewards;
+        this.commandWhiteList = new ArrayList<>();
     }
 
 
