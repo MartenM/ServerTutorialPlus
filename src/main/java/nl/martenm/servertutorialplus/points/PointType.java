@@ -9,5 +9,6 @@ package nl.martenm.servertutorialplus.points;
 public enum PointType {
     TIMED,
     CHECKPOINT,
-    CLICK_BLOCK
+    CLICK_BLOCK,
+    COMMAND,
 }

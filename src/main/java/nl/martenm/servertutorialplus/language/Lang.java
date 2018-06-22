@@ -52,6 +52,8 @@ public enum Lang {
     TUTORIAL_REMOVED("tutorial-removed", "&aSuccessfully removed the server tutorial with ID:&e %id%"),
     TUTORIAL_ID_NOT_FOUND("tutorial-id-not-found", "&cCould not find an server tutorial with that ID."),
 
+    COMMAND_ADDPOINT_COMMAND_HINT("command-apddpoint-commandhint", "&7[&eNotice&7] The user needs to execute the command &e/st next &7to proceed this point."),
+
     COMMAND_HASTOBE_NUMBER("command-hastobe-number", "&cThe index has to be an number"),
     COMMAND_INVALID_INDEX("command-invalid-index", "&cThat's not a valid index."),
     COMMAND_SUCCESFULLY_LEFT("command-succesfully-left", "&aSuccessfully left the tutorial."),

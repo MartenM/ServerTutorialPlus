@@ -18,6 +18,7 @@ import nl.martenm.servertutorialplus.points.PointType;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
 import nl.martenm.servertutorialplus.points.custom.CheckPoint;
 import nl.martenm.servertutorialplus.points.custom.ClickBlockPoint;
+import nl.martenm.servertutorialplus.points.custom.CommandPoint;
 import nl.martenm.servertutorialplus.points.custom.TimedPoint;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -234,6 +235,9 @@ public class ServerTutorialPlus extends JavaPlugin{
                                     break;
                                 case CLICK_BLOCK:
                                     point = new ClickBlockPoint(this, PluginUtils.fromString(this, tutorialSaves.getString("tutorials." + ID + ".points." + key + ".location")));
+                                    break;
+                                case COMMAND:
+                                    point = new CommandPoint(this, PluginUtils.fromString(this, tutorialSaves.getString("tutorials." + ID + ".points." + key + ".location")));
                                     break;
                             }
 

@@ -12,6 +12,7 @@ import nl.martenm.servertutorialplus.points.PointType;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
 import nl.martenm.servertutorialplus.points.custom.CheckPoint;
 import nl.martenm.servertutorialplus.points.custom.ClickBlockPoint;
+import nl.martenm.servertutorialplus.points.custom.CommandPoint;
 import nl.martenm.servertutorialplus.points.custom.TimedPoint;
 import nl.martenm.servertutorialplus.points.editor.PointEditor;
 import net.md_5.bungee.api.ChatColor;
@@ -118,7 +119,7 @@ public class ServerTutorialCommands implements CommandExecutor{
                 }
 
                 if(args.length < 3){
-                    sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st addpoint <id> <timed/checkpoint/clickblock>");
+                    sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st addpoint <id> <timed/checkpoint/clickblock/command>");
                     return true;
                 }
 
@@ -152,6 +153,11 @@ public class ServerTutorialCommands implements CommandExecutor{
                     case "CLICKBLOCK":
                     case "click_block":
                         point = new ClickBlockPoint(plugin, player.getLocation(), true);
+                        break;
+                    case "command":
+                    case "COMMAND":
+                        point = new CommandPoint(plugin, player.getLocation());
+                        player.sendMessage(Lang.COMMAND_ADDPOINT_COMMAND_HINT.toString());
                         break;
                     default:
                         sender.sendMessage(Lang.POINT_INVALID_TYPE.toString());
@@ -1233,6 +1239,7 @@ public class ServerTutorialCommands implements CommandExecutor{
             }
 
             else if(args[0].equalsIgnoreCase("player")){
+                //region Player
                 if(!sender.hasPermission("servertutorialplus.command.player")){
                     sender.sendMessage(Lang.NO_PERMS.toString());
                     return true;
@@ -1299,9 +1306,11 @@ public class ServerTutorialCommands implements CommandExecutor{
 
                 PlayerLookUp.sendLookupAsync(plugin, sender, target);
                 return true;
+                //endregion
             }
 
             else if(args[0].equalsIgnoreCase("cancel")){
+                //region Cancel
                 if(!(sender instanceof Player)) return true;
                 Player player = (Player) sender;
 
@@ -1312,6 +1321,19 @@ public class ServerTutorialCommands implements CommandExecutor{
                     player.sendMessage(Lang.ACTION_CANCELLED.toString());
                 }
                 return true;
+                //endregion
+            }
+
+            else if(args[0].equalsIgnoreCase("next")){
+                //region Next
+                if(!(sender instanceof Player)){
+                    sender.sendMessage(Lang.PLAYER_ONLY_COMMAND.toString());
+                    return true;
+                }
+                Player player = (Player) sender;
+                CommandPoint.handle(player.getUniqueId());
+                return true;
+                //endregion
             }
 
             //region debug
