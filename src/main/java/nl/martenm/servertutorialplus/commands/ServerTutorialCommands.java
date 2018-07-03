@@ -356,37 +356,38 @@ public class ServerTutorialCommands implements CommandExecutor{
                 }
 
                 Player player = (Player) sender;
-                if(args.length != 2){
-                    Player target = Bukkit.getPlayer(args[2]);
+
+                Player target = null;
+                if(args.length != 2) {
+                    if(!player.hasPermission("servertutorialplus.command.play.others")) {
+                        sender.sendMessage(Lang.NO_PERMS.toString());
+                        return true;
+                    }
+
+                    target = Bukkit.getPlayer(args[2]);
                     if(target == null){
                         player.sendMessage(Lang.ERROR_PLAYER_OFFLINE.toString());
                         return true;
                     }
 
-                    if(plugin.inTutorial.containsKey(player.getUniqueId())){
+                    if(plugin.inTutorial.containsKey(target.getUniqueId())){
                         player.sendMessage(Lang.ERROR_PERSON_IN_TUTORIAL.toString());
                         return true;
                     }
+                } else {
+                    target = player;
 
-                    if(!plugin.enabled){
+                    if(plugin.inTutorial.containsKey(player.getUniqueId())){
+                        player.sendMessage(Lang.ERROR_WAIT_TO_END_TUTORIAL.toString());
                         return true;
                     }
-
-                    TutorialController tutorialController = new TutorialController(plugin, target, serverTutorial);
-                    tutorialController.start();
-                    return true;
-                }
-
-                if(plugin.inTutorial.containsKey(player.getUniqueId())){
-                    player.sendMessage(Lang.ERROR_WAIT_TO_END_TUTORIAL.toString());
-                    return true;
                 }
 
                 if(!plugin.enabled){
                     return true;
                 }
 
-                TutorialController tutorialController = new TutorialController(plugin, player, serverTutorial);
+                TutorialController tutorialController = new TutorialController(plugin, target, serverTutorial);
                 tutorialController.start();
                 return true;
                 //endregion
