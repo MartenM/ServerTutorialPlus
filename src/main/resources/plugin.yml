@@ -4,7 +4,7 @@ prefix: Server Tutorial Plus
 author: MartenM
 version: 1.18.1
 description: "§6The plugin to guide players around your server using tutorials."
-softdepend: [PlaceholderAPI, Multiverse-Core]
+softdepend: [PlaceholderAPI, Multiverse-Core, MultiWorld]
 commands:
   servertutorial:
     description: "All the servertutorial plus commands"
