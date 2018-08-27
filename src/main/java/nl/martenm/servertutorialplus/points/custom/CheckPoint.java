@@ -80,15 +80,12 @@ public class CheckPoint extends ServerTutorialPoint {
                                         double z = Math.cos(radians) * 0.7;
 
                                         for (int d = 0; d < 5; d++) {
-                                            player.spawnParticle(Particle.REDSTONE,
+                                            plugin.getProtocol().playRedstoneParticle(player, new Location(
+                                                    loc.getWorld(),
                                                     loc.getX() + x,
                                                     loc.getY() + count * 0.1,
-                                                    loc.getZ() + z,
-                                                    0,
-                                                    (double) color.getRed() / 255,
-                                                    (double) color.getGreen() / 255,
-                                                    (double) color.getBlue() / 255,
-                                                    1);
+                                                    loc.getZ() + z),
+                                                    color);
 
                                         }
                                     }
@@ -98,14 +95,11 @@ public class CheckPoint extends ServerTutorialPoint {
                                     break;
                                 case LINE:
                                     for (int y = 0; y < 20; y++) {
-                                        player.spawnParticle(Particle.REDSTONE,
+                                        plugin.getProtocol().playRedstoneParticle(player, new Location(
+                                                loc.getWorld(),
                                                 loc.getX(),
-                                                loc.getY() + y * 0.1, loc.getZ(),
-                                                0,
-                                                (double) color.getRed() / 255,
-                                                (double) color.getGreen() / 255,
-                                                (double) color.getBlue() / 255,
-                                                1);
+                                                loc.getY() + y * 0.1, loc.getZ()),
+                                                color);
                                     }
                                     break;
                             }
@@ -131,15 +125,11 @@ public class CheckPoint extends ServerTutorialPoint {
                                             }
                                         }
 
-                                        player.spawnParticle(Particle.REDSTONE,
+                                        plugin.getProtocol().playRedstoneParticle(player, new Location(loc.getWorld(),
                                                 playerLocation.getX(),
                                                 y + 0.1,
-                                                playerLocation.getZ(),
-                                                0,
-                                                (double) guideColor.getRed() / 255,
-                                                (double) guideColor.getGreen() / 255,
-                                                (double) guideColor.getBlue() / 255,
-                                                1);
+                                                playerLocation.getZ()),
+                                                color);
                                     }
 
                                     playerLocation.subtract(direction);

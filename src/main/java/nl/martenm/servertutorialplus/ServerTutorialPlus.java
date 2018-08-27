@@ -20,6 +20,9 @@ import nl.martenm.servertutorialplus.points.custom.CheckPoint;
 import nl.martenm.servertutorialplus.points.custom.ClickBlockPoint;
 import nl.martenm.servertutorialplus.points.custom.CommandPoint;
 import nl.martenm.servertutorialplus.points.custom.TimedPoint;
+import nl.martenm.servertutorialplus.reflection.IProtocol;
+import nl.martenm.servertutorialplus.reflection.V1_13.Protocol_1_13_V1;
+import nl.martenm.servertutorialplus.reflection.v1_12.Protocol_1_12;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -53,6 +56,7 @@ public class ServerTutorialPlus extends JavaPlugin{
     public HashMap<UUID, NPCInfo> clickableNPCs;
     public HashMap<UUID, TutorialEntitySelector> selectingNpc;
 
+    private IProtocol protocol;
 
     public Config tutorialSaves;
     public Config signSaves;
@@ -107,6 +111,7 @@ public class ServerTutorialPlus extends JavaPlugin{
 
         }
 
+        setupProtocol();
 
         loadTutorials();
         loadSigns();
@@ -494,5 +499,26 @@ public class ServerTutorialPlus extends JavaPlugin{
 
     public ClickManager getClickManager() {
         return clickManager;
+    }
+
+    public void setupProtocol() {
+        String version = Bukkit.getServer().getClass().getPackage().getName();
+        String formmatedVersion = version.substring(version.lastIndexOf(".") + 1);
+
+        switch (formmatedVersion) {
+            case "v1_13_R2":
+            case "v1_13_R1":
+                protocol = new Protocol_1_13_V1();
+                break;
+            default:
+                protocol = new Protocol_1_12();
+                break;
+        }
+
+        getLogger().info("Using protocol: " + protocol.getClass().getName());
+    }
+
+    public IProtocol getProtocol() {
+        return protocol;
     }
 }

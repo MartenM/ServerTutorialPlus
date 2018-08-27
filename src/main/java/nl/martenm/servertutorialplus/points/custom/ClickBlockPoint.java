@@ -94,7 +94,7 @@ public class ClickBlockPoint extends ServerTutorialPoint {
                             if (locs == null)
                                 locs = PluginUtils.getHollowCube(clickableBlock, clickableBlock.clone().add(new Vector(1, 1, 1)), 0.25);
                             for (Location loc : locs) {
-                                player.spawnParticle(Particle.REDSTONE, loc, 0, (double) particleColor.getRed() / 255, (double) particleColor.getGreen() / 255, (double) particleColor.getBlue() / 255, 1);
+                                plugin.getProtocol().playRedstoneParticle(player, loc, particleColor);
                             }
                         }
                     }.runTaskTimer(plugin, 0, 2);
