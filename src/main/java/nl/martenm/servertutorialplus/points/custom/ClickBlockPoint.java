@@ -74,7 +74,9 @@ public class ClickBlockPoint extends ServerTutorialPoint {
                         if (!event.getClickedBlock().getLocation().equals(clickableBlock)) return;
 
                         event.setCancelled(true);
-                        animationTask.cancel();
+                        if(enableParticles) {
+                            animationTask.cancel();
+                        }
                         plugin.getClickManager().removeClickaction(player.getUniqueId());
                         callBack.finish();
                     }
@@ -104,7 +106,9 @@ public class ClickBlockPoint extends ServerTutorialPoint {
             @Override
             public void stop() {
                 plugin.getClickManager().removeClickaction(player.getUniqueId());
-                animationTask.cancel();
+                if(enableParticles) {
+                    animationTask.cancel();
+                }
             }
         };
     }
