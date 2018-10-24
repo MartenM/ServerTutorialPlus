@@ -199,6 +199,7 @@ public class ServerTutorialPlus extends JavaPlugin{
         pm.registerEvents(new OnInventoryClickEvent(this), this);
         pm.registerEvents(new OnPlayerToggleFlight(this), this);
         pm.registerEvents(new OnCommandPreprocessEvent(this), this);
+        pm.registerEvents(new ChatEventListener(this), this);
     }
 
     public void loadTutorials(){
@@ -215,6 +216,7 @@ public class ServerTutorialPlus extends JavaPlugin{
                 serverTutorial.plays = tutorialSaves.getInt("tutorials." + ID + ".stats.plays");
                 serverTutorial.invisiblePlayer = tutorialSaves.getBoolean("tutorials." + ID + ".invisible");
                 serverTutorial.setNeedsPermission(tutorialSaves.getBoolean("tutorials." + ID + ".permission"));
+                serverTutorial.setChatBlocked(tutorialSaves.getBoolean("tutorials." + ID + ".block-chat"));
                 serverTutorial.setBlocksCommands(tutorialSaves.getBoolean("tutorials." + ID + ".blocks-commands"));
                 serverTutorial.setRewards(tutorialSaves.getStringList("tutorials." + ID + ".rewards"));
                 serverTutorial.setCommandWhiteList(tutorialSaves.getStringList("tutorials." + ID + ".command-whitelist"));
@@ -274,6 +276,7 @@ public class ServerTutorialPlus extends JavaPlugin{
             tutorialSaves.set("tutorials." + serverTutorial.getId() + ".stats.plays", serverTutorial.plays);
             tutorialSaves.set("tutorials." + serverTutorial.getId() + ".invisible", serverTutorial.invisiblePlayer);
             tutorialSaves.set("tutorials." + serverTutorial.getId() + ".permission", serverTutorial.getNeedsPermission());
+            tutorialSaves.set("tutorials." + serverTutorial.getId() + ".block-chat", serverTutorial.isChatBlocked());
             tutorialSaves.set("tutorials." + serverTutorial.getId() + ".blocks-commands", serverTutorial.isBlockingCommands());
 
             tutorialSaves.set("tutorials." + serverTutorial.getId() + ".rewards", serverTutorial.getRewards());

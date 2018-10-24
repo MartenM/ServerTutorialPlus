@@ -35,6 +35,7 @@ public enum Lang {
     SERVERTUTORIAL_ID("servertutorial-id", "Server tutorial ID"),
     BLOCKS_COMMANDS("blocks-commands", "Blocks commands"),
     WHITELISTED_COMMANDS("white-listed-commands", "Whitelisted commands"),
+    CHAT_BLOCKED("chat-blocked", "Chat Blocked"),
     NONE("none", "None"),
 
     ACTION_CANCELLED("action-cancelled", "&eAction has been cancelled"),

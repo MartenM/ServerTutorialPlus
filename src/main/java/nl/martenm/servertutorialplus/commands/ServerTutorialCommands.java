@@ -42,7 +42,7 @@ import java.util.UUID;
  * General class for the /st command.
  * Created by Marten on 5-3-2017.
  */
-public class ServerTutorialCommands implements CommandExecutor{
+public class ServerTutorialCommands implements CommandExecutor {
 
     private ServerTutorialPlus plugin;
     public ServerTutorialCommands(ServerTutorialPlus plugin){
@@ -274,6 +274,7 @@ public class ServerTutorialCommands implements CommandExecutor{
                 sender.sendMessage(formatInfo(Lang.ID.toString(), serverTutorial.getId()));
                 sender.sendMessage(formatInfo(Lang.INVISIBLE.toString(), (serverTutorial.invisiblePlayer ? ChatColor.DARK_GREEN.toString() : ChatColor.RED.toString()) + serverTutorial.invisiblePlayer + ""));
                 sender.sendMessage(formatInfo(Lang.PERMISSION.toString(), (serverTutorial.getNeedsPermission() ? ChatColor.DARK_GREEN.toString() : ChatColor.RED.toString()) + serverTutorial.getNeedsPermission() + ""));
+                sender.sendMessage(formatInfo(Lang.CHAT_BLOCKED.toString(), (serverTutorial.isChatBlocked() ? ChatColor.DARK_GREEN.toString() : ChatColor.RED.toString()) + serverTutorial.isChatBlocked() + ""));
                 sender.sendMessage(formatInfo(Lang.TIMES_PLAYED.toString(), String.valueOf(serverTutorial.plays)));
                 sender.sendMessage(formatInfo(Lang.AMOUNT_OF_POINTS.toString() , (serverTutorial.points.size()) + ""));
                 sender.sendMessage(" ");
@@ -457,7 +458,7 @@ public class ServerTutorialCommands implements CommandExecutor{
                 }
 
                 if(args.length < 4){
-                    sender.sendMessage(Lang.WRONG_COMMAND_FORMAT.toString() + "/st edit <server tutorial ID> <invisible/rewards/permission/blockcommands/commands>");
+                    sender.sendMessage(Lang.WRONG_COMMAND_FORMAT.toString() + "/st edit <server tutorial ID> <invisible/rewards/permission/blockcommands/commands/chatblock>");
                     return true;
                 }
 
@@ -474,7 +475,7 @@ public class ServerTutorialCommands implements CommandExecutor{
                             serverTutorial.invisiblePlayer = Boolean.parseBoolean(args[3]);
                             sender.sendMessage(Lang.COMMAND_SETTING_SET.toString().replace("%setting%", args[2]).replace("%id%", serverTutorial.getId()));
                         } catch (Exception ex) {
-                            sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st edit <server tutorial ID> <invisible/rewards> TRUE/FALSE");
+                            sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st edit <server tutorial ID> invisible TRUE/FALSE");
                             return true;
                         }
                         break;
@@ -483,7 +484,17 @@ public class ServerTutorialCommands implements CommandExecutor{
                             serverTutorial.setNeedsPermission(Boolean.parseBoolean(args[3]));
                             sender.sendMessage(Lang.COMMAND_SETTING_SET.toString().replace("%setting%", args[2]).replace("%id%", serverTutorial.getId()));
                         } catch (Exception ex) {
-                            sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st edit <server tutorial ID> <invisible/rewards/permission/blockcommands/commands> TRUE/FALSE");
+                            sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st edit <server tutorial ID> permission TRUE/FALSE");
+                            return true;
+                        }
+                        break;
+
+                    case "chatblock":
+                        try {
+                            serverTutorial.setChatBlocked(Boolean.parseBoolean(args[3]));
+                            sender.sendMessage(Lang.COMMAND_SETTING_SET.toString().replace("%setting%", args[2]).replace("%id%", serverTutorial.getId()));
+                        } catch (Exception ex) {
+                            sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st edit <server tutorial ID> chatblock TRUE/FALSE");
                             return true;
                         }
                         break;
@@ -493,7 +504,7 @@ public class ServerTutorialCommands implements CommandExecutor{
                             serverTutorial.setBlocksCommands(Boolean.parseBoolean(args[3]));
                             sender.sendMessage(Lang.COMMAND_SETTING_SET.toString().replace("%setting%", args[2]).replace("%id%", serverTutorial.getId()));
                         } catch (Exception ex) {
-                            sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st edit <server tutorial ID> <invisible/rewards/permission/blockcommands> TRUE/FALSE");
+                            sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st edit <server tutorial ID> blockcommands TRUE/FALSE");
                             return true;
                         }
                         break;
@@ -610,7 +621,7 @@ public class ServerTutorialCommands implements CommandExecutor{
 
 
                     default:
-                        sender.sendMessage(Lang.UNKOWN_ARGUMENT + "<invisible/rewards/permission/commands>");
+                        sender.sendMessage(Lang.UNKOWN_ARGUMENT + "<invisible/rewards/permission/commands/chatblock>");
                         sender.sendMessage(Lang.TIP_EDITPOINT.toString());
                         break;
                 }
