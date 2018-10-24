@@ -113,15 +113,14 @@ public class ServerTutorial {
 
     /**
      * Get whether this tutorial blocks commands by other plugins and Bukkit/Spigot it self.
-     * @return
+     * @return true if blocks commands
      */
     public boolean isBlockingCommands() {
         return blocksCommands;
     }
 
     /**
-     * Set whether this tutorial blocks commands by other plugins and Bukkit/Spigot it self.
-     * @return
+     * Set whether this servertutorial blocks commands from the player.
      */
     public void setBlocksCommands(boolean blocksCommands) {
         this.blocksCommands = blocksCommands;

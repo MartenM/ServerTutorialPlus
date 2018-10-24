@@ -438,7 +438,7 @@ public class ServerTutorialCommands implements CommandExecutor {
                 }
 
                 Player player = (Player) sender;
-                Block block = player.getTargetBlock(new HashSet<Material>(Arrays.asList(Material.AIR)), 20);
+                Block block = player.getTargetBlock(new HashSet<>(Arrays.asList(Material.AIR)), 20);
                 if(block.getType().equals(Material.AIR)){
                     sender.sendMessage(Lang.COMMAND_SETBLOCK_FAIL.toString());
                     return true;
@@ -747,9 +747,7 @@ public class ServerTutorialCommands implements CommandExecutor {
                 }
 
                 String[] arguments = new String[args.length + 1];
-                for(int i = 0; i < args.length; i++){
-                    arguments[1 + i] = args[i];
-                }
+                System.arraycopy(args, 0, arguments, 1, args.length);
 
                 for(ServerTutorialPoint point : serverTutorial.points){
                     PointEditor pointEditor = PointEditor.getPointeditor(point);
