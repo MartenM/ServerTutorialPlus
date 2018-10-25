@@ -96,8 +96,8 @@ public class TutorialController {
             plugin.getServer().getScheduler().runTask(plugin, () -> {
                 player.setFlySpeed(oldValuesPlayer.getOriginal_flySpeed());
                 player.setWalkSpeed(oldValuesPlayer.getOriginal_walkSpeed());
-                player.setFlying(oldValuesPlayer.getFlying());
                 player.setAllowFlight(oldValuesPlayer.isAllowFlight());
+                player.setFlying(oldValuesPlayer.getFlying());
                 player.setGameMode(oldValuesPlayer.getGamemode());
                 if (cancelled) {
                     player.teleport(oldValuesPlayer.getLoc());
