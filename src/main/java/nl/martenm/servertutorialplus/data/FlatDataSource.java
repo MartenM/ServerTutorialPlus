@@ -54,7 +54,7 @@ public class FlatDataSource implements DataSource {
             return (List<String>) data.get("tutorials");
         }
         else{
-            return new ArrayList<String>();
+            return new ArrayList<>();
         }
     }
 

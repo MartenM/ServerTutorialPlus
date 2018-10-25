@@ -209,7 +209,7 @@ public class TutorialController {
 
     /**
      * Gets whether the tutorial is being played.
-     * @retrun Boolean that identifies if the tutorial controller is currently running a tutorial.
+     * @return Boolean that identifies if the tutorial controller is currently running a tutorial.
      */
     public boolean isRunning(){
         return this.running;

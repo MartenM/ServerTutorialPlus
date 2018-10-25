@@ -64,6 +64,11 @@ public class ServerTutorial {
     private boolean needsPermission;
 
     /**
+     * If set to true the incoming chat messages to the player will be blocked.
+     */
+    private boolean blockChat;
+
+    /**
     * The unique id of the server tutorial.
     * @return id
      */
@@ -108,15 +113,14 @@ public class ServerTutorial {
 
     /**
      * Get whether this tutorial blocks commands by other plugins and Bukkit/Spigot it self.
-     * @return
+     * @return true if blocks commands
      */
     public boolean isBlockingCommands() {
         return blocksCommands;
     }
 
     /**
-     * Set whether this tutorial blocks commands by other plugins and Bukkit/Spigot it self.
-     * @return
+     * Set whether this servertutorial blocks commands from the player.
      */
     public void setBlocksCommands(boolean blocksCommands) {
         this.blocksCommands = blocksCommands;
@@ -129,5 +133,19 @@ public class ServerTutorial {
     public void setCommandWhiteList(List<String> commandWhiteList) {
         if(commandWhiteList == null) this.commandWhiteList = new ArrayList<>();
         this.commandWhiteList = commandWhiteList;
+    }
+
+    /**
+     * Wheter the player is receiving chat messages or not while in the tutorial.
+     */
+    public boolean isChatBlocked() {
+        return blockChat;
+    }
+
+    /**
+     * Set if the player should not receive chat messages from other players.
+     */
+    public void setChatBlocked(boolean blockChat) {
+        this.blockChat = blockChat;
     }
 }
