@@ -55,6 +55,6 @@ public class CommandPoint extends ServerTutorialPoint {
     }
 
     public static boolean hasCommandTrigger(UUID uuid, String incomingCommand) {
-        return commandTriggers.containsKey(uuid) && incomingCommand.startsWith(commandTriggers.get(uuid));
+        return commandTriggers.containsKey(uuid) && incomingCommand.startsWith("/" + commandTriggers.get(uuid));
     }
 }
