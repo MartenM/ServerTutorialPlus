@@ -25,7 +25,7 @@ public class TeleportArg extends PointArg {
             return false;
         }
 
-        String message = StringUtils.join(args, ' ', 1, args.length);
+        String message = StringUtils.join(args, ' ', 0, args.length);
         if (message.equalsIgnoreCase("true")) {
             point.setTeleport(true);
         } else {

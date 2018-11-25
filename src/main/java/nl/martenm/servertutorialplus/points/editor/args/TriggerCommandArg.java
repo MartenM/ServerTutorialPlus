@@ -25,7 +25,7 @@ public class TriggerCommandArg extends PointArg {
             return false;
         }
 
-        String message = StringUtils.join(args, ' ', 1, args.length);
+        String message = StringUtils.join(args, ' ', 0, args.length);
         point.setTriggerCommand(message);
         return true;
     }
