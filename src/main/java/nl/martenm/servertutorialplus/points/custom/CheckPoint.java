@@ -50,6 +50,7 @@ public class CheckPoint extends ServerTutorialPoint {
         guideColor = new Color(244, 244, 244);
         repeatActionbar = true;
         distance = 1;
+        super.teleport = false;
     }
 
     @Override
@@ -60,7 +61,7 @@ public class CheckPoint extends ServerTutorialPoint {
 
             @Override
             public void start() {
-                playDefault(player, oldValuesPlayer, false);
+                playDefault(player, oldValuesPlayer);
                 checker = new BukkitRunnable() {
                     int count;
 

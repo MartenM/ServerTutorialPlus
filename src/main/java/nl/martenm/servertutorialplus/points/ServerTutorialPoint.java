@@ -41,11 +41,13 @@ public abstract class ServerTutorialPoint{
     protected Location loc;
     protected List<String> message_chat;
     protected List<String> commands;
+    protected String triggerCommand;
+    protected boolean teleport;
     protected List<FireWorkInfo> fireworks;
     protected String message_actionBar;
     protected PlayerTitle titleInfo;
     protected PlayerSound soundInfo;
-    protected List<PotionEffect> pointionEffects;
+    protected List<PotionEffect> potionEffects;
     protected boolean lockPlayer;
     protected boolean lockView;
     protected double time;
@@ -58,10 +60,12 @@ public abstract class ServerTutorialPoint{
         this.time = 2;
         this.message_chat = new ArrayList<>();
         this.commands = new ArrayList<>();
+        this.triggerCommand = "st next";
+        this.teleport = true;
         this.fireworks = new ArrayList<>();
         this.lockPlayer = false;
         this.lockView = false;
-        this.pointionEffects = new ArrayList<>();
+        this.potionEffects = new ArrayList<>();
     }
 
     /**
@@ -78,7 +82,7 @@ public abstract class ServerTutorialPoint{
             @Override
             public void start() {
 
-                playDefault(player, oldValuesPlayer, true);
+                playDefault(player, oldValuesPlayer);
 
                 timerTask = new BukkitRunnable() {
                     @Override
@@ -101,8 +105,8 @@ public abstract class ServerTutorialPoint{
      * @param player The targeted player.
      * @param oldValuesPlayer Old values of the player before starting the tutorial / point.
      */
-    protected void playDefault(Player player, OldValuesPlayer oldValuesPlayer, boolean teleport) {
-        if(teleport) player.teleport(loc);
+    protected void playDefault(Player player, OldValuesPlayer oldValuesPlayer) {
+        if(this.teleport) player.teleport(loc);
 
         for (String message : message_chat) {
             player.sendMessage(PluginUtils.replaceVariables(plugin.placeholderAPI, player, message));
@@ -177,8 +181,8 @@ public abstract class ServerTutorialPoint{
         //endregion
 
         //region potionEffects
-        if(pointionEffects != null) {
-            for (PotionEffect effect : pointionEffects) {
+        if(potionEffects != null) {
+            for (PotionEffect effect : potionEffects) {
                 player.addPotionEffect(effect, false);
             }
         }
@@ -201,6 +205,8 @@ public abstract class ServerTutorialPoint{
 
         message_chat = tutorialSaves.getStringList("tutorials." + ID + ".points." + i + ".messages");
         commands = tutorialSaves.getStringList("tutorials." + ID + ".points." + i + ".commands");
+        triggerCommand = tutorialSaves.getString("tutorials." + ID + ".points." + i + ".triggerCommand", "st next");
+        teleport = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".teleport", true);
 
         message_actionBar = tutorialSaves.getString("tutorials." + ID + ".points." + i + ".actionbar");
         lockPlayer = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".locplayer");
@@ -251,7 +257,7 @@ public abstract class ServerTutorialPoint{
 
                 infos.add(new PotionEffect(type, duration, amplifier, isAmbient, show_particles));
             }
-            pointionEffects = infos;
+            potionEffects = infos;
         }
 
         readCustomSaveData(tutorialSaves, ID, i);
@@ -270,6 +276,8 @@ public abstract class ServerTutorialPoint{
         tutorialSaves.set("tutorials." + key + ".points." + i + ".messages", message_chat);
         tutorialSaves.set("tutorials." + key + ".points." + i + ".actionbar", message_actionBar);
         tutorialSaves.set("tutorials." + key + ".points." + i + ".commands", commands);
+        tutorialSaves.set("tutorials." + key + ".points." + i + ".triggerCommand", triggerCommand);
+        tutorialSaves.set("tutorials." + key + ".points." + i + ".teleport", teleport);
         if(flying) tutorialSaves.set("tutorials." + key + ".points." + i + ".setFly", flying);
 
         if(titleInfo != null){
@@ -294,9 +302,9 @@ public abstract class ServerTutorialPoint{
             }
         }
 
-        if(pointionEffects != null){
-            for(int effect = 0; effect < pointionEffects.size(); effect++){
-                PotionEffect info =  pointionEffects.get(effect);
+        if(potionEffects != null){
+            for(int effect = 0; effect < potionEffects.size(); effect++){
+                PotionEffect info =  potionEffects.get(effect);
                 tutorialSaves.set("tutorials." + key + ".points." + i + ".potioneffects."+ effect + ".type", info.getType().getName());
                 tutorialSaves.set("tutorials." + key + ".points." + i + ".potioneffects."+ effect + ".time", info.getDuration());
                 tutorialSaves.set("tutorials." + key + ".points." + i + ".potioneffects."+ effect + ".amplifier", info.getAmplifier());
@@ -326,6 +334,8 @@ public abstract class ServerTutorialPoint{
         args.add(new PotionEffectArg());
         args.add(new SoundArg());
         args.add(new TitleArg());
+        args.add(new TriggerCommandArg());
+        args.add(new TeleportArg());
         return args;
     }
 
@@ -356,6 +366,14 @@ public abstract class ServerTutorialPoint{
     public void setLoc(Location loc) {
         this.loc = loc;
     }
+
+    public String getTriggerCommand() { return triggerCommand; }
+
+    public void setTriggerCommand(String triggerCommand) { this.triggerCommand = triggerCommand; }
+
+    public boolean getTeleport() { return teleport; }
+
+    public void setTeleport(boolean teleport) { this.teleport = teleport; }
 
     public String getMessage_actionBar() {
         return message_actionBar;
@@ -393,12 +411,12 @@ public abstract class ServerTutorialPoint{
         this.fireworks = fireworks;
     }
 
-    public List<PotionEffect> getPointionEffects() {
-        return pointionEffects;
+    public List<PotionEffect> getPotionEffects() {
+        return potionEffects;
     }
 
-    public void setPointionEffects(List<PotionEffect> pointionEffects) {
-        this.pointionEffects = pointionEffects;
+    public void setPotionEffects(List<PotionEffect> potionEffects) {
+        this.potionEffects = potionEffects;
     }
 
     public void setTitleInfo(PlayerTitle titleInfo) {

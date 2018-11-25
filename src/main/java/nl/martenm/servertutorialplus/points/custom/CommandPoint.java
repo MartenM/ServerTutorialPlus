@@ -9,6 +9,7 @@ import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import java.util.WeakHashMap;
@@ -22,6 +23,8 @@ public class CommandPoint extends ServerTutorialPoint {
 
     private static Map<UUID, IPointCallBack> waiting = new WeakHashMap<>();
 
+    private static Map<UUID, String> commandTriggers = new WeakHashMap<>();
+
     public CommandPoint(ServerTutorialPlus plugin, Location loc) {
         super(plugin, loc, PointType.COMMAND);
     }
@@ -32,12 +35,14 @@ public class CommandPoint extends ServerTutorialPoint {
             @Override
             public void start() {
                 waiting.put(player.getUniqueId(), callBack);
-                playDefault(player, oldValuesPlayer, true);
+                commandTriggers.put(player.getUniqueId(), CommandPoint.super.triggerCommand);
+                playDefault(player, oldValuesPlayer);
             }
 
             @Override
             public void stop() {
                 waiting.remove(player.getUniqueId(), callBack);
+                commandTriggers.remove(player.getUniqueId());
             }
         };
     }
@@ -47,5 +52,9 @@ public class CommandPoint extends ServerTutorialPoint {
         if(callBack != null) {
             callBack.finish();
         }
+    }
+
+    public static boolean hasCommandTrigger(UUID uuid, String incomingCommand) {
+        return commandTriggers.containsKey(uuid) && incomingCommand.startsWith(commandTriggers.get(uuid));
     }
 }

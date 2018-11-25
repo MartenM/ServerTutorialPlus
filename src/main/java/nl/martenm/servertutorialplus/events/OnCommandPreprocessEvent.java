@@ -3,6 +3,7 @@ package nl.martenm.servertutorialplus.events;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.objects.TutorialController;
+import nl.martenm.servertutorialplus.points.custom.CommandPoint;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,6 +23,7 @@ public class OnCommandPreprocessEvent implements Listener {
 
     @EventHandler
     public void onCommandProcessEvent(PlayerCommandPreprocessEvent event) {
+        handleCommandPoint(event);
 
         Player player = event.getPlayer();
         if (!plugin.inTutorial.containsKey(player.getUniqueId())) {
@@ -69,5 +71,12 @@ public class OnCommandPreprocessEvent implements Listener {
         // All checks passed. Block the command and send the player a message.
         event.setCancelled(true);
         player.sendMessage(Lang.ERROR_COMMAND_BLOCKED.toString());
+    }
+
+    private void handleCommandPoint(PlayerCommandPreprocessEvent event) {
+        if (!CommandPoint.hasCommandTrigger(event.getPlayer().getUniqueId(), event.getMessage())) {
+            return;
+        }
+        CommandPoint.handle(event.getPlayer().getUniqueId());
     }
 }
