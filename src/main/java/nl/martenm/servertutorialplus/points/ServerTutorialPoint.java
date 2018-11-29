@@ -205,7 +205,6 @@ public abstract class ServerTutorialPoint{
 
         message_chat = tutorialSaves.getStringList("tutorials." + ID + ".points." + i + ".messages");
         commands = tutorialSaves.getStringList("tutorials." + ID + ".points." + i + ".commands");
-        triggerCommand = tutorialSaves.getString("tutorials." + ID + ".points." + i + ".triggerCommand", "st next");
         teleport = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".teleport", true);
 
         message_actionBar = tutorialSaves.getString("tutorials." + ID + ".points." + i + ".actionbar");
@@ -276,7 +275,6 @@ public abstract class ServerTutorialPoint{
         tutorialSaves.set("tutorials." + key + ".points." + i + ".messages", message_chat);
         tutorialSaves.set("tutorials." + key + ".points." + i + ".actionbar", message_actionBar);
         tutorialSaves.set("tutorials." + key + ".points." + i + ".commands", commands);
-        tutorialSaves.set("tutorials." + key + ".points." + i + ".triggerCommand", triggerCommand);
         tutorialSaves.set("tutorials." + key + ".points." + i + ".teleport", teleport);
         if(flying) tutorialSaves.set("tutorials." + key + ".points." + i + ".setFly", flying);
 
@@ -334,7 +332,6 @@ public abstract class ServerTutorialPoint{
         args.add(new PotionEffectArg());
         args.add(new SoundArg());
         args.add(new TitleArg());
-        args.add(new TriggerCommandArg());
         args.add(new TeleportArg());
         return args;
     }
@@ -366,10 +363,6 @@ public abstract class ServerTutorialPoint{
     public void setLoc(Location loc) {
         this.loc = loc;
     }
-
-    public String getTriggerCommand() { return triggerCommand; }
-
-    public void setTriggerCommand(String triggerCommand) { this.triggerCommand = triggerCommand; }
 
     public boolean getTeleport() { return teleport; }
 
