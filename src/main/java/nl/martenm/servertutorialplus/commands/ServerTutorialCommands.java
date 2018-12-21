@@ -340,42 +340,42 @@ public class ServerTutorialCommands implements CommandExecutor {
                     return true;
                 }
 
-                if(!(sender instanceof Player)){
-                   sender.sendMessage(Lang.PLAYER_ONLY_COMMAND.toString());
-                   return true;
-                }
-
-                if(plugin.blockPlayers.contains(((Player) sender).getUniqueId())){
-                    sender.sendMessage(Lang.ERROR_WAIT_TO_END.toString());
-                    return true;
-                }
-
                 ServerTutorial serverTutorial = PluginUtils.getTutorial(plugin, args[1]);
                 if(serverTutorial == null){
                     sender.sendMessage(Lang.TUTORIAL_ID_NOT_FOUND.toString());
                     return true;
                 }
 
-                Player player = (Player) sender;
-
                 Player target = null;
                 if(args.length != 2) {
-                    if(!player.hasPermission("servertutorialplus.command.play.others")) {
+                    if(!sender.hasPermission("servertutorialplus.command.play.others")) {
                         sender.sendMessage(Lang.NO_PERMS.toString());
                         return true;
                     }
 
                     target = Bukkit.getPlayer(args[2]);
                     if(target == null){
-                        player.sendMessage(Lang.ERROR_PLAYER_OFFLINE.toString());
+                        sender.sendMessage(Lang.ERROR_PLAYER_OFFLINE.toString());
+                        return true;
+                    }
+
+                    if(plugin.blockPlayers.contains((target).getUniqueId())){
+                        sender.sendMessage(Lang.ERROR_WAIT_TO_END.toString());
                         return true;
                     }
 
                     if(plugin.inTutorial.containsKey(target.getUniqueId())){
-                        player.sendMessage(Lang.ERROR_PERSON_IN_TUTORIAL.toString());
+                        sender.sendMessage(Lang.ERROR_PERSON_IN_TUTORIAL.toString());
                         return true;
                     }
                 } else {
+                    if(!(sender instanceof Player)){
+                        sender.sendMessage(Lang.PLAYER_ONLY_COMMAND.toString());
+                        return true;
+                    }
+
+                    Player player = (Player) sender;
+
                     target = player;
 
                     if(plugin.inTutorial.containsKey(player.getUniqueId())){
