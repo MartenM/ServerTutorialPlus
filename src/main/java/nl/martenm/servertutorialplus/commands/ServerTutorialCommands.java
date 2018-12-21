@@ -716,7 +716,7 @@ public class ServerTutorialCommands implements CommandExecutor {
                 }
 
 
-                PointEditor pointEditor = PointEditor.getPointeditor(tutorialPoint);
+                PointEditor pointEditor = PointEditor.getPointEditor(tutorialPoint);
                 pointEditor.execute(serverTutorial, tutorialPoint, sender, args);
                 return true;
                 //endregion
@@ -750,7 +750,7 @@ public class ServerTutorialCommands implements CommandExecutor {
                 System.arraycopy(args, 0, arguments, 1, args.length);
 
                 for(ServerTutorialPoint point : serverTutorial.points){
-                    PointEditor pointEditor = PointEditor.getPointeditor(point);
+                    PointEditor pointEditor = PointEditor.getPointEditor(point);
                     if(!pointEditor.execute(serverTutorial, point, sender, arguments)){
                         sender.sendMessage(Lang.ERROR_EDITALL_FAIL.toString());
                         return true;
@@ -1336,12 +1336,16 @@ public class ServerTutorialCommands implements CommandExecutor {
 
             else if(args[0].equalsIgnoreCase("next")){
                 //region Next
-                if(!(sender instanceof Player)){
-                    sender.sendMessage(Lang.PLAYER_ONLY_COMMAND.toString());
-                    return true;
-                }
-                Player player = (Player) sender;
-                CommandPoint.handle(player.getUniqueId());
+                //if(!(sender instanceof Player)){
+                //    sender.sendMessage(Lang.PLAYER_ONLY_COMMAND.toString());
+                //    return true;
+                //}
+                //Player player = (Player) sender;
+                //CommandPoint.handle(player.getUniqueId());
+
+                //This command is handled in the pre-processor
+                //Leaving this section here so that the command
+                //doesn't return the help menu
                 return true;
                 //endregion
             }

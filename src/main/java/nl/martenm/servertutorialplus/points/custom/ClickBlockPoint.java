@@ -37,7 +37,6 @@ public class ClickBlockPoint extends ServerTutorialPoint {
 
     private boolean enableParticles;
     private Color particleColor;
-    private boolean teleport;
 
     public ClickBlockPoint(ServerTutorialPlus plugin, Location loc) {
         super(plugin, loc, PointType.CLICK_BLOCK);
@@ -57,7 +56,7 @@ public class ClickBlockPoint extends ServerTutorialPoint {
         return new IPlayPoint(){
             @Override
             public void start() {
-                playDefault(player, oldValuesPlayer, teleport);
+                playDefault(player, oldValuesPlayer);
 
                 if(clickableBlock == null){
                     player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "SKIPPED: " + ChatColor.RED + "Point has not been setup! Use the command " + ChatColor.YELLOW + "/st editpoint <id> <point> setblock" + ChatColor.RED + " to set the clickable block!");
@@ -118,7 +117,6 @@ public class ClickBlockPoint extends ServerTutorialPoint {
         tutorialSaves.set("tutorials." + key + ".points." + i + ".blocklocation", PluginUtils.fromLocation(clickableBlock));
         tutorialSaves.set("tutorials." + key + ".points." + i + ".particles", enableParticles);
         tutorialSaves.set("tutorials." + key + ".points." + i + ".colour", particleColor.toString());
-        tutorialSaves.set("tutorials." + key + ".points." + i + ".teleport", teleport);
     }
 
     @Override
@@ -126,7 +124,6 @@ public class ClickBlockPoint extends ServerTutorialPoint {
         clickableBlock = PluginUtils.fromString(plugin, tutorialSaves.getString("tutorials." + key + ".points." + i + ".blocklocation")).getBlock().getLocation();
         particleColor = Color.fromString(tutorialSaves.getString("tutorials." + key + ".points." + i + ".colour"));
         enableParticles = tutorialSaves.getBoolean("tutorials." + key + ".points." + i + ".particles");
-        teleport = tutorialSaves.getBoolean("tutorials." + key + ".points." + i + ".teleport");
     }
 
     @Override

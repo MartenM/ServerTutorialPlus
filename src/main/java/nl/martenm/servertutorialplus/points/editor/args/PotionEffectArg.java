@@ -32,13 +32,13 @@ public class PotionEffectArg extends PointArg {
 
         switch (args[0]){
             case "clear":
-                point.getPointionEffects().clear();
+                point.getPotionEffects().clear();
                 break;
 
             case "list":
                 sender.sendMessage(ChatColor.GRAY + "[ " + ChatColor.YELLOW + "Potion effects");
-                for(int i = 0; i < point.getPointionEffects().size(); i++){
-                    PotionEffect effect = point.getPointionEffects().get(i);
+                for(int i = 0; i < point.getPotionEffects().size(); i++){
+                    PotionEffect effect = point.getPotionEffects().get(i);
                     sender.sendMessage(ChatColor.GRAY + "[ " + ChatColor.GREEN + (i + 1) + ChatColor.YELLOW + " " + effect.getType().getName() + " Time:" + effect.getDuration());
                 }
                 break;
@@ -50,7 +50,7 @@ public class PotionEffectArg extends PointArg {
                 }
 
                 try {
-                    point.getPointionEffects().remove(Integer.parseInt(args[1]) - 1);
+                    point.getPotionEffects().remove(Integer.parseInt(args[1]) - 1);
                 } catch (NumberFormatException ex) {
                     sender.sendMessage(Lang.ERROR_INVALID_NUMBNER.toString());
                     return false;
@@ -129,7 +129,7 @@ public class PotionEffectArg extends PointArg {
                     type = meta.getBasePotionData().getType().getEffectType();
                 }
 
-                point.getPointionEffects().add(new PotionEffect(type, time, amplifier, isAmbient, hasParticles));
+                point.getPotionEffects().add(new PotionEffect(type, time, amplifier, isAmbient, hasParticles));
                 break;
         }
 

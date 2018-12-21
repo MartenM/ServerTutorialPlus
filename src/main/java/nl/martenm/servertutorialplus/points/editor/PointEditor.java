@@ -47,7 +47,7 @@ public class PointEditor {
         return false;
     }
 
-    public static PointEditor getPointeditor(ServerTutorialPoint point){
+    public static PointEditor getPointEditor(ServerTutorialPoint point){
         PointEditor editor = new PointEditor();
         editor.arguments.addAll(point.getArgs());
 
