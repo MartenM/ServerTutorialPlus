@@ -23,6 +23,7 @@ import nl.martenm.servertutorialplus.points.custom.TimedPoint;
 import nl.martenm.servertutorialplus.reflection.IProtocol;
 import nl.martenm.servertutorialplus.reflection.V1_13.Protocol_1_13_V1;
 import nl.martenm.servertutorialplus.reflection.v1_12.Protocol_1_12;
+import nl.martenm.servertutorialplus.reflection.v1_14.Protocol_1_14_V1;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -513,8 +514,9 @@ public class ServerTutorialPlus extends JavaPlugin{
             case "v1_13_R1":
                 protocol = new Protocol_1_13_V1();
                 break;
+            case "v1_14_R1":
             default:
-                protocol = new Protocol_1_12();
+                protocol = new Protocol_1_14_V1();
                 break;
         }
 
