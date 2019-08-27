@@ -171,7 +171,7 @@ public enum Lang {
     ERROR_EDITALL_FAIL("error-editall", "&cFailed to set setting. Stopped editing the points."),
     ERROR_INVALID_NUMBNER("error-invalid-number", "&cInvalid number."),
     ERROR_FAILED_FINDING_TUTORIAL("error-failed-finding-tutorial", "Failed to find server tutorial..."),
-    ERROR_FAILED_FINDING_TUTORIAL_ADMIN("error-failed-finding-tutorial-admin", "&cCould not find a server tutorial with the ID: &e%id%&c. Please contact the server administrator."),
+    ERROR_FAILED_FINDING_TUTORIAL_ADMIN("error-failed-finding-tutorial-admin", "&cCould not find a server tutorial with the id &e%id%&c. Please contact the server administrator."),
     ERROR_INVALID_EFFECT("error-invalid-effect", "&cInvalid potion effect."),
     ERROR_INVALID_TIME("error-invalid-time", "&cThat is not a valid time. (Time is in seconds)"),
     ERROR_INVALID_AMPLIFIER("error-invalid-amplifier", "That is not a valid amplifier."),

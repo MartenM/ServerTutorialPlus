@@ -387,27 +387,9 @@ public class ServerTutorialPlus extends JavaPlugin{
                                     clickableNPCs.put(npc.getUniqueId(), info);
                                     return;
                                 } else if (location != null) {
-                                    Collection entities = location.getWorld().getNearbyEntities(location, 1, 1, 1);
-                                    if (entities.size() != 0) {
-                                        if (entities.size() > 1) {
-                                            logger.warning(" [!!] More then 1 entity found at the location! Wrong entity might be selected!");
-                                        }
-
-                                        for (Object e : entities) {
-                                            if (e instanceof LivingEntity) {
-                                                npc = (Entity) e;
-                                                break;
-                                            }
-                                        }
-
-                                        if (npc != null) {
-                                            NPCInfo info = new NPCInfo(instance, ID, npc.getUniqueId(), text, stID, location);
-                                            clickableNPCs.put(npc.getUniqueId(), info);
-                                            logger.info(" [!] Found the NPC after searching on its location. Enabling it right now... (NpcId: " + ID + ")");
-                                            return;
-                                        }
-                                        //Fall through to deletion.
-                                    }
+                                    // Remove this as it only causes issues where the armorstand gets selected.
+                                    // If the entity is no longer there, it's no longer there....
+                                    // We just remove it instead...
                                 }
 
                                 try {
