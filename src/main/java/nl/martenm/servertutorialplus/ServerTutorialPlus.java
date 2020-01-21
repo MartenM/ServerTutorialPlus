@@ -197,7 +197,6 @@ public class ServerTutorialPlus extends JavaPlugin{
         pm.registerEvents(new OnBlockBreakEvent(this), this);
         pm.registerEvents(new onPlayerMoveEvent(this), this);
         pm.registerEvents(new OnPlayerQuitEvent(this), this);
-        pm.registerEvents(new OnInventoryClickEvent(this), this);
         pm.registerEvents(new OnPlayerToggleFlight(this), this);
         pm.registerEvents(new OnCommandPreprocessEvent(this), this);
         pm.registerEvents(new ChatEventListener(this), this);

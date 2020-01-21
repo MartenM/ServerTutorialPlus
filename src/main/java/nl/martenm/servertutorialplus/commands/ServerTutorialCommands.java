@@ -1,8 +1,14 @@
 package nl.martenm.servertutorialplus.commands;
 
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
-import nl.martenm.servertutorialplus.gui.GuiInventories;
-import nl.martenm.servertutorialplus.helpers.*;
+import nl.martenm.servertutorialplus.helpers.Config;
+import nl.martenm.servertutorialplus.helpers.PluginUtils;
+import nl.martenm.servertutorialplus.helpers.SpigotUtils;
 import nl.martenm.servertutorialplus.helpers.dataholders.OldValuesPlayer;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.objects.*;
@@ -15,12 +21,6 @@ import nl.martenm.servertutorialplus.points.custom.ClickBlockPoint;
 import nl.martenm.servertutorialplus.points.custom.CommandPoint;
 import nl.martenm.servertutorialplus.points.custom.TimedPoint;
 import nl.martenm.servertutorialplus.points.editor.PointEditor;
-import net.md_5.bungee.api.ChatColor;
-
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -768,12 +768,13 @@ public class ServerTutorialCommands implements CommandExecutor {
                     return true;
                 }
 
-                plugin.enabled = false;
-
                 for(TutorialController tc : plugin.inTutorial.values()){
                     tc.cancel(true);
                     tc.getPlayer().sendMessage(Lang.RELOAD_STOPTUTORIAL.toString());
                 }
+
+                plugin.enabled = false;
+
                 plugin.inTutorial.clear();
                 plugin.tutorialSigns.clear();
                 plugin.serverTutorials.clear();
@@ -787,6 +788,7 @@ public class ServerTutorialCommands implements CommandExecutor {
                 plugin.loadSigns();
 
                 sender.sendMessage(Lang.RELOAD_SUCCES.toString());
+
                 plugin.enabled = true;
                 return true;
                 //endregion
@@ -1234,18 +1236,8 @@ public class ServerTutorialCommands implements CommandExecutor {
                     return true;
                 }
 
-                if(!(sender instanceof Player)){
-                    sender.sendMessage(Lang.PLAYER_ONLY_COMMAND.toString());
-                    return true;
-                }
-
-                Player player = (Player) sender;
-
-                if(args.length <= 1){
-                    GuiInventories.openMainMenu(plugin, player);
-                    return true;
-                }
-                //endregiong gui;
+                sender.sendMessage(ChatColor.RED + "The GUI is no longer supported.");
+                return true;
             }
 
             else if(args[0].equalsIgnoreCase("player")){
