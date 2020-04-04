@@ -214,4 +214,12 @@ public class TutorialController {
     public boolean isRunning(){
         return this.running;
     }
+    
+    /**
+     * Gets the current point in tutorial.
+     * @return Integer current point in tutorial.
+     */
+    public int getCurrentPoint() {
+        return this.current;
+    }
 }
