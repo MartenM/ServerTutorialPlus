@@ -363,6 +363,7 @@ public class ServerTutorialPlus extends JavaPlugin{
                     loc.getChunk().load();
                 }
 
+                Entity entity = SpigotUtils.getEntity(npcUuid);
                 if(getConfig().getBoolean("npc.remove-invalid")) {
                     if (SpigotUtils.getEntity(npcUuid) == null) {
                         //region not found
@@ -381,6 +382,7 @@ public class ServerTutorialPlus extends JavaPlugin{
 
                                 npc = SpigotUtils.getEntity(npcUuid);
                                 if (npc != null) {
+                                    npc.setSilent(getConfig().getBoolean("npc.keep-silent", false));
                                     logger.info(" [!] Found the NPC after searching it's UUID again. Enabling it right now... (NpcId: " + ID + ")");
                                     NPCInfo info = new NPCInfo(instance, ID, npc.getUniqueId(), text, stID, location);
                                     clickableNPCs.put(npc.getUniqueId(), info);
@@ -411,6 +413,9 @@ public class ServerTutorialPlus extends JavaPlugin{
                     }
                 }
 
+                if (entity != null) {
+                    entity.setSilent(getConfig().getBoolean("npc.keep-silent", false));
+                }
                 NPCInfo info = new NPCInfo(instance, ID, npcUuid, text, stID, loc);
                 clickableNPCs.put(npcUuid, info);
                 //SpigotUtils.getEntity(npc).teleport(loc);

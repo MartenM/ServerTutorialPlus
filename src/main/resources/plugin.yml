@@ -1,8 +1,10 @@
+name: "${project.artifactId}"
+version: "${project.version}"
+api-version: "1.13"
 main: nl.martenm.servertutorialplus.ServerTutorialPlus
-name: ServerTutorialPlus
-prefix: Server Tutorial Plus
 author: MartenM
-version: 1.21.3
+authors:
+  - Rakdos8
 description: "§6The plugin to guide players around your server using tutorials."
 softdepend: [PlaceholderAPI, Multiverse-Core, MultiWorld]
 commands:
