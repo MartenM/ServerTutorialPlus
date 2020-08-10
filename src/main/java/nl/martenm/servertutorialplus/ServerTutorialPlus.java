@@ -491,6 +491,9 @@ public class ServerTutorialPlus extends JavaPlugin{
         String formmatedVersion = version.substring(version.lastIndexOf(".") + 1);
 
         switch (formmatedVersion) {
+            case "v1_9_R2":
+            case "1_10_R1":
+            case "1_11_R1":
             case "v1_12_R1":
                 protocol = new Protocol_1_12();
                 break;
@@ -499,6 +502,7 @@ public class ServerTutorialPlus extends JavaPlugin{
                 protocol = new Protocol_1_13_V1();
                 break;
             case "v1_14_R1":
+            case "v1_16_R1":
             default:
                 protocol = new Protocol_1_14_V1();
                 break;
