@@ -438,7 +438,7 @@ public class ServerTutorialCommands implements CommandExecutor {
                 }
 
                 Player player = (Player) sender;
-                Block block = player.getTargetBlock(new HashSet<>(Arrays.asList(Material.AIR)), 20);
+                Block block = player.getTargetBlock(null, 20);
                 if(block.getType().equals(Material.AIR)){
                     sender.sendMessage(Lang.COMMAND_SETBLOCK_FAIL.toString());
                     return true;

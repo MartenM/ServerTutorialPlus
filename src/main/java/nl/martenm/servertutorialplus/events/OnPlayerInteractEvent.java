@@ -46,10 +46,13 @@ public class OnPlayerInteractEvent implements Listener{
                 continue;
             }
             ServerTutorial serverTutorial = PluginUtils.getTutorial(plugin, ts.ServerTutorialId);
+
             if(serverTutorial == null){
-                event.getPlayer().sendMessage(Lang.ERROR_FAILED_FINDING_TUTORIAL_ADMIN.toString().replace("&id&", serverTutorial.getId()));
+                // Just in here to fix stuff but PluginUtils... Whyyyyyy ;-;
+                event.getPlayer().sendMessage(Lang.ERROR_FAILED_FINDING_TUTORIAL_ADMIN.toString().replace("%id%", ts.ServerTutorialId));
                 return;
             }
+
             if(plugin.inTutorial.containsKey(event.getPlayer().getUniqueId())){
                 event.getPlayer().sendMessage(Lang.ERROR_WAIT_TO_END_TUTORIAL.toString());
                 return;
