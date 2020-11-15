@@ -41,7 +41,7 @@ public class OnPlayerInteractEventV1_8 implements Listener {
             }
             ServerTutorial serverTutorial = PluginUtils.getTutorial(plugin, ts.ServerTutorialId);
             if(serverTutorial == null){
-                event.getPlayer().sendMessage(Lang.ERROR_FAILED_FINDING_TUTORIAL_ADMIN.toString().replace("&id&", serverTutorial.getId()));
+                event.getPlayer().sendMessage(Lang.ERROR_FAILED_FINDING_TUTORIAL_ADMIN.toString().replace("%id%", serverTutorial.getId()));
                 return;
             }
             if(plugin.inTutorial.containsKey(event.getPlayer().getUniqueId())){
