@@ -50,6 +50,7 @@ public class FlatFileManager{
         new BukkitRunnable(){
             @Override
             public void run() {
+                plugin.getLogger().info("Restoring player status for player: " + player.getName());
                 Double dd = (Double) object.get("walkspeed");
                 player.setWalkSpeed(dd.floatValue());
                 player.setAllowFlight((Boolean) object.get("isAllowedFlight"));
