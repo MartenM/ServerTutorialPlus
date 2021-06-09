@@ -1139,7 +1139,7 @@ public class ServerTutorialCommands implements CommandExecutor {
 
                         }
                         sender.sendMessage(" ");
-                        sender.sendMessage("  " + Lang.NPC_INFO_MORE_INFO);
+                        sender.sendMessage("  " + Lang.NPC_INFO_MORE_INFO.toString());
                         sender.sendMessage(ChatColor.DARK_GRAY + "+─────────────────────────+");
                         return true;
                     }

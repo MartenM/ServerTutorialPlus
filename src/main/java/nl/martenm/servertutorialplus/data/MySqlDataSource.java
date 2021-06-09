@@ -1,7 +1,8 @@
 package nl.martenm.servertutorialplus.data;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,22 +19,30 @@ import java.util.UUID;
 public class MySqlDataSource implements DataSource {
 
     private ServerTutorialPlus plugin;
-    private MysqlDataSource mySql;
+    private HikariConfig config = new HikariConfig();
+    private HikariDataSource mySql;
 
     public MySqlDataSource(ServerTutorialPlus plugin){
         this.plugin = plugin;
-
         setup();
     }
 
 
     public boolean setup() {
+        String host = plugin.getConfig().getString("datasource.mysql.host");
+        String database = plugin.getConfig().getString("datasource.mysql.database");
 
-        mySql = new MysqlDataSource();
-        mySql.setUser(plugin.getConfig().getString("datasource.mysql.username"));
-        mySql.setPassword(plugin.getConfig().getString("datasource.mysql.password"));
-        mySql.setServerName(plugin.getConfig().getString("datasource.mysql.host"));
-        mySql.setDatabaseName(plugin.getConfig().getString("datasource.mysql.database"));
+        config = new HikariConfig();
+        config.setUsername(plugin.getConfig().getString("datasource.mysql.username"));
+        config.setPassword(plugin.getConfig().getString("datasource.mysql.password"));
+
+        config.setJdbcUrl(String.format("jdbc:mysql://%s:%s/%s", host, 3306, database));
+
+        config.addDataSourceProperty("cachePrepStmts", "true");
+        config.addDataSourceProperty("prepStmtCacheSize", "250");
+        config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
+
+        mySql = new HikariDataSource(config);
 
         plugin.getLogger().info("Creating Tutorial_Players table.");
         if(!simpleSqlUpdate("CREATE TABLE IF NOT EXISTS Tutorial_Players " +
