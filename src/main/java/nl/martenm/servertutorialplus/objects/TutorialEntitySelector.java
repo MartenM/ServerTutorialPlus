@@ -62,6 +62,7 @@ public class TutorialEntitySelector {
         npc.setCanPickupItems(false);
         npc.setGravity(false);
         npc.setCollidable(false);
+        npc.setSilent(plugin.getConfig().getBoolean("npc.keep-silent", false));
 
         ArmorStand armorStand_1 = (ArmorStand) player.getWorld().spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
         armorStand_1.setGravity(false);

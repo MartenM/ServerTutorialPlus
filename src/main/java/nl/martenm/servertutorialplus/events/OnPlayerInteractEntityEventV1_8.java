@@ -8,6 +8,7 @@ import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import nl.martenm.servertutorialplus.objects.TutorialController;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 /**
@@ -47,4 +48,12 @@ public class OnPlayerInteractEntityEventV1_8 implements Listener {
             event.setCancelled(true);
         }
     }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
+        if (plugin.clickableNPCs.containsKey(event.getEntity().getUniqueId())) {
+            event.setCancelled(true);
+        }
+    }
+
 }

@@ -8,6 +8,7 @@ import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import nl.martenm.servertutorialplus.objects.TutorialController;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 
@@ -56,6 +57,13 @@ public class OnPlayerInteractEntityEvent implements Listener {
                 //BIND IT
                 plugin.selectingNpc.get(event.getPlayer().getUniqueId()).create(plugin, event);
             }
+        }
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent event) {
+        if (plugin.clickableNPCs.containsKey(event.getEntity().getUniqueId())) {
+            event.setCancelled(true);
         }
     }
 
