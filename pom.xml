@@ -6,7 +6,7 @@
 
     <groupId>nl.martenm</groupId>
     <artifactId>ServerTutorialPlus</artifactId>
-    <version>1.22.0-SNAPSHOT</version>
+    <version>1.22.1-SNAPSHOT</version>
 
     <repositories>
         <!-- Spigot.MC repo -->
@@ -50,6 +50,13 @@
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>3.4.5</version>
+        </dependency>
+
+        <!-- Version support -->
+        <dependency>
+            <groupId>com.github.cryptomorin</groupId>
+            <artifactId>XSeries</artifactId>
+            <version>8.2.0</version>
         </dependency>
 
     </dependencies>

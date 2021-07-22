@@ -1,5 +1,6 @@
 package nl.martenm.servertutorialplus.points;
 
+import com.cryptomorin.xseries.messages.Titles;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.Config;
 import nl.martenm.servertutorialplus.helpers.NeedsReflection;
@@ -185,8 +186,7 @@ public abstract class ServerTutorialPoint{
         //endregion
 
         if (titleInfo != null) {
-            NeedsReflection.sendTitle(player, PluginUtils.replaceVariables(plugin.placeholderAPI, player, titleInfo.title), titleInfo.fadeIn, titleInfo.time, titleInfo.fadeOut, ChatColor.WHITE);
-            NeedsReflection.sendSubTitle(player, PluginUtils.replaceVariables(plugin.placeholderAPI, player,titleInfo.subtitle), titleInfo.fadeIn, titleInfo.time, titleInfo.fadeOut, ChatColor.WHITE);
+            Titles.sendTitle(player, titleInfo.fadeIn, titleInfo.time, titleInfo.fadeOut, PluginUtils.replaceVariables(plugin.placeholderAPI, player, titleInfo.title), PluginUtils.replaceVariables(plugin.placeholderAPI, player,titleInfo.subtitle));
         }
 
         if (soundInfo != null) {
