@@ -169,7 +169,8 @@ public class ServerTutorialPlus extends JavaPlugin{
         //Try to safely disable the current tutorials.
         for(TutorialController tc : inTutorial.values()){
             tc.cancel(true);
-            FlatFileManager.saveJson(this, tc.getOldValuesPlayer());
+            tc.getOldValuesPlayer().restore(tc.getPlayer());
+            //FlatFileManager.saveJson(this, tc.getOldValuesPlayer());
         }
         inTutorial.clear();
 
