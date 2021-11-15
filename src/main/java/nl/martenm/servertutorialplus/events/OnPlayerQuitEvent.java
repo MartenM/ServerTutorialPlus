@@ -1,6 +1,7 @@
 package nl.martenm.servertutorialplus.events;
 
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
+import nl.martenm.servertutorialplus.helpers.dataholders.OldValuesPlayer;
 import nl.martenm.servertutorialplus.managers.FlatFileManager;
 import nl.martenm.servertutorialplus.objects.TutorialController;
 import org.bukkit.event.EventHandler;
@@ -24,7 +25,9 @@ public class OnPlayerQuitEvent implements Listener {
         if(plugin.inTutorial.containsKey(event.getPlayer().getUniqueId())){
             TutorialController tc = plugin.inTutorial.get(event.getPlayer().getUniqueId());
             tc.cancel(true);
-            FlatFileManager.saveJson(plugin, tc.getOldValuesPlayer());
+
+            OldValuesPlayer oldValuesPlayer = tc.getOldValuesPlayer();
+            oldValuesPlayer.restore(event.getPlayer());
         }
     }
 }

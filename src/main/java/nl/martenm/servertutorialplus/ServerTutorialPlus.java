@@ -1,7 +1,7 @@
 package nl.martenm.servertutorialplus;
 
 import nl.martenm.servertutorialplus.api.ServerTutorialApi;
-import nl.martenm.servertutorialplus.commands.ServerTutorialCommands;
+import nl.martenm.servertutorialplus.commands.ServerTutorialRootCommand;
 import nl.martenm.servertutorialplus.data.DataSource;
 import nl.martenm.servertutorialplus.data.FlatDataSource;
 import nl.martenm.servertutorialplus.data.MySqlDataSource;
@@ -24,11 +24,11 @@ import nl.martenm.servertutorialplus.reflection.IProtocol;
 import nl.martenm.servertutorialplus.reflection.V1_13.Protocol_1_13_V1;
 import nl.martenm.servertutorialplus.reflection.v1_12.Protocol_1_12;
 import nl.martenm.servertutorialplus.reflection.v1_14.Protocol_1_14_V1;
+import nl.martenm.simplecommands.SimpleCommandMessages;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -71,7 +71,11 @@ public class ServerTutorialPlus extends JavaPlugin{
 
     private ClickManager clickManager;
 
-    protected ServerTutorialPlus instance;
+    public static ServerTutorialPlus instance;
+
+    public static ServerTutorialPlus getInstance() {
+        return instance;
+    }
 
     public void onEnable(){
         instance = this;
@@ -151,6 +155,9 @@ public class ServerTutorialPlus extends JavaPlugin{
             }
         }
 
+        SimpleCommandMessages.NO_PERMISSION.setMessage(Lang.NO_PERMS.toString());
+        SimpleCommandMessages.PLAYER_ONLY.setMessage(Lang.PLAYER_ONLY_COMMAND.toString());
+
         enabled = true;
         logger.info("Servertutorial enabled successfully!");
     }
@@ -181,7 +188,7 @@ public class ServerTutorialPlus extends JavaPlugin{
     }
 
     private void registerCommands(){
-        getCommand("servertutorial").setExecutor(new ServerTutorialCommands(this));
+        new ServerTutorialRootCommand().registerCommand(this);
     }
 
     private void registerEvents(){
@@ -459,7 +466,7 @@ public class ServerTutorialPlus extends JavaPlugin{
         folder.mkdirs();
 
         if(folder.listFiles().length == 0){
-            //TODO: Create default language files.
+            // Create default language files
         }
 
         languageFile = new Config(this, "/language/" + getConfig().getString("language"));

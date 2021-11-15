@@ -25,9 +25,9 @@ public class PointEditor {
     public boolean execute(ServerTutorial tutorial, ServerTutorialPoint point, CommandSender sender, String[] args){
 
         for(PointArg argument : arguments) {
-            if (argument.getName().equalsIgnoreCase(args[3]) || argument.isAlias(args[3])) {
+            if (argument.getName().equalsIgnoreCase(args[2]) || argument.isAlias(args[2])) {
 
-                String[] editorArgs = Arrays.copyOfRange(args, 4, args.length);
+                String[] editorArgs = Arrays.copyOfRange(args, 3, args.length);
                 if(argument.run(tutorial, point, sender, editorArgs)){
                     sender.sendMessage(Lang.SETTING_EDITED.toString().replace("%setting%", argument.getName()));
                     return true;

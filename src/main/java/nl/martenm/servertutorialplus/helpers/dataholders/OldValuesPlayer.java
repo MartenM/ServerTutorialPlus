@@ -57,4 +57,13 @@ public class OldValuesPlayer {
     public GameMode getGamemode() {
         return gamemode;
     }
+
+    public void restore(Player player) {
+        player.setFlySpeed(getOriginal_flySpeed());
+        player.setWalkSpeed(getOriginal_walkSpeed());
+        player.setAllowFlight(isAllowFlight());
+        player.setFlying(getFlying());
+        player.setGameMode(getGamemode());
+        player.teleport(getLoc());
+    }
 }
