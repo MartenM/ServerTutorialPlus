@@ -16,6 +16,7 @@ public class STFormatter extends SimpleHelpFormatter {
         sender.sendMessage(" ");
 
         for(SimpleCommand command : subCommands) {
+            if(!command.hasDescription()) continue;
             sender.sendMessage(formatCommand(command));
         }
 

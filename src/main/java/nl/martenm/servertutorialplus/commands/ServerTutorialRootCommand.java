@@ -4,6 +4,8 @@ import nl.martenm.servertutorialplus.commands.help.STFormatter;
 import nl.martenm.servertutorialplus.commands.sub.*;
 import nl.martenm.servertutorialplus.commands.sub.manage.ReloadPluginCommand;
 import nl.martenm.servertutorialplus.commands.sub.manage.SaveCommand;
+import nl.martenm.servertutorialplus.commands.sub.misc.CancelActionCommand;
+import nl.martenm.servertutorialplus.commands.sub.misc.NextPointCommand;
 import nl.martenm.servertutorialplus.commands.sub.points.*;
 import nl.martenm.servertutorialplus.commands.sub.tutorials.*;
 import nl.martenm.simplecommands.RootCommand;
@@ -23,11 +25,15 @@ public class ServerTutorialRootCommand extends RootCommand {
         addCommand(new EditAllPointsCommand());
         addCommand(new InfoCommand());
         addCommand(new PlayerCommand());
+        addCommand(new PlayTutorialCommand());
         addCommand(new QuitTutorialCommand());
         addCommand(new PlayPointCommand());
         addCommand(new SetBlockCommand());
         addCommand(new NpcCommand());
         addCommand(new ReloadPluginCommand());
         addCommand(new SaveCommand());
+
+        addCommand(new CancelActionCommand());
+        addCommand(new NextPointCommand());
     }
 }

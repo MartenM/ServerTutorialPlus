@@ -466,7 +466,7 @@ public class ServerTutorialPlus extends JavaPlugin{
         folder.mkdirs();
 
         if(folder.listFiles().length == 0){
-            //TODO: Create default language files.
+            // Create default language files
         }
 
         languageFile = new Config(this, "/language/" + getConfig().getString("language"));

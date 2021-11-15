@@ -38,7 +38,6 @@ public class EditAllPointsCommand extends SimpleCommand {
             return true;
         }
 
-        //TODO: Fix this command
         String[] arguments = new String[args.length + 1];
         System.arraycopy(args, 0, arguments, 1, args.length);
 
