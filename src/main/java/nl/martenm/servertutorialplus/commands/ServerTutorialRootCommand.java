@@ -13,7 +13,7 @@ import nl.martenm.simplecommands.RootCommand;
 public class ServerTutorialRootCommand extends RootCommand {
 
     public ServerTutorialRootCommand() {
-        super("servertutorial", "servertutorialplus.commands", false);
+        super("servertutorial", "servertutorialplus.command", false);
         setHelpFormatter(new STFormatter());
 
         addCommand(new CreateTutorialCommand());

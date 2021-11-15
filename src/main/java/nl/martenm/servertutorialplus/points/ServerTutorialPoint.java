@@ -78,7 +78,6 @@ public abstract class ServerTutorialPoint{
 
             @Override
             public void start() {
-
                 playDefault(player, oldValuesPlayer, true);
 
                 timerTask = new BukkitRunnable() {

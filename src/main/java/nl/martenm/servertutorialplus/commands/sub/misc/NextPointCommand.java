@@ -30,4 +30,9 @@ public class NextPointCommand extends SimpleCommand {
     public boolean isAllowed(CommandSender sender) {
         return true;
     }
+
+    @Override
+    public boolean checkPermission(CommandSender sender) {
+        return true;
+    }
 }
