@@ -8,6 +8,15 @@
     <artifactId>ServerTutorialPlus</artifactId>
     <version>1.23.2-SNAPSHOT</version>
 
+    <configuration>
+      <relocations>
+        <relocation>
+          <pattern>com.zaxxer.hikari</pattern>
+            <shadedPattern>nl.marten.libs.hikari</shadedPattern>
+          </relocation>
+        </relocations>
+    </configuration>
+         
     <repositories>
         <!-- Spigot.MC repo -->
         <repository>
