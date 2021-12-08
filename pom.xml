@@ -67,7 +67,7 @@
         <dependency>
             <groupId>com.github.MartenM</groupId>
             <artifactId>SimpleCommands</artifactId>
-            <version>1.3.0</version>
+            <version>1.4.1</version>
         </dependency>
 
     </dependencies>
