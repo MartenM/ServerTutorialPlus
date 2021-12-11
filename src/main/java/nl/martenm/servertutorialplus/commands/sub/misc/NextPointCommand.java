@@ -13,6 +13,7 @@ public class NextPointCommand extends SimpleCommand {
 
     public NextPointCommand() {
         super("next", true);
+        setHidden(true);
     }
 
     @Override

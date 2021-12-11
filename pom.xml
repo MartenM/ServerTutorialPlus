@@ -6,8 +6,8 @@
 
     <groupId>nl.martenm</groupId>
     <artifactId>ServerTutorialPlus</artifactId>
-    <version>1.23.2-SNAPSHOT</version>
-	
+    <version>1.23.3-SNAPSHOT</version>
+  
     <repositories>
         <!-- Spigot.MC repo -->
         <repository>
@@ -67,7 +67,7 @@
         <dependency>
             <groupId>com.github.MartenM</groupId>
             <artifactId>SimpleCommands</artifactId>
-            <version>1.3.0</version>
+            <version>1.4.1</version>
         </dependency>
 
     </dependencies>
