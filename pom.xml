@@ -7,7 +7,7 @@
     <groupId>nl.martenm</groupId>
     <artifactId>ServerTutorialPlus</artifactId>
     <version>1.23.3-SNAPSHOT</version>
-
+  
     <repositories>
         <!-- Spigot.MC repo -->
         <repository>
@@ -83,13 +83,18 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.1</version>
                 <configuration>
-                    <!-- put your configurations here -->
+				
+                  <relocations>
+                    <relocation>
+                      <pattern>com.zaxxer.hikari</pattern>
+                        <shadedPattern>nl.martenm.libs.hikari</shadedPattern>
+                      </relocation>
+                    </relocations>
 
                     <minimizeJar>true</minimizeJar>
                 </configuration>
