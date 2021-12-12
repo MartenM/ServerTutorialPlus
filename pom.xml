@@ -92,7 +92,7 @@
                   <relocations>
                     <relocation>
                       <pattern>com.zaxxer.hikari</pattern>
-                        <shadedPattern>nl.marten.libs.hikari</shadedPattern>
+                        <shadedPattern>nl.martenm.libs.hikari</shadedPattern>
                       </relocation>
                     </relocations>
 
