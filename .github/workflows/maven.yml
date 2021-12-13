@@ -16,16 +16,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 11
+    - name: Set up JDK 10
       uses: actions/setup-java@v2
       with:
-        java-version: '10'
+        java-version: '8'
         distribution: 'adopt'
         cache: maven
-    - name: Compile Minecraft Spigot or Paper (BuildTools)
+    - name: Compile Minecraft Spigot
       uses: SpraxDev/Action-SpigotMC@v3
       with:
         versions: 1.12.2
+        buildToolProvider: SpigotMC
 
     - name: Build with Maven
       run: mvn -B package --file pom.xml
