@@ -22,7 +22,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.Config;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
-import nl.martenm.servertutorialplus.helpers.dataholders.FireWorkInfo;
+import nl.martenm.servertutorialplus.helpers.dataholders.FireworkInfo;
 import nl.martenm.servertutorialplus.helpers.dataholders.OldValuesPlayer;
 import nl.martenm.servertutorialplus.helpers.dataholders.PlayerSound;
 import nl.martenm.servertutorialplus.helpers.dataholders.PlayerTitle;
@@ -53,7 +53,7 @@ public abstract class ServerTutorialPoint{
     protected Location loc;
     protected List<String> message_chat;
     protected List<String> commands;
-    protected List<FireWorkInfo> fireworks;
+    protected List<FireworkInfo> fireworks;
     protected String message_actionBar;
     protected PlayerTitle titleInfo;
     protected PlayerSound soundInfo;
@@ -70,10 +70,10 @@ public abstract class ServerTutorialPoint{
         this.time = 2;
         this.message_chat = new ArrayList<>();
         this.commands = new ArrayList<>();
-        this.fireworks = new ArrayList<>();
+        this.fireworks = new ArrayList<FireworkInfo>();
         this.lockPlayer = false;
         this.lockView = false;
-        this.potionEffects = new ArrayList<>();
+        this.potionEffects = new ArrayList<PotionEffect>();
     }
 
     /**
@@ -180,7 +180,7 @@ public abstract class ServerTutorialPoint{
 
         //region fireworks
         if(fireworks != null){
-            for(FireWorkInfo fireWorkInfo : fireworks){
+            for(FireworkInfo fireWorkInfo : fireworks){
                 Firework firework = (Firework) player.getWorld().spawnEntity(fireWorkInfo.getLoc(), EntityType.FIREWORK);
                 firework.setFireworkMeta(fireWorkInfo.getFireworkMeta());
             }
@@ -238,13 +238,13 @@ public abstract class ServerTutorialPoint{
         }
 
         if (tutorialSaves.isConfigurationSection("tutorials." + ID + ".points." + i + ".fireworks")) {
-            List<FireWorkInfo> infos = new ArrayList<>();
+            List<FireworkInfo> infos = new ArrayList<>();
             for (String index : tutorialSaves.getConfigurationSection("tutorials." + ID + ".points." + i + ".fireworks").getKeys(false)) {
                 FireworkMeta meta = (FireworkMeta) tutorialSaves.get("tutorials." + ID + ".points." + i + ".fireworks." + index + ".meta");
                 // "tutorials." + ID + ".points." + i + ".fireworks." + index + ".location"
                 // "tutorials." + ID + ".points." + i + ".fireworks." + index + ".meta"
                 Location loc = PluginUtils.fromString(plugin, tutorialSaves.getString("tutorials." + ID + ".points." + i + ".fireworks." + index + ".location"));
-                infos.add(new FireWorkInfo(loc, meta));
+                infos.add(new FireworkInfo(loc, meta));
             }
             fireworks = infos;
         }
@@ -298,7 +298,7 @@ public abstract class ServerTutorialPoint{
 
         if(fireworks != null){
             for(int fire = 0; fire < fireworks.size(); fire++ ){
-                FireWorkInfo info = fireworks.get(fire);
+                FireworkInfo info = fireworks.get(fire);
                 tutorialSaves.set("tutorials." + key + ".points." + i + ".fireworks."+ fire + ".location", PluginUtils.fromLocation(info.getLoc()));
                 tutorialSaves.set("tutorials." + key + ".points." + i + ".fireworks."+ fire + ".meta", info.getFireworkMeta());
             }
@@ -395,11 +395,11 @@ public abstract class ServerTutorialPoint{
         this.commands = commands;
     }
 
-    public List<FireWorkInfo> getFireworks() {
+    public List<FireworkInfo> getFireworks() {
         return fireworks;
     }
 
-    public void setFireworks(List<FireWorkInfo> fireworks) {
+    public void setFireworks(List<FireworkInfo> fireworks) {
         this.fireworks = fireworks;
     }
 

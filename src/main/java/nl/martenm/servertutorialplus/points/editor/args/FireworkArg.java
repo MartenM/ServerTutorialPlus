@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-import nl.martenm.servertutorialplus.helpers.dataholders.FireWorkInfo;
+import nl.martenm.servertutorialplus.helpers.dataholders.FireworkInfo;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
@@ -48,10 +48,10 @@ public class FireworkArg extends PointArg {
 
                 Player player = (Player) sender;
 
-                FireWorkInfo fw = null;
+                FireworkInfo fw = null;
                 double distance = 1000;
 
-                for(FireWorkInfo info : point.getFireworks()){
+                for(FireworkInfo info : point.getFireworks()){
                     if(info.getLoc().distance(player.getLocation()) < distance){
                         fw = info;
                         distance = info.getLoc().distance(player.getLocation());
@@ -83,7 +83,7 @@ public class FireworkArg extends PointArg {
                     }
 
                     FireworkMeta fireworkMeta = (FireworkMeta) firework.getItemMeta();
-                    point.getFireworks().add(new FireWorkInfo(player.getLocation(), fireworkMeta));
+                    point.getFireworks().add(new FireworkInfo(player.getLocation(), fireworkMeta));
                 }
                 else{
                     sender.sendMessage(Lang.FIREWORK_ADD_WRONGUSAGE.toString());

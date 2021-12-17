@@ -6,12 +6,12 @@ import org.bukkit.inventory.meta.FireworkMeta;
 /**
  * Created by Marten on 19-3-2017.
  */
-public class FireWorkInfo {
+public class FireworkInfo {
 
     private Location location;
     private FireworkMeta fireworkMeta;
 
-    public FireWorkInfo(Location location, FireworkMeta fireworkMeta){
+    public FireworkInfo(Location location, FireworkMeta fireworkMeta){
         this.fireworkMeta = fireworkMeta;
         this.location = location;
     }
