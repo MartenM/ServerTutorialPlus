@@ -17,7 +17,6 @@ import java.util.UUID;
 /**
  * Created by Marten on 7-6-2017.
  */
-@SuppressWarnings("ALL")
 public class FlatFileManager{
 
     public static JSONObject getPlayerData(ServerTutorialPlus plugin, UUID uuid){
@@ -72,7 +71,8 @@ public class FlatFileManager{
         }
     }
 
-    public static void saveJson(ServerTutorialPlus plugin, OldValuesPlayer info){
+    @SuppressWarnings("unchecked")
+	public static void saveJson(ServerTutorialPlus plugin, OldValuesPlayer info){
         File hostlocation = new File(plugin.getDataFolder() + "/playerdata");
         hostlocation.mkdirs();
 
