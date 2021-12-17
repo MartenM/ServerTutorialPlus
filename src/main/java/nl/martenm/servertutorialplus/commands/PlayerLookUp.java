@@ -23,7 +23,8 @@ public class PlayerLookUp {
 
     public static void sendLookupAsync(ServerTutorialPlus plugin, CommandSender sender, OfflinePlayer target){
         new BukkitRunnable(){
-            @Override
+            @SuppressWarnings("deprecation") // REMOVE AFTER COMPLETING TODOs!!
+			@Override
             public void run() {
                 for(int i = 0 ; i < 4; i++){
                     sender.sendMessage(" ");
@@ -42,11 +43,11 @@ public class PlayerLookUp {
                     if(playedBefore){
                         extra = new TextComponent(createSpacing(tutorial.getId(), 20) + ChatColor.GRAY + "  :  " + Lang.LOOKUP_SET_UNFINISHED);
                         extra.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/st player " + target.getName() + " " + tutorial.getId() + " unset"));
-                        extra.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Lang.LOOKUP_SET_UNFINIHSHED_MESSAGE.toString()).create()));
+                        extra.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Lang.LOOKUP_SET_UNFINIHSHED_MESSAGE.toString()).create())); // TODO: Find a better way of doing this.
                     } else{
                         extra = new TextComponent(createSpacing(tutorial.getId(), 20) + ChatColor.GRAY + "  :  " + Lang.LOOKUP_SET_FINISHED);
                         extra.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/st player " + target.getName() + " " + tutorial.getId() + " set"));
-                        extra.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Lang.LOOKUP_SET_FINIHSHED_MESSAGE.toString()).create()));
+                        extra.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Lang.LOOKUP_SET_FINIHSHED_MESSAGE.toString()).create())); // TODO: Find a better way of doing this.
                     }
 
                     if(sender instanceof Player){
