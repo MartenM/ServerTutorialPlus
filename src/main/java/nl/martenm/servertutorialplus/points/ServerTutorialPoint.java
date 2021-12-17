@@ -190,7 +190,7 @@ public abstract class ServerTutorialPoint{
         //region potionEffects
         if(potionEffects != null) {
             for (PotionEffect effect : potionEffects) {
-                player.addPotionEffect(effect, false);
+                player.addPotionEffect(effect);
             }
         }
         //endregion
