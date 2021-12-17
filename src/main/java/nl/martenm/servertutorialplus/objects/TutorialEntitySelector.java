@@ -48,8 +48,6 @@ public class TutorialEntitySelector {
         }
 
         if(event.getRightClicked() instanceof HumanEntity){
-            HumanEntity humanEntity = (HumanEntity) event.getRightClicked();
-
             Player target = plugin.getServer().getPlayer(event.getRightClicked().getUniqueId());
             if(target != null){
                 player.sendMessage(Lang.NPC_PLAYER_SELECTED.toString());
