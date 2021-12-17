@@ -47,4 +47,8 @@ public class ClickManager {
         if(!hasClickaction(event.getPlayer().getUniqueId())) return;
         clickActions.get(event.getPlayer().getUniqueId()).run(event);
     }
+
+	public ServerTutorialPlus getPlugin() {
+		return plugin;
+	}
 }
