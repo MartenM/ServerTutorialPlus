@@ -17,7 +17,8 @@ public class PlayerCommand extends SimpleCommand {
         super("player", Lang.HELP_PLAYER.toString(), "+player", false);
     }
 
-    @Override
+    @SuppressWarnings("deprecation") // REMOVE ME AFTER TODO IS COMPLETED!
+	@Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
@@ -30,7 +31,7 @@ public class PlayerCommand extends SimpleCommand {
 
         target = plugin.getServer().getPlayer(args[0]);
         if(target == null){
-            target = plugin.getServer().getOfflinePlayer(args[0]);
+            target = plugin.getServer().getOfflinePlayer(args[0]); // TODO: Lookup based on UUID last seen by plugin to ensure the right player is referenced
         }
 
         if(target == null){
