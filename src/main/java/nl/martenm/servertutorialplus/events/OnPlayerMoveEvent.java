@@ -10,10 +10,10 @@ import org.bukkit.event.player.PlayerMoveEvent;
  * Used to block movement if a player has been locked.
  * @author MartenM
  */
-public class onPlayerMoveEvent implements Listener {
+public class OnPlayerMoveEvent implements Listener {
 
     private ServerTutorialPlus plugin;
-    public onPlayerMoveEvent(ServerTutorialPlus plugin){
+    public OnPlayerMoveEvent(ServerTutorialPlus plugin){
         this.plugin = plugin;
     }
 

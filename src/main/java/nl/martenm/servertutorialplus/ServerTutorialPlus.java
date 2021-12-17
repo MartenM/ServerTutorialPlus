@@ -203,7 +203,7 @@ public class ServerTutorialPlus extends JavaPlugin{
         }
         pm.registerEvents(new OnPlayerJoinEvent(this), this);
         pm.registerEvents(new OnBlockBreakEvent(this), this);
-        pm.registerEvents(new onPlayerMoveEvent(this), this);
+        pm.registerEvents(new OnPlayerMoveEvent(this), this);
         pm.registerEvents(new OnPlayerQuitEvent(this), this);
         pm.registerEvents(new OnPlayerToggleFlight(this), this);
         pm.registerEvents(new OnCommandPreprocessEvent(this), this);
