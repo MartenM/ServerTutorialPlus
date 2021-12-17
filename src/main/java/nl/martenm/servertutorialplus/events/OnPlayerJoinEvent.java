@@ -28,9 +28,7 @@ public class OnPlayerJoinEvent implements Listener{
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event){
 
-        plugin.inTutorial.keySet().stream().forEach(uuid -> event.getPlayer().hidePlayer(
-                        plugin.getServer().getPlayer(uuid))
-        );
+        plugin.inTutorial.keySet().stream().forEach(uuid -> event.getPlayer().hidePlayer(plugin, plugin.getServer().getPlayer(uuid)));
 
         if(!event.getPlayer().hasPlayedBefore()){
             if(plugin.getConfig().getBoolean("enable first join tutorial")){
