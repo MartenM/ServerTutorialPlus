@@ -71,4 +71,8 @@ public class NPCInfo {
     public Location getLocation() {
         return location;
     }
+
+	public ServerTutorialPlus getPlugin() {
+		return plugin;
+	}
 }
