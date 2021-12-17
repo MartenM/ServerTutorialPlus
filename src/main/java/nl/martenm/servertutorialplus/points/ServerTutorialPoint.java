@@ -57,7 +57,7 @@ public abstract class ServerTutorialPoint{
     protected String message_actionBar;
     protected PlayerTitle titleInfo;
     protected PlayerSound soundInfo;
-    protected List<PotionEffect> pointionEffects;
+    protected List<PotionEffect> potionEffects;
     protected boolean lockPlayer;
     protected boolean lockView;
     protected double time;
@@ -73,7 +73,7 @@ public abstract class ServerTutorialPoint{
         this.fireworks = new ArrayList<>();
         this.lockPlayer = false;
         this.lockView = false;
-        this.pointionEffects = new ArrayList<>();
+        this.potionEffects = new ArrayList<>();
     }
 
     /**
@@ -188,8 +188,8 @@ public abstract class ServerTutorialPoint{
         //endregion
 
         //region potionEffects
-        if(pointionEffects != null) {
-            for (PotionEffect effect : pointionEffects) {
+        if(potionEffects != null) {
+            for (PotionEffect effect : potionEffects) {
                 player.addPotionEffect(effect, false);
             }
         }
@@ -261,7 +261,7 @@ public abstract class ServerTutorialPoint{
 
                 infos.add(new PotionEffect(type, duration, amplifier, isAmbient, show_particles));
             }
-            pointionEffects = infos;
+            potionEffects = infos;
         }
 
         readCustomSaveData(tutorialSaves, ID, i);
@@ -304,9 +304,9 @@ public abstract class ServerTutorialPoint{
             }
         }
 
-        if(pointionEffects != null){
-            for(int effect = 0; effect < pointionEffects.size(); effect++){
-                PotionEffect info =  pointionEffects.get(effect);
+        if(potionEffects != null){
+            for(int effect = 0; effect < potionEffects.size(); effect++){
+                PotionEffect info =  potionEffects.get(effect);
                 tutorialSaves.set("tutorials." + key + ".points." + i + ".potioneffects."+ effect + ".type", info.getType().getName());
                 tutorialSaves.set("tutorials." + key + ".points." + i + ".potioneffects."+ effect + ".time", info.getDuration());
                 tutorialSaves.set("tutorials." + key + ".points." + i + ".potioneffects."+ effect + ".amplifier", info.getAmplifier());
@@ -404,11 +404,11 @@ public abstract class ServerTutorialPoint{
     }
 
     public List<PotionEffect> getPointionEffects() {
-        return pointionEffects;
+        return potionEffects;
     }
 
     public void setPointionEffects(List<PotionEffect> pointionEffects) {
-        this.pointionEffects = pointionEffects;
+        this.potionEffects = pointionEffects;
     }
 
     public void setTitleInfo(PlayerTitle titleInfo) {
