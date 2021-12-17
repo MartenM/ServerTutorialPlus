@@ -1,11 +1,78 @@
 main: nl.martenm.servertutorialplus.ServerTutorialPlus
 name: ServerTutorialPlus
-prefix: Server Tutorial Plus
+prefix: ST+
 author: MartenM
 version: 1.23.3
-description: "ยง6The plugin to guide players around your server using tutorials."
+api-version: 1.14
+load: POSTWORLD
+description: "ง6The plugin to guide players around your server using tutorials."
 softdepend: [PlaceholderAPI, Multiverse-Core, MultiWorld]
 commands:
   servertutorial:
     description: "All the servertutorial plus commands"
     aliases: [st]
+permissions:
+  servertutorialplus.command.*:
+    description: Allows you to use administrative ST+ commands.
+    default: false
+    children:
+      servertutorialplus.command.help: true
+      servertutorialplus.command.create: true
+      servertutorialplus.command.remove: true
+      servertutorialplus.command.addpoint: true
+      servertutorialplus.command.removepoint: true
+      servertutorialplus.command.play: true
+      servertutorialplus.command.player: true
+      servertutorialplus.command.quit: true
+      servertutorialplus.command.playpoint: true
+      servertutorialplus.command.setblock: true
+      servertutorialplus.command.edit: true
+      servertutorialplus.command.npc: true
+      servertutorialplus.command.info: true
+      servertutorialplus.command.reload: true
+      servertutorialplus.command.save: true
+  servertutorialplus.command.help:
+    description: Allows you to view ST+ help.
+    default: true
+  servertutorialplus.command.create:
+    description: Allows you to create ST+ tutorials.
+    default: op
+  servertutorialplus.command.remove:
+    description: Allows you to remove ST+ tutorials.
+    default: op
+  servertutorialplus.command.addpoint:
+    description: Allows you to add a point in an existing ST+ tutorial.
+    default: op
+  servertutorialplus.command.removepoint:
+    description: Allows you to remove a point in an existing ST+ tutorial.
+    default: op
+  servertutorialplus.command.play:
+    description: Allows you to play an existing ST+ tutorial.
+    default: op
+  servertutorialplus.command.player:
+    description: Allows you view the ST+ stats of a player.
+    default: op
+  servertutorialplus.command.quit:
+    description: Allows you to quit the current tutorial.
+    default: true
+  servertutorialplus.command.playpoint:
+    description: Allows you to play a single point of an existing ST+ tutorial.
+    default: op
+  servertutorialplus.command.setblock:
+    description: Allows you to set a block which will play an existing ST+ tutorial.
+    default: op
+  servertutorialplus.command.edit:
+    description: Allows you to modify settings for an entire ST+ tutorial.
+    default: op
+  servertutorialplus.command.npc:
+    description: Allows you to create, modify, and delete ST+ NPCs.
+    default: op
+  servertutorialplus.command.info:
+    description: Allows you to list all ST+ tutorials, or info on a specific one.
+    default: op
+  servertutorialplus.command.reload:
+    description: Allows you to reload the ST+ config, overwriting pending changes.
+    default: op
+  servertutorialplus.command.save:
+    description: Allows you to overwrite the config with the current state.
+    default: op
