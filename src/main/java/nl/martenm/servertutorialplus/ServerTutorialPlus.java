@@ -1,19 +1,50 @@
 package nl.martenm.servertutorialplus;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.logging.Logger;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.json.simple.JSONObject;
+
 import nl.martenm.servertutorialplus.api.ServerTutorialApi;
 import nl.martenm.servertutorialplus.commands.ServerTutorialRootCommand;
 import nl.martenm.servertutorialplus.data.DataSource;
 import nl.martenm.servertutorialplus.data.FlatDataSource;
 import nl.martenm.servertutorialplus.data.MySqlDataSource;
-import nl.martenm.servertutorialplus.events.*;
+import nl.martenm.servertutorialplus.events.ChatEventListener;
+import nl.martenm.servertutorialplus.events.OnBlockBreakEvent;
+import nl.martenm.servertutorialplus.events.OnCommandPreprocessEvent;
+import nl.martenm.servertutorialplus.events.OnPlayerInteractEntityEvent;
+import nl.martenm.servertutorialplus.events.OnPlayerInteractEntityEventV1_8;
+import nl.martenm.servertutorialplus.events.OnPlayerInteractEvent;
+import nl.martenm.servertutorialplus.events.OnPlayerInteractEventV1_8;
+import nl.martenm.servertutorialplus.events.OnPlayerJoinEvent;
+import nl.martenm.servertutorialplus.events.OnPlayerMoveEvent;
+import nl.martenm.servertutorialplus.events.OnPlayerQuitEvent;
+import nl.martenm.servertutorialplus.events.OnPlayerToggleFlight;
 import nl.martenm.servertutorialplus.helpers.Config;
-import nl.martenm.servertutorialplus.helpers.MetricsLite;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
 import nl.martenm.servertutorialplus.helpers.SpigotUtils;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.managers.FlatFileManager;
 import nl.martenm.servertutorialplus.managers.clickactions.ClickManager;
-import nl.martenm.servertutorialplus.objects.*;
+import nl.martenm.servertutorialplus.objects.NPCInfo;
+import nl.martenm.servertutorialplus.objects.ServerTutorial;
+import nl.martenm.servertutorialplus.objects.TutorialController;
+import nl.martenm.servertutorialplus.objects.TutorialEntitySelector;
+import nl.martenm.servertutorialplus.objects.TutorialSign;
 import nl.martenm.servertutorialplus.points.PointType;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
 import nl.martenm.servertutorialplus.points.custom.CheckPoint;
@@ -25,19 +56,6 @@ import nl.martenm.servertutorialplus.reflection.V1_13.Protocol_1_13_V1;
 import nl.martenm.servertutorialplus.reflection.v1_12.Protocol_1_12;
 import nl.martenm.servertutorialplus.reflection.v1_14.Protocol_1_14_V1;
 import nl.martenm.simplecommands.SimpleCommandMessages;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.json.simple.JSONObject;
-
-import java.io.File;
-import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * ServerTutorialPlus
