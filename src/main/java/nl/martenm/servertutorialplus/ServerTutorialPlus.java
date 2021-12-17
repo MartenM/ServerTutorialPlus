@@ -96,8 +96,9 @@ public class ServerTutorialPlus extends JavaPlugin{
         lockedViews = new ArrayList<>();
         blockPlayers = new ArrayList<>();
         clickManager = new ClickManager(this);
-
-        MetricsLite metricsLite = new MetricsLite(this);
+        
+        // unused and disabled -- may be removed soon!
+        //MetricsLite metricsLite = new MetricsLite(this);
 
         registerCommands();
         registerConfigs();
