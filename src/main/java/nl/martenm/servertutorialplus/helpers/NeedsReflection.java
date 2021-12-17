@@ -26,11 +26,11 @@ public class NeedsReflection {
         {
             String title_text = net.md_5.bungee.api.ChatColor.translateAlternateColorCodes('&', text);
 
-            Constructor timeConstructor = getNMSClass("PacketPlayOutTitle").getConstructor(int.class, int.class, int.class);
+            Constructor<?> timeConstructor = getNMSClass("PacketPlayOutTitle").getConstructor(int.class, int.class, int.class);
 
             Object enumTitle = getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("TITLE").get(null);
             Object title = getNMSClass("IChatBaseComponent$ChatSerializer").getMethod("a", String.class).invoke(null, "{\"text\": \"" + title_text +"\"}");
-            Constructor titleConstuctor = getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle$EnumTitleAction"), getNMSClass("IChatBaseComponent"), int.class, int.class, int.class);
+            Constructor<?> titleConstuctor = getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle$EnumTitleAction"), getNMSClass("IChatBaseComponent"), int.class, int.class, int.class);
             Object packet = titleConstuctor.newInstance(enumTitle, title, fadeInTime, showTime, fadeOutTime);
 
             Object packetTimes = timeConstructor.newInstance(fadeInTime, showTime, fadeOutTime);
@@ -54,7 +54,7 @@ public class NeedsReflection {
             Object enumTitle = getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("SUBTITLE").get(null);
             Object title = getNMSClass("IChatBaseComponent$ChatSerializer").getMethod("a", String.class).invoke(null, "{\"text\": \"" + title_text +"\"}");
 
-            Constructor titleConstuctor = getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle$EnumTitleAction"), getNMSClass("IChatBaseComponent"), int.class, int.class, int.class);
+            Constructor<?> titleConstuctor = getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle$EnumTitleAction"), getNMSClass("IChatBaseComponent"), int.class, int.class, int.class);
             Object packet = titleConstuctor.newInstance(enumTitle, title, fadeInTime, showTime, fadeOutTime);
             sendPacket(player, packet);
         }
@@ -74,7 +74,7 @@ public class NeedsReflection {
             Object enumTitle = getNMSClass("PacketPlayOutTitle").getDeclaredClasses()[0].getField("ACTIONBAR").get(null);
             Object title = getNMSClass("IChatBaseComponent$ChatSerializer").getMethod("a", String.class).invoke(null, "{\"text\": \"" + title_text +"\"}");
 
-            Constructor titleConstuctor = getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle$EnumTitleAction"), getNMSClass("IChatBaseComponent"));
+            Constructor<?> titleConstuctor = getNMSClass("PacketPlayOutTitle").getConstructor(getNMSClass("PacketPlayOutTitle$EnumTitleAction"), getNMSClass("IChatBaseComponent"));
             Object packet = titleConstuctor.newInstance(enumTitle, title);
             sendPacket(player, packet);
         }
