@@ -1,11 +1,11 @@
 package nl.martenm.servertutorialplus.points.editor.args;
 
+import org.bukkit.command.CommandSender;
+
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
 import nl.martenm.servertutorialplus.points.editor.PointArg;
-import net.md_5.bungee.api.ChatColor;
-import org.bukkit.command.CommandSender;
 
 /**
  * @author MartenM

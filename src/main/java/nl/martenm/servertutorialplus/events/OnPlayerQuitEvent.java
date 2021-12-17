@@ -1,12 +1,12 @@
 package nl.martenm.servertutorialplus.events;
 
-import nl.martenm.servertutorialplus.ServerTutorialPlus;
-import nl.martenm.servertutorialplus.helpers.dataholders.OldValuesPlayer;
-import nl.martenm.servertutorialplus.managers.FlatFileManager;
-import nl.martenm.servertutorialplus.objects.TutorialController;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
+import nl.martenm.servertutorialplus.helpers.dataholders.OldValuesPlayer;
+import nl.martenm.servertutorialplus.objects.TutorialController;
 
 /**
  * Player quit event listener.

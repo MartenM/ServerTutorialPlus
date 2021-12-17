@@ -1,20 +1,9 @@
 package nl.martenm.servertutorialplus.points;
 
-import com.cryptomorin.xseries.messages.Titles;
-import nl.martenm.servertutorialplus.ServerTutorialPlus;
-import nl.martenm.servertutorialplus.helpers.Config;
-import nl.martenm.servertutorialplus.helpers.NeedsReflection;
-import nl.martenm.servertutorialplus.helpers.PluginUtils;
-import nl.martenm.servertutorialplus.helpers.dataholders.FireWorkInfo;
-import nl.martenm.servertutorialplus.helpers.dataholders.OldValuesPlayer;
-import nl.martenm.servertutorialplus.helpers.dataholders.PlayerSound;
-import nl.martenm.servertutorialplus.helpers.dataholders.PlayerTitle;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
-import nl.martenm.servertutorialplus.points.editor.PointArg;
-import nl.martenm.servertutorialplus.points.editor.args.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
@@ -26,8 +15,30 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.cryptomorin.xseries.messages.Titles;
+
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
+import nl.martenm.servertutorialplus.ServerTutorialPlus;
+import nl.martenm.servertutorialplus.helpers.Config;
+import nl.martenm.servertutorialplus.helpers.PluginUtils;
+import nl.martenm.servertutorialplus.helpers.dataholders.FireWorkInfo;
+import nl.martenm.servertutorialplus.helpers.dataholders.OldValuesPlayer;
+import nl.martenm.servertutorialplus.helpers.dataholders.PlayerSound;
+import nl.martenm.servertutorialplus.helpers.dataholders.PlayerTitle;
+import nl.martenm.servertutorialplus.points.editor.PointArg;
+import nl.martenm.servertutorialplus.points.editor.args.ActionbarArg;
+import nl.martenm.servertutorialplus.points.editor.args.CommandsArg;
+import nl.martenm.servertutorialplus.points.editor.args.FireworkArg;
+import nl.martenm.servertutorialplus.points.editor.args.FlyArg;
+import nl.martenm.servertutorialplus.points.editor.args.LocationArg;
+import nl.martenm.servertutorialplus.points.editor.args.LockPlayerArg;
+import nl.martenm.servertutorialplus.points.editor.args.LockViewArg;
+import nl.martenm.servertutorialplus.points.editor.args.MessagesArg;
+import nl.martenm.servertutorialplus.points.editor.args.PotionEffectArg;
+import nl.martenm.servertutorialplus.points.editor.args.SoundArg;
+import nl.martenm.servertutorialplus.points.editor.args.TimeArg;
+import nl.martenm.servertutorialplus.points.editor.args.TitleArg;
 
 /**
  * The default abstract class for a ServerTutorialPoint.

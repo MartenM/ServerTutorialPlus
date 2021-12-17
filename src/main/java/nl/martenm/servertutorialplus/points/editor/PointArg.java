@@ -1,7 +1,5 @@
 package nl.martenm.servertutorialplus.points.editor;
 
-import nl.martenm.servertutorialplus.points.editor.IPointArg;
-
 /**
  * @author MartenM
  * @since 29-11-2017.
