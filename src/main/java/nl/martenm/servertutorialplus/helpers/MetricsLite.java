@@ -25,7 +25,6 @@ import java.util.zip.GZIPOutputStream;
  *
  * Check out https://bStats.org/ to learn more about bStats!
  */
-@SuppressWarnings({"unchecked", "Convert2Lambda"})
 public class MetricsLite {
 
     static {
@@ -146,8 +145,8 @@ public class MetricsLite {
      *
      * @return The plugin specific data.
      */
-    @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
-    public JSONObject getPluginData() {
+    @SuppressWarnings("unchecked")
+	public JSONObject getPluginData() {
         JSONObject data = new JSONObject();
 
         String pluginName = plugin.getDescription().getName();
@@ -166,7 +165,8 @@ public class MetricsLite {
      *
      * @return The server specific data.
      */
-    private JSONObject getServerData() {
+    @SuppressWarnings("unchecked")
+	private JSONObject getServerData() {
         // Minecraft specific data
         int playerAmount = Bukkit.getOnlinePlayers().size();
         int onlineMode = Bukkit.getOnlineMode() ? 1 : 0;
@@ -200,7 +200,8 @@ public class MetricsLite {
     /**
      * Collects the data and sends it afterwards.
      */
-    private void submitData() {
+    @SuppressWarnings("unchecked")
+	private void submitData() {
         final JSONObject data = getServerData();
 
         JSONArray pluginData = new JSONArray();
