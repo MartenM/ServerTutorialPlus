@@ -23,7 +23,8 @@ public class FlatDataSource implements DataSource {
         this.plugin = plugin;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<String> getPlayedTutorials(UUID uuid) {
         File hostlocation = new File(plugin.getDataFolder() + "/data/playerdata");
         hostlocation.mkdirs();
@@ -51,14 +52,15 @@ public class FlatDataSource implements DataSource {
                 }
             }
 
-            return (List<String>) data.get("tutorials");
+            return (List<String>) data.get("tutorials"); // TODO: Check if data is a valid serialized object BEFORE loading
         }
         else{
             return new ArrayList<>();
         }
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public boolean addPlayedTutorial(UUID uuid, String id) {
         List<String> played = getPlayedTutorials(uuid);
         played.add(id);
@@ -92,7 +94,8 @@ public class FlatDataSource implements DataSource {
         return true;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public boolean removePlayedTutorial(UUID uuid, String id) {
         List<String> played = getPlayedTutorials(uuid);
         played.remove(id);
