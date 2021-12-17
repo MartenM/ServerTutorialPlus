@@ -25,7 +25,8 @@ public class AddpointCommand extends SimpleCommand {
         super("addpoint", Lang.HELP_ADDPOINT.toString(), "+addpoint", true);
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
@@ -79,7 +80,7 @@ public class AddpointCommand extends SimpleCommand {
                     PointType type = PointType.values()[i];
                     TextComponent component = new TextComponent(ChatColor.GREEN + type.toString().toLowerCase());
                     component.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/st addpoint " + args[0] + " " + type.toString().toLowerCase()));
-                    component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Lang.POINT_EXAMPLE_COMMAND_CLICK.toString().replace("%type%", type.toString())).create()));
+                    component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Lang.POINT_EXAMPLE_COMMAND_CLICK.toString().replace("%type%", type.toString())).create())); //TODO: Find a better way of doing this...
                     message.addExtra(component);
                     if(i < PointType.values().length - 1) message.addExtra(ChatColor.GRAY + " / ");
                 }
