@@ -31,12 +31,13 @@ public class MySqlDataSource implements DataSource {
     public boolean setup() {
         String host = plugin.getConfig().getString("datasource.mysql.host");
         String database = plugin.getConfig().getString("datasource.mysql.database");
+        int port = plugin.getConfig().getInt("datasource.mysql.port");
 
         config = new HikariConfig();
         config.setUsername(plugin.getConfig().getString("datasource.mysql.username"));
         config.setPassword(plugin.getConfig().getString("datasource.mysql.password"));
 
-        config.setJdbcUrl(String.format("jdbc:mysql://%s:%s/%s", host, 3306, database));
+        config.setJdbcUrl(String.format("jdbc:mysql://%s:%s/%s", host, port, database));
 
         config.addDataSourceProperty("cachePrepStmts", "true");
         config.addDataSourceProperty("prepStmtCacheSize", "250");
