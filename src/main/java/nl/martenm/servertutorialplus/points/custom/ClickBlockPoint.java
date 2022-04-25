@@ -20,6 +20,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
@@ -70,7 +71,7 @@ public class ClickBlockPoint extends ServerTutorialPoint {
                     public void run(PlayerInteractEvent event) {
                         if (event.getClickedBlock() == null) return;
                         if (event.getClickedBlock().getType() == Material.AIR) return;
-
+                        if (event.getHand() == EquipmentSlot.OFF_HAND) return;
                         if (!event.getClickedBlock().getLocation().equals(clickableBlock)) return;
 
                         event.setCancelled(true);
