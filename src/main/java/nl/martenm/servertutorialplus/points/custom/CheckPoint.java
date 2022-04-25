@@ -183,6 +183,10 @@ public class CheckPoint extends ServerTutorialPoint {
     public List<PointArg> getArgs() {
         List<PointArg> args = super.getArgs();
 
+        // Remove these as they can cause issues when configured.
+        args.removeIf(arg -> arg.getName().equalsIgnoreCase("lockplayer"));
+        args.removeIf(arg -> arg.getName().equalsIgnoreCase("lockview"));
+
         args.add(new PointArg("animation") {
             @Override
             public boolean run(ServerTutorial serverTutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
