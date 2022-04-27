@@ -21,10 +21,10 @@ import java.util.UUID;
  */
 public abstract class PluginUtils {
 
-    public static ServerTutorial getTutorial(ServerTutorialPlus plugin, String ID){
+    public static ServerTutorial getTutorial(ServerTutorialPlus plugin, String ID) {
         if (ID == null) return null;
-        for(ServerTutorial serverTutorial : plugin.serverTutorials){
-            if(serverTutorial.getId().equalsIgnoreCase(ID)){
+        for (ServerTutorial serverTutorial : plugin.serverTutorials) {
+            if (serverTutorial.getId().equalsIgnoreCase(ID)) {
                 return serverTutorial;
             }
         }
@@ -32,17 +32,6 @@ public abstract class PluginUtils {
         //Nothing found!
         return null;
     }
-
-    public static NPCInfo getNPC(ServerTutorialPlus plugin, String ID){
-        if(ID == null) return null;
-        for(NPCInfo info : plugin.clickableNPCs.values()){
-            if(info.getId().equalsIgnoreCase(ID)){
-                return info;
-            }
-        }
-        return null;
-    }
-
 
     public static List<Location> getHollowCube(Location corner1, Location corner2, double particleDistance) {
         List<Location> result = new ArrayList<>();
@@ -54,9 +43,9 @@ public abstract class PluginUtils {
         double maxY = Math.max(corner1.getY(), corner2.getY());
         double maxZ = Math.max(corner1.getZ(), corner2.getZ());
 
-        for (double x = minX; x <= maxX; x+=particleDistance) {
-            for (double y = minY; y <= maxY; y+=particleDistance) {
-                for (double z = minZ; z <= maxZ; z+=particleDistance) {
+        for (double x = minX; x <= maxX; x += particleDistance) {
+            for (double y = minY; y <= maxY; y += particleDistance) {
+                for (double z = minZ; z <= maxZ; z += particleDistance) {
                     int components = 0;
                     if (x == minX || x == maxX) components++;
                     if (y == minY || y == maxY) components++;
@@ -71,19 +60,19 @@ public abstract class PluginUtils {
         return result;
     }
 
-    public static Location fromString(ServerTutorialPlus plugin, String message){
-            String[] data = message.split(" ");
-            String world = data[0];
-            double x = Double.parseDouble(data[1]);
-            double y = Double.parseDouble(data[2]);
-            double z = Double.parseDouble(data[3]);
-            float yaw = Float.parseFloat(data[4]);
-            float pitch = Float.parseFloat(data[5]);
-            return new Location(plugin.getServer().getWorld(world), x, y, z, yaw, pitch);
+    public static Location fromString(ServerTutorialPlus plugin, String message) {
+        String[] data = message.split(" ");
+        String world = data[0];
+        double x = Double.parseDouble(data[1]);
+        double y = Double.parseDouble(data[2]);
+        double z = Double.parseDouble(data[3]);
+        float yaw = Float.parseFloat(data[4]);
+        float pitch = Float.parseFloat(data[5]);
+        return new Location(plugin.getServer().getWorld(world), x, y, z, yaw, pitch);
 
     }
 
-    public static String fromLocation(Location loc){
+    public static String fromLocation(Location loc) {
         return loc.getWorld().getName() + " " +
                 loc.getX() + " " +
                 loc.getY() + " " +
@@ -92,128 +81,16 @@ public abstract class PluginUtils {
                 loc.getPitch();
     }
 
-    public static String replaceVariables(boolean PlaceHolders, Player player, String message){
-        if(PlaceHolders){
+    public static String replaceVariables(boolean PlaceHolders, Player player, String message) {
+        if (PlaceHolders) {
             return PlaceholderAPI.setPlaceholders(player, message.replace("{player_name}", player.getName()));
-        } else{
+        } else {
             return ChatColor.translateAlternateColorCodes('&', message.replace("{player_name}", player.getName()));
         }
     }
 
-    public static String allMobs(){
+    public static String allMobs() {
         return "VILLAGER, ZOMBIE, HUSK, WITCH, SPIDER, SLIME, SKELETON, CREEPER, PIG_ZOMBIE, BLAZE, CAVE_SPIDER, ENDERMAN, BAT, MAGMA_CUBE, WITHER, RABBIT, PIG, COW, SHEEP, CHICKEN, WOLF, ENDERMITE, BLAZE, GUARDIAN, HORSE, POLAR_BEAR";
     }
 
-    public static boolean createNpc(ServerTutorialPlus plugin, LivingEntity entity, String id, Player player, ServerTutorial tutorial) {
-
-        if (!(entity instanceof LivingEntity)) {
-            player.sendMessage(ChatColor.RED + "The entity has to be of a living type!");
-            entity.remove();
-            return true;
-        }
-
-        LivingEntity npc = (LivingEntity) entity;
-
-        ArmorStand armorStand_1 = (ArmorStand) player.getWorld().spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
-        armorStand_1.setGravity(false);
-
-        if (Bukkit.getVersion().contains("1.8") || Bukkit.getVersion().contains("1.9") || Bukkit.getVersion().contains("1.10")) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  "));
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7(&c!&7) &eSpigot version < 1.11. Using alternative text method."));
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aTIP: &7Use /st npc set height <npc ID> to set the text heigh relative to the NPC."));
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  "));
-            armorStand_1.teleport(npc.getLocation().add(0, 0.45, 0));
-
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    Location loc = armorStand_1.getLocation();
-
-                    ArmorStand armorStand_2 = (ArmorStand) loc.getWorld().spawnEntity(loc.add(0, 0.45, 0), EntityType.ARMOR_STAND);
-                    armorStand_2.setGravity(false);
-
-                    armorStand_1.setMarker(true);
-                    armorStand_2.setMarker(true);
-
-                    armorStand_1.setVisible(false);
-                    armorStand_2.setVisible(false);
-
-                    armorStand_1.setCustomNameVisible(true);
-                    armorStand_2.setCustomNameVisible(true);
-
-                    armorStand_1.setCustomName(ChatColor.YELLOW + ChatColor.BOLD.toString() + "Right click!");
-                    armorStand_2.setCustomName(ChatColor.GREEN + "Tutorial");
-
-                    armorStand_1.teleport(loc.add(0, -0.25, 0));
-
-                    npc.setInvulnerable(true);
-                    armorStand_1.setInvulnerable(true);
-                    armorStand_2.setInvulnerable(true);
-
-                    NPCInfo info = new NPCInfo(plugin, id, npc.getUniqueId(), new UUID[]{armorStand_1.getUniqueId(), armorStand_2.getUniqueId()}, tutorial.getId());
-                    plugin.clickableNPCs.put(npc.getUniqueId(), info);
-
-                    npc.teleport(npc.getLocation());
-                    player.sendMessage(ChatColor.GREEN + "Successfully created a NPC with NPC ID: " + ChatColor.YELLOW + info.getId() + ChatColor.GREEN + " that plays server tutorial: " + ChatColor.YELLOW + info.getServerTutorialID());
-                }
-            }.runTaskLater(plugin, 1);
-
-            if (Bukkit.getVersion().contains("1.8") || Bukkit.getVersion().contains("1.9") || Bukkit.getVersion().contains("1.10")) {
-                new BukkitRunnable() {
-                    Location loc = npc.getLocation();
-
-                    @Override
-                    public void run() {
-                        try {
-                            npc.teleport(loc);
-                            npc.setVelocity(new Vector(0, 0, 0));
-                        } catch (Exception ex) {
-                            this.cancel();
-                        }
-                    }
-                }.runTaskTimer(plugin, 0, 5);
-            }
-
-        } else {
-            npc.addPassenger(armorStand_1);
-
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    //Do stuff
-                    Location loc = armorStand_1.getLocation();
-                    npc.removePassenger(armorStand_1);
-
-                    ArmorStand armorStand_2 = (ArmorStand) loc.getWorld().spawnEntity(loc.add(0, 0.45, 0), EntityType.ARMOR_STAND);
-                    armorStand_2.setGravity(false);
-
-                    armorStand_1.setMarker(true);
-                    armorStand_2.setMarker(true);
-
-                    armorStand_1.setVisible(false);
-                    armorStand_2.setVisible(false);
-
-                    armorStand_1.setCustomNameVisible(true);
-                    armorStand_2.setCustomNameVisible(true);
-
-                    armorStand_1.setCustomName(ChatColor.YELLOW + ChatColor.BOLD.toString() + "Right click!");
-                    armorStand_2.setCustomName(ChatColor.GREEN + "Tutorial");
-
-                    armorStand_1.teleport(loc.add(0, -0.25, 0));
-
-                    npc.setInvulnerable(true);
-                    armorStand_1.setInvulnerable(true);
-                    armorStand_2.setInvulnerable(true);
-
-                    NPCInfo info = new NPCInfo(plugin, id, npc.getUniqueId(), new UUID[]{armorStand_1.getUniqueId(), armorStand_2.getUniqueId()}, tutorial.getId());
-                    plugin.clickableNPCs.put(npc.getUniqueId(), info);
-
-                    npc.teleport(npc.getLocation());
-                    player.sendMessage(ChatColor.GREEN + "Successfully created a NPC with NPC ID: " + ChatColor.YELLOW + info.getId() + ChatColor.GREEN + " that plays server tutorial: " + ChatColor.YELLOW + info.getServerTutorialID());
-                    //Do stuff
-                }
-            }.runTaskLater(plugin, 1);
-        }
-        return true;
-    }
 }

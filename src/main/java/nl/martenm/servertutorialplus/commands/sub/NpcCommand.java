@@ -5,19 +5,18 @@ import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
 import nl.martenm.servertutorialplus.helpers.SpigotUtils;
 import nl.martenm.servertutorialplus.language.Lang;
+import nl.martenm.servertutorialplus.managers.NPCManager;
 import nl.martenm.servertutorialplus.objects.NPCInfo;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import nl.martenm.servertutorialplus.objects.TutorialEntitySelector;
 import nl.martenm.simplecommands.SimpleCommand;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.*;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
-
-import java.util.UUID;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 
 public class NpcCommand extends SimpleCommand {
 
@@ -28,7 +27,7 @@ public class NpcCommand extends SimpleCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
-
+        NPCManager npcManager = plugin.getNpcManager();
 
         if(args.length <= 0){
             sender.sendMessage(Lang.COMMAND_ARGUMENTS_AVAILABLE.toString().replace("%args%", "add, remove, list, bind, text, height"));
@@ -53,7 +52,6 @@ public class NpcCommand extends SimpleCommand {
                 sender.sendMessage(warningPrefix + ChatColor.translateAlternateColorCodes('&', "It would require &ca lot of time&r to keep updating for backwards compatibility and it would remove the ability to create &anew&r features that use new methods."));
                 sender.sendMessage(" ");
                 sender.sendMessage(warningPrefix + ChatColor.translateAlternateColorCodes('&',ChatColor.YELLOW + "To create an NPC you could use another plugin to spawn the NPC and use the command &r/st npc bind <npc id> <server tutorial>&e to bind it to a tutorial."));
-
                 return true;
             }
 
@@ -64,7 +62,7 @@ public class NpcCommand extends SimpleCommand {
 
             Player player = (Player) sender;
 
-            if(PluginUtils.getNPC(plugin, args[1]) != null){
+            if(npcManager.getNPC(plugin, args[1]) != null){
                 sender.sendMessage(Lang.NPC_ID_EXIST.toString());
                 return true;
             }
@@ -78,121 +76,8 @@ public class NpcCommand extends SimpleCommand {
                 return true;
             }
 
-            Entity entity_npc = player.getWorld().spawnEntity(player.getLocation(), et);
-            if(!(entity_npc instanceof LivingEntity)){
-                sender.sendMessage(Lang.NPC_LIVING_TYPE.toString());
-                entity_npc.remove();
-                return true;
-            }
-
-            LivingEntity npc = (LivingEntity) entity_npc;
-            npc.setAI(false);
-            npc.setCanPickupItems(false);
-            npc.setGravity(false);
-            npc.setCollidable(false);
-
-            ArmorStand armorStand_1 = (ArmorStand) player.getWorld().spawnEntity(player.getLocation(), EntityType.ARMOR_STAND);
-            armorStand_1.setGravity(false);
-
-            if(Bukkit.getVersion().contains("1.8") || Bukkit.getVersion().contains("1.9") || Bukkit.getVersion().contains("1.10")){
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  "));
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7(&c!&7) &eSpigot version < 1.11. Using alternative text method."));
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&aTIP: &7Use /st npc set height <npc ID> to set the text heigh relative to the NPC."));
-                player.sendMessage(ChatColor.translateAlternateColorCodes('&', "  "));
-                armorStand_1.teleport(npc.getLocation().add(0, 0.45, 0));
-
-                new BukkitRunnable(){
-                    @Override
-                    public void run() {
-                        Location loc = armorStand_1.getLocation();
-
-                        ArmorStand armorStand_2 = (ArmorStand) loc.getWorld().spawnEntity(loc.add(0, 0.45, 0), EntityType.ARMOR_STAND);
-                        armorStand_2.setGravity(false);
-
-                        armorStand_1.setMarker(true);
-                        armorStand_2.setMarker(true);
-
-                        armorStand_1.setVisible(false);
-                        armorStand_2.setVisible(false);
-
-                        armorStand_1.setCustomNameVisible(true);
-                        armorStand_2.setCustomNameVisible(true);
-
-                        armorStand_1.setCustomName(ChatColor.YELLOW + ChatColor.BOLD.toString() +"Right click!");
-                        armorStand_2.setCustomName(ChatColor.GREEN +  "Tutorial");
-
-                        armorStand_1.teleport(loc.add(0, -0.25, 0));
-
-                        npc.setInvulnerable(true);
-                        armorStand_1.setInvulnerable(true);
-                        armorStand_2.setInvulnerable(true);
-
-                        NPCInfo info = new NPCInfo(plugin, args[1], npc.getUniqueId(), new UUID[] {armorStand_1.getUniqueId(), armorStand_2.getUniqueId()}, args[2]);
-                        plugin.clickableNPCs.put(npc.getUniqueId(), info);
-
-                        npc.teleport(npc.getLocation());
-                        sender.sendMessage(Lang.NPC_CREATION_SUCCESS.toString().replace("%id%", info.getId()).replace("%tutorial%", info.getServerTutorialID()));
-                    }
-                }.runTaskLater(plugin, 1);
-
-                if(Bukkit.getVersion().contains("1.8") || Bukkit.getVersion().contains("1.9") || Bukkit.getVersion().contains("1.10")) {
-                    new BukkitRunnable(){
-                        Location loc = npc.getLocation();
-                        @Override
-                        public void run() {
-                            try {
-                                npc.teleport(loc);
-                                npc.setVelocity(new Vector(0, 0, 0));
-                            }
-                            catch (Exception ex){
-                                this.cancel();
-                            }
-                        }
-                    }.runTaskTimer(plugin, 0, 5);
-                }
-
-            }
-            else{
-                npc.addPassenger(armorStand_1);
-
-                new BukkitRunnable(){
-                    @Override
-                    public void run() {
-                        //Do stuff
-                        Location loc = armorStand_1.getLocation();
-                        npc.removePassenger(armorStand_1);
-
-                        ArmorStand armorStand_2 = (ArmorStand) loc.getWorld().spawnEntity(loc.add(0, 0.45, 0), EntityType.ARMOR_STAND);
-                        armorStand_2.setGravity(false);
-
-                        armorStand_1.setMarker(true);
-                        armorStand_2.setMarker(true);
-
-                        armorStand_1.setVisible(false);
-                        armorStand_2.setVisible(false);
-
-                        armorStand_1.setCustomNameVisible(true);
-                        armorStand_2.setCustomNameVisible(true);
-
-                        armorStand_1.setCustomName(ChatColor.YELLOW + ChatColor.BOLD.toString() +"Right click!");
-                        armorStand_2.setCustomName(ChatColor.GREEN +  "Tutorial");
-
-                        armorStand_1.teleport(loc.add(0, -0.25, 0));
-
-                        npc.setInvulnerable(true);
-                        armorStand_1.setInvulnerable(true);
-                        armorStand_2.setInvulnerable(true);
-
-                        NPCInfo info = new NPCInfo(plugin, args[1], npc.getUniqueId(), new UUID[] {armorStand_1.getUniqueId(), armorStand_2.getUniqueId()}, args[2]);
-                        plugin.clickableNPCs.put(npc.getUniqueId(), info);
-
-                        npc.teleport(npc.getLocation());
-                        sender.sendMessage(Lang.NPC_CREATION_SUCCESS.toString().replace("%id%", info.getId()).replace("%tutorial%", info.getServerTutorialID()));
-                    }
-                }.runTaskLater(plugin, 1);
-
-                return true;
-            }
+            NPCInfo info = npcManager.createNPC(et, player.getLocation(), args[1], args[2]);
+            sender.sendMessage(Lang.NPC_CREATION_SUCCESS.toString().replace("%id%", info.getId()).replace("%tutorial%", info.getServerTutorialID()));
             //endregion
         }
 
@@ -236,17 +121,13 @@ public class NpcCommand extends SimpleCommand {
                 return true;
             }
 
-            NPCInfo info = PluginUtils.getNPC(plugin, args[1]);
+            NPCInfo info = npcManager.getNPC(plugin, args[1]);
             if(info == null){
                 sender.sendMessage(Lang.NPC_ID_NOT_EXISTING.toString().replace("%id%", args[1]));
                 return true;
             }
 
-            if(SpigotUtils.getEntity(info.getNpcId()) != null)
-                SpigotUtils.getEntity(info.getNpcId()).remove();
-            SpigotUtils.getEntity(info.getArmorstandIDs()[0]).remove();
-            SpigotUtils.getEntity(info.getArmorstandIDs()[1]).remove();
-            plugin.clickableNPCs.remove(info.getNpcId());
+            npcManager.deleteNPC(info);
             sender.sendMessage(Lang.NPC_REMOVED_SUCCESS.toString());
             return true;
             //endregion
@@ -257,10 +138,10 @@ public class NpcCommand extends SimpleCommand {
             if(args.length <= 1) {
                 sender.sendMessage(ChatColor.DARK_GRAY + "+──────────┤ " + ChatColor.GREEN + ChatColor.BOLD + "NPCs" + ChatColor.DARK_GRAY + "├──────────+");
                 sender.sendMessage(" ");
-                if (plugin.clickableNPCs.size() == 0) {
+                if (npcManager.getNPCs().size() == 0) {
                     sender.sendMessage("  " + Lang.NPC_INFO_NONE);
                 } else {
-                    for (NPCInfo info : plugin.clickableNPCs.values()) {
+                    for (NPCInfo info : npcManager.getNPCs()) {
                         sender.sendMessage(ChatColor.GREEN + "  " + info.getId());
                     }
 
@@ -271,7 +152,7 @@ public class NpcCommand extends SimpleCommand {
                 return true;
             }
 
-            NPCInfo info = PluginUtils.getNPC(plugin, args[1]);
+            NPCInfo info = npcManager.getNPC(plugin, args[1]);
             if(info == null){
                 sender.sendMessage(Lang.NPC_ID_NOT_EXISTING.toString());
                 return true;
@@ -295,7 +176,7 @@ public class NpcCommand extends SimpleCommand {
                 return true;
             }
 
-            NPCInfo info = PluginUtils.getNPC(plugin, args[1]);
+            NPCInfo info = npcManager.getNPC(plugin, args[1]);
             if(info == null){
                 sender.sendMessage(Lang.NPC_ID_NOT_EXISTING.toString());
                 return true;
@@ -329,7 +210,7 @@ public class NpcCommand extends SimpleCommand {
                 return true;
             }
 
-            NPCInfo info = PluginUtils.getNPC(plugin, args[1]);
+            NPCInfo info = npcManager.getNPC(plugin, args[1]);
             if(info == null){
                 sender.sendMessage(Lang.NPC_ID_NOT_EXISTING.toString());
                 return true;
@@ -350,6 +231,12 @@ public class NpcCommand extends SimpleCommand {
             sender.sendMessage(Lang.NPC_HEIGHT_CHANGE.toString());
             return true;
             //endregion
+        }
+
+        else if(args[0].equalsIgnoreCase("test")) {
+            plugin.getNpcManager().loadNPCs();
+            sender.sendMessage(ChatColor.YELLOW + "LOading");
+            return true;
         }
 
         sender.sendMessage(Lang.COMMAND_ARGUMENTS_AVAILABLE.toString().replace("%args%", "add, remove, list, bind, info, text, height"));

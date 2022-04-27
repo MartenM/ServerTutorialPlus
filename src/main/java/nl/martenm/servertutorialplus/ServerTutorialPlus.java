@@ -12,6 +12,7 @@ import nl.martenm.servertutorialplus.helpers.PluginUtils;
 import nl.martenm.servertutorialplus.helpers.SpigotUtils;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.managers.FlatFileManager;
+import nl.martenm.servertutorialplus.managers.NPCManager;
 import nl.martenm.servertutorialplus.managers.clickactions.ClickManager;
 import nl.martenm.servertutorialplus.objects.*;
 import nl.martenm.servertutorialplus.points.PointType;
@@ -54,14 +55,12 @@ public class ServerTutorialPlus extends JavaPlugin{
     public List<UUID> lockedViews;
 
     public HashMap<UUID, TutorialController> inTutorial;
-    public HashMap<UUID, NPCInfo> clickableNPCs;
     public HashMap<UUID, TutorialEntitySelector> selectingNpc;
 
     private IProtocol protocol;
 
     public Config tutorialSaves;
     public Config signSaves;
-    public Config npcSaves;
     private Config languageFile;
 
     public boolean enabled;
@@ -70,6 +69,7 @@ public class ServerTutorialPlus extends JavaPlugin{
     private DataSource dataSource;
 
     private ClickManager clickManager;
+    private NPCManager npcManager;
 
     public static ServerTutorialPlus instance;
 
@@ -86,16 +86,16 @@ public class ServerTutorialPlus extends JavaPlugin{
 
         serverTutorials = new ArrayList<>();
         inTutorial = new HashMap<>();
-        clickableNPCs = new HashMap<>();
         selectingNpc = new HashMap<>();
         tutorialSaves = new Config(this, "tutorialsaves");
         signSaves = new Config(this, "blockSaves");
-        npcSaves = new Config(this, "NpcSaves");
+
         tutorialSigns = new ArrayList<>();
         lockedPlayers = new ArrayList<>();
         lockedViews = new ArrayList<>();
         blockPlayers = new ArrayList<>();
         clickManager = new ClickManager(this);
+        npcManager = new NPCManager(this);
 
         MetricsLite metricsLite = new MetricsLite(this);
 
@@ -120,7 +120,7 @@ public class ServerTutorialPlus extends JavaPlugin{
 
         loadTutorials();
         loadSigns();
-        loadNPCs();
+        npcManager.loadNPCs();
 
         if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
             logger.info("PlaceholderAPI has been found!");
@@ -177,7 +177,7 @@ public class ServerTutorialPlus extends JavaPlugin{
         //save tutorials.
         saveTutorials();
         saveSigns();
-        saveNPCs();
+        npcManager.saveNPCs();
 
         logger.info("Successfully disabled server tutorial! Thanks for using this plugin.");
     }
@@ -201,6 +201,7 @@ public class ServerTutorialPlus extends JavaPlugin{
             pm.registerEvents(new OnPlayerInteractEvent(this), this);
             pm.registerEvents(new OnPlayerInteractEntityEvent(this), this);
         }
+        pm.registerEvents(new OnEntityDeathEvent(this), this);
         pm.registerEvents(new OnPlayerJoinEvent(this), this);
         pm.registerEvents(new OnBlockBreakEvent(this), this);
         pm.registerEvents(new onPlayerMoveEvent(this), this);
@@ -328,137 +329,8 @@ public class ServerTutorialPlus extends JavaPlugin{
         signSaves.save();
     }
 
-    public void saveNPCs(){
-        npcSaves.set("npc", null);
-        for(Map.Entry<UUID, NPCInfo> entry : clickableNPCs.entrySet()){
-            NPCInfo info = entry.getValue();
-            npcSaves.set("npc." + info.getId() + ".UUID_npc", entry.getKey().toString());
-            npcSaves.set("npc." + info.getId() + ".UUID_text1", info.getArmorstandIDs()[0].toString());
-            npcSaves.set("npc." + info.getId() + ".UUID_text2", info.getArmorstandIDs()[1].toString());
-            npcSaves.set("npc." + info.getId() + ".servertutorial", info.getServerTutorialID());
-            try {
-                npcSaves.set("npc." + info.getId() + ".loc", info.getLocation());
-            } catch (NullPointerException ex) {
-                logger.info("NPC: " + entry.getKey().toString() + " did not save a location.");
-            }
-        }
-
-        npcSaves.save();
-    }
-
-    public void loadNPCs(){
-        if(!npcSaves.isConfigurationSection("npc")){
-            return;
-        }
-
-        for(String ID : npcSaves.getConfigurationSection("npc").getKeys(false)){
-            try {
-                UUID npcUuid = UUID.fromString(npcSaves.getString("npc." + ID + ".UUID_npc"));
-                UUID[] text = new UUID[2];
-                text[0] = UUID.fromString(npcSaves.getString("npc." + ID + ".UUID_text1"));
-                text[1] = UUID.fromString(npcSaves.getString("npc." + ID + ".UUID_text2"));
-                String stID = npcSaves.getString("npc." + ID + ".servertutorial");
-                Location loc;
-
-                try {
-                    loc = (Location) npcSaves.get("npc." + ID + ".loc");
-                } catch (Exception ex) {
-                    loc = null;
-                } //Nothing serious
-
-                //Load chunk!
-                if(!loc.getChunk().isLoaded()){
-                    loc.getChunk().load();
-                }
-
-                if(getConfig().getBoolean("npc.remove-invalid")) {
-                    if (SpigotUtils.getEntity(npcUuid) == null) {
-                        //region not found
-
-                        logger.warning(" [!!] Could not find the mob / npc. Retrying in " + getConfig().getInt("npc.retry-time") + " seconds. (Using location as well now)");
-
-                        final Location location = loc;
-                        new BukkitRunnable() {
-                            @Override
-                            public void run() {
-                                Entity npc;
-
-                                if (!location.getChunk().isLoaded()) {
-                                    location.getChunk().load();
-                                }
-
-                                npc = SpigotUtils.getEntity(npcUuid);
-                                if (npc != null) {
-                                    logger.info(" [!] Found the NPC after searching it's UUID again. Enabling it right now... (NpcId: " + ID + ")");
-                                    NPCInfo info = new NPCInfo(instance, ID, npc.getUniqueId(), text, stID, location);
-                                    clickableNPCs.put(npc.getUniqueId(), info);
-                                    return;
-                                } else if (location != null) {
-                                    // Remove this as it only causes issues where the armorstand gets selected.
-                                    // If the entity is no longer there, it's no longer there....
-                                    // We just remove it instead...
-                                }
-
-                                try {
-                                    SpigotUtils.getEntity(text[0]).remove();
-                                } catch (Exception ex){
-                                    logger.warning("Failed to remove the armor stand with UUID: " + text[0].toString() + " (Hologram 1 for NPC " + ID);
-                                }
-                                try {
-                                    SpigotUtils.getEntity(text[1]).remove();
-                                } catch (Exception ex) {
-                                    logger.warning("Failed to remove the armor stand with UUID: " + text[0].toString() + " (Hologram 1 for NPC " + ID);
-                                }
-
-                                logger.warning(" [!!] Could not find the mob / npc using the location! Deleting the NPC.");
-                            }
-                        }.runTaskLater(this, getConfig().getInt("npc.retry-time") * 20);
-                        continue;
-
-                        //endregion
-                    }
-                }
-
-                NPCInfo info = new NPCInfo(instance, ID, npcUuid, text, stID, loc);
-                clickableNPCs.put(npcUuid, info);
-                //SpigotUtils.getEntity(npc).teleport(loc);
-
-                if (Bukkit.getVersion().contains("1.8") || Bukkit.getVersion().contains("1.9") || Bukkit.getVersion().contains("1.10")) {
-                    new BukkitRunnable() {
-
-                        Location loc = SpigotUtils.getEntity(npcUuid).getLocation();
-
-                        @Override
-                        public void run() {
-                            try {
-                                if (!isEnabled()) {
-                                    this.cancel();
-                                    return;
-                                }
-
-                                if(!loc.getChunk().isLoaded()){
-                                    loc.getChunk().load();
-                                }
-
-                                if(SpigotUtils.getEntity(npcUuid) == null){
-                                    return;
-                                }
-
-                                SpigotUtils.getEntity(npcUuid).teleport(loc);
-                                SpigotUtils.getEntity(npcUuid).setVelocity(new org.bukkit.util.Vector(0, 0, 0));
-                            } catch (Exception ex) {
-                                this.cancel();
-                            }
-                        }
-                    }.runTaskTimer(this, 0, 5);
-                }
-            }
-            catch (Exception e){
-                e.printStackTrace();
-                logger.warning(" [!!] Could not load npc. Something in the NpcSaves.yml is messed up and prohibits the plugin from reading the data correctly!");
-                logger.warning(" [!!] Revert any changes you have made if you have manually edited the config.");
-            }
-        }
+    public NPCManager getNpcManager() {
+        return npcManager;
     }
 
     private void createLanguageFiles(){

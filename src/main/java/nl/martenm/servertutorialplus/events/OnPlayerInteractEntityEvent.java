@@ -33,31 +33,31 @@ public class OnPlayerInteractEntityEvent implements Listener {
             return;
         }
 
-        if (plugin.clickableNPCs.containsKey(event.getRightClicked().getUniqueId())) {
-            event.setCancelled(true);
-
-            NPCInfo info = plugin.clickableNPCs.get(event.getRightClicked().getUniqueId());
-            ServerTutorial serverTutorial = PluginUtils.getTutorial(plugin, info.getServerTutorialID());
-            if (serverTutorial == null) {
-                event.getPlayer().sendMessage(Lang.ERROR_FAILED_FINDING_TUTORIAL_ADMIN.toString().replace("&id&", info.getServerTutorialID()));
-                return;
-            }
-            if(plugin.inTutorial.containsKey(event.getPlayer().getUniqueId())){
-                event.getPlayer().sendMessage(Lang.ERROR_WAIT_TO_END_TUTORIAL.toString());
-                return;
-            }
-
-            TutorialController tutorialController = new TutorialController(plugin, event.getPlayer(), serverTutorial);
-            tutorialController.start();
-            event.setCancelled(true);
-
-        } else if(!plugin.selectingNpc.isEmpty()){
-            if(plugin.selectingNpc.containsKey(event.getPlayer().getUniqueId())){
-                //BIND IT
+        if (!plugin.selectingNpc.isEmpty()) {
+            if (plugin.selectingNpc.containsKey(event.getPlayer().getUniqueId())) {
                 plugin.selectingNpc.get(event.getPlayer().getUniqueId()).create(plugin, event);
             }
+            return;
         }
-    }
 
+        NPCInfo info = plugin.getNpcManager().getByUUID(event.getRightClicked().getUniqueId());
+        if (info == null) return;
+
+        event.setCancelled(true);
+
+        ServerTutorial serverTutorial = PluginUtils.getTutorial(plugin, info.getServerTutorialID());
+        if (serverTutorial == null) {
+            event.getPlayer().sendMessage(Lang.ERROR_FAILED_FINDING_TUTORIAL_ADMIN.toString().replace("&id&", info.getServerTutorialID()));
+            return;
+        }
+        if (plugin.inTutorial.containsKey(event.getPlayer().getUniqueId())) {
+            event.getPlayer().sendMessage(Lang.ERROR_WAIT_TO_END_TUTORIAL.toString());
+            return;
+        }
+
+        TutorialController tutorialController = new TutorialController(plugin, event.getPlayer(), serverTutorial);
+        tutorialController.start();
+        event.setCancelled(true);
+    }
 }
 
