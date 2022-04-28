@@ -71,7 +71,7 @@ public class ServerTutorialPlus extends JavaPlugin{
     private ClickManager clickManager;
     private NPCManager npcManager;
 
-    public static ServerTutorialPlus instance;
+    private static ServerTutorialPlus instance;
 
     public static ServerTutorialPlus getInstance() {
         return instance;

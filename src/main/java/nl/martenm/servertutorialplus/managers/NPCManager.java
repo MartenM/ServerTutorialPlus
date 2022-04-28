@@ -35,7 +35,7 @@ public class NPCManager extends AbstractManager {
         npcRetryTime = plugin.getConfig().getInt("npc.retry-time");
     }
 
-    public NPCInfo getNPC(ServerTutorialPlus plugin, String ID) {
+    public NPCInfo getNPC(String ID) {
         if (ID == null) return null;
         for (NPCInfo info : clickableNPCs.values()) {
             if (info.getId().equalsIgnoreCase(ID)) {

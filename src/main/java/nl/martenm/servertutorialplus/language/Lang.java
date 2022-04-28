@@ -136,6 +136,7 @@ public enum Lang {
     NPC_HEIGHT_CHANGE("npc-height-change", "&aSuccessfully changed the height!"),
     NPC_PLAYER_SELECTED("npc-player-selected", "&cTo prevent errors, you cannot select a player as NPC!"),
     NPC_INVALID_ENTITY("npc-invalid-entity", "&cThe entity you tried to bind is not supported."),
+    NPC_DELETE_CHUNK_UNLOADED("npc-delete-chunk-unloaded", "&cCannot delete a NPC that's in an unloaded chunk!"),
 
     NPC_INFO_NONE("npc-info-none", "&eNo NPCs have been made yet!"),
     NPC_INFO_MORE_INFO("npc-info-more-info", "&7&iUse /st npc info <id> to get more info."),
