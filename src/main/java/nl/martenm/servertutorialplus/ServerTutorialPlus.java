@@ -7,9 +7,7 @@ import nl.martenm.servertutorialplus.data.FlatDataSource;
 import nl.martenm.servertutorialplus.data.MySqlDataSource;
 import nl.martenm.servertutorialplus.events.*;
 import nl.martenm.servertutorialplus.helpers.Config;
-import nl.martenm.servertutorialplus.helpers.MetricsLite;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
-import nl.martenm.servertutorialplus.helpers.SpigotUtils;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.managers.FlatFileManager;
 import nl.martenm.servertutorialplus.managers.NPCManager;
@@ -26,10 +24,9 @@ import nl.martenm.servertutorialplus.reflection.V1_13.Protocol_1_13_V1;
 import nl.martenm.servertutorialplus.reflection.v1_12.Protocol_1_12;
 import nl.martenm.servertutorialplus.reflection.v1_14.Protocol_1_14_V1;
 import nl.martenm.simplecommands.SimpleCommandMessages;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -71,6 +68,8 @@ public class ServerTutorialPlus extends JavaPlugin{
     private ClickManager clickManager;
     private NPCManager npcManager;
 
+    private Metrics metrics;
+
     private static ServerTutorialPlus instance;
 
     public static ServerTutorialPlus getInstance() {
@@ -97,7 +96,7 @@ public class ServerTutorialPlus extends JavaPlugin{
         clickManager = new ClickManager(this);
         npcManager = new NPCManager(this);
 
-        MetricsLite metricsLite = new MetricsLite(this);
+        metrics = new Metrics(this, 382);
 
         registerCommands();
         registerConfigs();
