@@ -121,7 +121,7 @@ public enum Lang {
     POINT_ADDED("point-added", "&aSuccessfully added the new point."),
 
     INFO_NONE_EXISTING("info-none-existing", "&eThere do not exist any server tutorials at the moment."),
-    INFO_MORE_INFO("info-more-info", "&7&iUse /st info <id> to get more info."),
+    INFO_MORE_INFO("info-more-info", "&7&oUse /st info <id> to get more info."),
 
     NPC_ID_EXIST("npc-id-exists", "&cThere already exists an NPC with that ID!"),
     NPC_TESTED_MOBS("npc-tested-mobs", "&eTested mobs: &7"),
