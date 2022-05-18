@@ -83,10 +83,16 @@ public abstract class PluginUtils {
 
     public static String replaceVariables(boolean PlaceHolders, Player player, String message) {
         if (PlaceHolders) {
-            return PlaceholderAPI.setPlaceholders(player, message.replace("{player_name}", player.getName()));
+            return PlaceholderAPI.setPlaceholders(player, replaceIntern(player, message));
         } else {
-            return ChatColor.translateAlternateColorCodes('&', message.replace("{player_name}", player.getName()));
+            return ChatColor.translateAlternateColorCodes('&', replaceIntern(player, message));
         }
+    }
+
+    private static String replaceIntern(Player player, String message) {
+        return message
+                .replace("{player_name}", player.getName())
+                .replaceAll("%user_?name%", player.getName());
     }
 
     public static String allMobs() {
