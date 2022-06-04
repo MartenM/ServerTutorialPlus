@@ -5,6 +5,7 @@ import nl.martenm.servertutorialplus.helpers.PluginUtils;
 import nl.martenm.servertutorialplus.managers.FlatFileManager;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import nl.martenm.servertutorialplus.objects.TutorialController;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -28,9 +29,12 @@ public class OnPlayerJoinEvent implements Listener{
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event){
 
-        plugin.inTutorial.keySet().stream().forEach(uuid -> event.getPlayer().hidePlayer(
-                        plugin.getServer().getPlayer(uuid))
-        );
+        plugin.inTutorial.keySet().stream().forEach(uuid -> {
+            Player toHide = plugin.getServer().getPlayer(uuid);
+            if(toHide == null) return;
+
+            event.getPlayer().hidePlayer(plugin.getServer().getPlayer(uuid));
+        });
 
         if(!event.getPlayer().hasPlayedBefore()){
             if(plugin.getConfig().getBoolean("enable first join tutorial")){

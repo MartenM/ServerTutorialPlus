@@ -90,7 +90,7 @@ public abstract class ServerTutorialPoint{
 
             @Override
             public void stop() {
-                timerTask.cancel();
+                if(timerTask != null) timerTask.cancel();
             }
         };
     }
