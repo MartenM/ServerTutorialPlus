@@ -2,6 +2,7 @@ package nl.martenm.servertutorialplus.managers;
 
 import net.md_5.bungee.api.ChatColor;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
+import nl.martenm.servertutorialplus.helpers.BukkitVersion;
 import nl.martenm.servertutorialplus.helpers.Config;
 import nl.martenm.servertutorialplus.helpers.SpigotUtils;
 import nl.martenm.servertutorialplus.language.Lang;
@@ -88,7 +89,8 @@ public class NPCManager extends AbstractManager {
                     loc.getChunk().load();
                 }
 
-                if (Bukkit.getVersion().contains("1.8") || Bukkit.getVersion().contains("1.9") || Bukkit.getVersion().contains("1.10")) {
+                if (BukkitVersion.getInstance().versionEqualOrLower(1, 10)) {
+                    logger.info("Activating keep in place for minecraft 1.8/1.9/1.10");
                     keepInPlace(npcUuid);
                 }
             }
@@ -184,7 +186,9 @@ public class NPCManager extends AbstractManager {
             }
         }.runTaskLater(plugin, 5);
 
-        keepInPlace(npc.getUniqueId());
+        if (BukkitVersion.getInstance().versionEqualOrLower(1, 10)) {
+            keepInPlace(npc.getUniqueId());
+        }
         verifyCorrectSpawn(info, npc);
 
         clickableNPCs.put(npc.getUniqueId(), info);
@@ -226,10 +230,17 @@ public class NPCManager extends AbstractManager {
      */
     private void keepInPlace(UUID npc) {
         new BukkitRunnable() {
-            Location loc = SpigotUtils.getEntity(npc).getLocation();
+            Entity entity = SpigotUtils.getEntity(npc);
 
             @Override
             public void run() {
+                if(entity == null || entity.isDead()) {
+                    this.cancel();
+                    return;
+                }
+
+                Location loc = entity.getLocation();
+
                 try {
                     if (!plugin.isEnabled()) {
                         this.cancel();
