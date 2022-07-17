@@ -83,26 +83,29 @@ public class TutorialController {
     * @param cancelled   -  Identifies if a tutorial was cancelled, or just stopped.
      */
     public void cancel(boolean cancelled) {
+        cancel(cancelled, cancelled);
+    }
+
+    public void cancel(boolean cancelled, boolean originalLocation) {
         // Fire event!
         plugin.getServer().getPluginManager().callEvent(new TutorialEndEvent(serverTutorial, player, cancelled));
 
         stopController(cancelled);
-
-        restorePlayer(cancelled);
+        restorePlayer(originalLocation);
     }
 
-    private void restorePlayer(boolean cancelled){
+    private void restorePlayer(boolean originalLocation){
         if(plugin.enabled) {
-            plugin.getServer().getScheduler().runTask(plugin, () -> {
+            // plugin.getServer().getScheduler().runTask(plugin, () -> {
                 player.setFlySpeed(oldValuesPlayer.getOriginal_flySpeed());
                 player.setWalkSpeed(oldValuesPlayer.getOriginal_walkSpeed());
                 player.setAllowFlight(oldValuesPlayer.isAllowFlight());
                 player.setFlying(oldValuesPlayer.getFlying());
                 player.setGameMode(oldValuesPlayer.getGamemode());
-                if (cancelled) {
+                if (originalLocation) {
                     player.teleport(oldValuesPlayer.getLoc());
                 }
-            });
+            // });
         }
     }
 

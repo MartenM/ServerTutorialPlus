@@ -4,8 +4,8 @@ import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.objects.NPCInfo;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import me.clip.placeholderapi.PlaceholderAPI;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.*;
@@ -82,11 +82,15 @@ public abstract class PluginUtils {
     }
 
     public static String replaceVariables(boolean PlaceHolders, Player player, String message) {
+        String withoutColours;
+
         if (PlaceHolders) {
-            return PlaceholderAPI.setPlaceholders(player, replaceIntern(player, message));
+            withoutColours = PlaceholderAPI.setPlaceholders(player, replaceIntern(player, message));
         } else {
-            return ChatColor.translateAlternateColorCodes('&', replaceIntern(player, message));
+            withoutColours = replaceIntern(player, message);
         }
+
+        return ChatColor.translateAlternateColorCodes('&', withoutColours);
     }
 
     private static String replaceIntern(Player player, String message) {

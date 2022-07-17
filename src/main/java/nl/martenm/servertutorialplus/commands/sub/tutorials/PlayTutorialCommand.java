@@ -50,10 +50,14 @@ public class PlayTutorialCommand extends SimpleCommand  {
                 return true;
             }
 
-            if(plugin.inTutorial.containsKey(target.getUniqueId())){
-                sender.sendMessage(Lang.ERROR_PERSON_IN_TUTORIAL.toString());
-                return true;
+            TutorialController controller = plugin.inTutorial.get(target.getUniqueId());
+            if(controller != null){
+                controller.cancel(true, false);
+                sender.sendMessage(Lang.WARNING_TUTORIAL_OTHER_CANCELLED.toString()
+                .replace("%username%", target.getName())
+                .replace("%tutorial%", serverTutorial.getId()));
             }
+
         } else {
             if(!(sender instanceof Player)){
                 sender.sendMessage(Lang.PLAYER_ONLY_COMMAND.toString());

@@ -178,6 +178,8 @@ public enum Lang {
     ERROR_INVALID_AMPLIFIER("error-invalid-amplifier", "That is not a valid amplifier."),
     ERROR_COMMAND_BLOCKED("error-command-blocked", "&cThat command has been blocked during the tutorial."),
 
+    WARNING_TUTORIAL_OTHER_CANCELLED("warning-tutorial-other-cancelled", "&eThe player (%username%) already had a tutorial going on. The old one (%tutorial%) has been cancelled."),
+
     TIP_EDITPOINT("tip-editpoint", "&7[&aTIP&7] If you want to edit an point, use /st editpoint"),
 
     // Misc
