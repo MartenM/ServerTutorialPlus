@@ -36,15 +36,23 @@ public class OnPlayerJoinEvent implements Listener{
             event.getPlayer().hidePlayer(plugin.getServer().getPlayer(uuid));
         });
 
-        if(!event.getPlayer().hasPlayedBefore()){
+        if(!event.getPlayer().hasPlayedBefore()) {
             if(plugin.getConfig().getBoolean("enable first join tutorial")){
                 ServerTutorial st = PluginUtils.getTutorial(plugin, plugin.getConfig().getString("first join tutorial id"));
                 if(st == null){
                     return;
                 }
 
-                TutorialController tutorialController = new TutorialController(plugin, event.getPlayer(), st);
-                tutorialController.start();
+                // Delay this such that other plugins can handle the spawn of the player first.
+                plugin.getLogger().info("Starting tutorial for player " + event.getPlayer().getName() + " [First Join]");
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        TutorialController tutorialController = new TutorialController(plugin, event.getPlayer(), st);
+                        tutorialController.start();
+                    }
+                }.runTaskLater(plugin, 20);
+
                 return;
             }
             return;
