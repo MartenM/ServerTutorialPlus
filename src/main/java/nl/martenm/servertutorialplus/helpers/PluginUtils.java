@@ -15,11 +15,32 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static org.bukkit.ChatColor.COLOR_CHAR;
 
 /**
  * Created by Marten on 7-3-2017.
  */
 public abstract class PluginUtils {
+
+    public static String translateHexColorCodes(String startTag, String endTag, String message)
+    {
+        final Pattern hexPattern = Pattern.compile(startTag + "([A-Fa-f0-9]{6})" + endTag);
+        Matcher matcher = hexPattern.matcher(message);
+        StringBuffer buffer = new StringBuffer(message.length() + 4 * 8);
+        while (matcher.find())
+        {
+            String group = matcher.group(1);
+            matcher.appendReplacement(buffer, COLOR_CHAR + "x"
+                    + COLOR_CHAR + group.charAt(0) + COLOR_CHAR + group.charAt(1)
+                    + COLOR_CHAR + group.charAt(2) + COLOR_CHAR + group.charAt(3)
+                    + COLOR_CHAR + group.charAt(4) + COLOR_CHAR + group.charAt(5)
+            );
+        }
+        return matcher.appendTail(buffer).toString();
+    }
 
     public static ServerTutorial getTutorial(ServerTutorialPlus plugin, String ID) {
         if (ID == null) return null;
@@ -90,6 +111,7 @@ public abstract class PluginUtils {
             withoutColours = replaceIntern(player, message);
         }
 
+        withoutColours = translateHexColorCodes("&#", "", withoutColours);
         return ChatColor.translateAlternateColorCodes('&', withoutColours);
     }
 
