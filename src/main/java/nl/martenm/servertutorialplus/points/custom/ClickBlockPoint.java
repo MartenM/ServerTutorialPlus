@@ -14,6 +14,7 @@ import nl.martenm.servertutorialplus.points.PointType;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
 import nl.martenm.servertutorialplus.points.editor.PointArg;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
