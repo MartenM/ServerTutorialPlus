@@ -1,5 +1,6 @@
 package nl.martenm.servertutorialplus.points.custom;
 
+import net.md_5.bungee.api.ChatColor;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.Color;
 import nl.martenm.servertutorialplus.helpers.Config;
@@ -12,10 +13,7 @@ import nl.martenm.servertutorialplus.points.IPointCallBack;
 import nl.martenm.servertutorialplus.points.PointType;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
 import nl.martenm.servertutorialplus.points.editor.PointArg;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;

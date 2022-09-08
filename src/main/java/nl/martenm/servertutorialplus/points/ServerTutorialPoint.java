@@ -3,7 +3,6 @@ package nl.martenm.servertutorialplus.points;
 import com.cryptomorin.xseries.messages.Titles;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.Config;
-import nl.martenm.servertutorialplus.helpers.NeedsReflection;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
 import nl.martenm.servertutorialplus.helpers.dataholders.FireWorkInfo;
 import nl.martenm.servertutorialplus.helpers.dataholders.OldValuesPlayer;
@@ -14,7 +13,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 import nl.martenm.servertutorialplus.points.editor.PointArg;
 import nl.martenm.servertutorialplus.points.editor.args.*;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
@@ -132,9 +130,7 @@ public abstract class ServerTutorialPoint{
             }
         }
         else{
-            if(plugin.lockedViews.contains(player.getUniqueId())){
-                plugin.lockedViews.remove(player.getUniqueId());
-            }
+            plugin.lockedViews.remove(player.getUniqueId());
         }
         //endregion
 

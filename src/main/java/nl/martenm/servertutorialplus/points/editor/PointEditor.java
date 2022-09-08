@@ -3,7 +3,6 @@ package nl.martenm.servertutorialplus.points.editor;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;

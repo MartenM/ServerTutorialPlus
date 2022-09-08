@@ -21,7 +21,7 @@ public class PlayerCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
-        if(args.length <= 0){
+        if(args.length == 0){
             sender.sendMessage(ChatColor.YELLOW + "Please define a player to check. /st player <name>");
             return true;
         }

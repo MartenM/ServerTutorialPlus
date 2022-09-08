@@ -4,7 +4,6 @@ import net.md_5.bungee.api.ChatColor;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.Config;
 import nl.martenm.servertutorialplus.helpers.SpigotUtils;
-import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.objects.NPCInfo;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

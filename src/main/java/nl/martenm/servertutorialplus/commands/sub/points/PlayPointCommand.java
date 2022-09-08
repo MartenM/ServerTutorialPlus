@@ -70,12 +70,8 @@ public class PlayPointCommand extends SimpleCommand {
         OldValuesPlayer oldValuesPlayer = new OldValuesPlayer(player);
 
         IPointCallBack callBack = () -> {
-            if(plugin.lockedPlayers.contains(player.getUniqueId())){
-                plugin.lockedPlayers.remove(player.getUniqueId());
-            }
-            if(plugin.lockedViews.contains(player.getUniqueId())){
-                plugin.lockedViews.remove(player.getUniqueId());
-            }
+            plugin.lockedPlayers.remove(player.getUniqueId());
+            plugin.lockedViews.remove(player.getUniqueId());
             player.setFlySpeed(oldValuesPlayer.getOriginal_flySpeed());
             player.setWalkSpeed(oldValuesPlayer.getOriginal_walkSpeed());
             player.setFlying(oldValuesPlayer.getFlying());

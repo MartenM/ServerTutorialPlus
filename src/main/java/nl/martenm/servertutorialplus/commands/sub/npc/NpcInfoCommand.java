@@ -2,7 +2,6 @@ package nl.martenm.servertutorialplus.commands.sub.npc;
 
 import net.md_5.bungee.api.ChatColor;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
-import nl.martenm.servertutorialplus.helpers.SpigotUtils;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.managers.NPCManager;
 import nl.martenm.servertutorialplus.objects.NPCInfo;

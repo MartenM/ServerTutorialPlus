@@ -1,20 +1,15 @@
 package nl.martenm.servertutorialplus.helpers;
 
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
-import nl.martenm.servertutorialplus.objects.NPCInfo;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import me.clip.placeholderapi.PlaceholderAPI;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.*;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

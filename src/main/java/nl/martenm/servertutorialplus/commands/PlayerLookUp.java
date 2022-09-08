@@ -67,7 +67,7 @@ public class PlayerLookUp {
 
 
     public static String createSpacing(String input, int amount){
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         for(int i = 0; i < (amount - input.length()); i++){
             if(i % 2 == 0){
                 sb.append("   ");

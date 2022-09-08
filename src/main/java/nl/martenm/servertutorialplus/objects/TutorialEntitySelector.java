@@ -2,15 +2,8 @@ package nl.martenm.servertutorialplus.objects;
 
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.language.Lang;
-import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
-
-import java.util.UUID;
 
 /**
  * This object is used to hold certain data when a player is trying to bind an entity as NPC.
