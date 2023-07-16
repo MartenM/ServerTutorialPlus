@@ -25,24 +25,34 @@ public class FlatDataSource implements DataSource {
 
     @Override
     public List<String> getPlayedTutorials(UUID uuid) {
+        return (List<String>) getDataFromUUID(uuid).getOrDefault("tutorials", new ArrayList<>());
+    }
+
+    @Override
+    public String getQuitTutorial(UUID uuid) {
+        return (String) getDataFromUUID(uuid).get("quit_tutorial");
+    }
+
+    private JSONObject getDataFromUUID(UUID uuid) {
         File hostlocation = new File(plugin.getDataFolder() + "/data/playerdata");
         hostlocation.mkdirs();
 
+        JSONObject data = new JSONObject();
+
         File file = new File(plugin.getDataFolder() + "/data/playerdata/" + uuid + ".json");
-        if(file.exists()){
+        if(file.exists()) {
             JSONParser parser = new JSONParser();
-            JSONObject data = null;
             FileReader reader = null;
 
-            try{
+            try {
                 reader = new FileReader(file.getPath());
                 Object obj = parser.parse(reader);
                 data = (JSONObject) obj;
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
 
             } finally {
-                if(reader != null){
+                if (reader != null) {
                     try {
                         reader.close();
                     } catch (IOException e) {
@@ -50,24 +60,30 @@ public class FlatDataSource implements DataSource {
                     }
                 }
             }
+        }
 
-            return (List<String>) data.get("tutorials");
-        }
-        else{
-            return new ArrayList<>();
-        }
+        return data;
     }
 
     @Override
     public boolean addPlayedTutorial(UUID uuid, String id) {
         List<String> played = getPlayedTutorials(uuid);
         played.add(id);
+        return changeDataInFile(uuid, "tutorials", played);
+    }
 
-        File hostlocation = new File(plugin.getDataFolder() + "/data/playerdata/");
-        hostlocation.mkdirs();
+    @Override
+    public void setQuitTutorial(UUID uuid, String id) {
+        changeDataInFile(uuid, "quit_tutorial", id);
+    }
 
-        JSONObject data = new JSONObject();
-        data.put("tutorials", played);
+    public boolean changeDataInFile(UUID uuid, String key, Object value) {
+        JSONObject data = getDataFromUUID(uuid);
+        if (value == null) {
+            data.remove(key);
+        } else {
+            data.put(key, value);
+        }
 
         File file = new File(plugin.getDataFolder() + "/data/playerdata/" + uuid + ".json");
 
@@ -96,34 +112,12 @@ public class FlatDataSource implements DataSource {
     public boolean removePlayedTutorial(UUID uuid, String id) {
         List<String> played = getPlayedTutorials(uuid);
         played.remove(id);
+        return changeDataInFile(uuid, "tutorials", played);
+    }
 
-        File hostlocation = new File(plugin.getDataFolder() + "/data/playerdata/");
-        hostlocation.mkdirs();
-
-        JSONObject data = new JSONObject();
-        data.put("tutorials", played);
-
-        File file = new File(plugin.getDataFolder() + "/data/playerdata/" + uuid + ".json");
-
-        FileWriter writer = null;
-        try{
-            writer = new FileWriter(file);
-            writer.write(data.toJSONString());
-        } catch (Exception ex){
-            ex.printStackTrace();
-            return false;
-        } finally {
-            if(writer != null){
-                try {
-                    writer.flush();
-                    writer.close();
-                } catch (Exception ex){
-                    ex.printStackTrace();
-                }
-            }
-        }
-
-        return true;
+    @Override
+    public boolean removeQuitTutorial(UUID uuid) {
+        return changeDataInFile(uuid, "quit_tutorial", null);
     }
 
     @Override
