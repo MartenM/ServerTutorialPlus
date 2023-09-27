@@ -82,10 +82,12 @@ public abstract class PluginUtils {
         double x = Double.parseDouble(data[1]);
         double y = Double.parseDouble(data[2]);
         double z = Double.parseDouble(data[3]);
-        float yaw = Float.parseFloat(data[4]);
-        float pitch = Float.parseFloat(data[5]);
-        return new Location(plugin.getServer().getWorld(world), x, y, z, yaw, pitch);
-
+        if (data.size() == 6) {
+            float yaw = Float.parseFloat(data[4]);
+            float pitch = Float.parseFloat(data[5]);
+            return new Location(plugin.getServer().getWorld(world), x, y, z, yaw, pitch);
+        }
+        return new Location(plugin.getServer().getWorld(world), x, y, z);
     }
 
     public static String fromLocation(Location loc) {
