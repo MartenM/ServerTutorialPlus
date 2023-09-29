@@ -203,7 +203,7 @@ public abstract class ServerTutorialPoint{
         lockPlayer = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".locplayer");
         lockView = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".locview");
         flying = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".setFly");
-        teleport = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".teleport");
+        teleport = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".teleport", true);
         /*
            Fire work meta!
         */
