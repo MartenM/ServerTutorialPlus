@@ -32,7 +32,7 @@ public class CommandPoint extends ServerTutorialPoint {
             @Override
             public void start() {
                 waiting.put(player.getUniqueId(), callBack);
-                playDefault(player, oldValuesPlayer, true);
+                playDefault(player, oldValuesPlayer);
             }
 
             @Override

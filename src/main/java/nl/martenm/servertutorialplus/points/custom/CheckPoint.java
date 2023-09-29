@@ -59,7 +59,7 @@ public class CheckPoint extends ServerTutorialPoint {
 
             @Override
             public void start() {
-                playDefault(player, oldValuesPlayer, false);
+                playDefault(player, oldValuesPlayer);
                 checker = new BukkitRunnable() {
                     int count;
 
