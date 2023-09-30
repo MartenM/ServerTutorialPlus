@@ -217,4 +217,12 @@ public class TutorialController {
     public boolean isRunning(){
         return this.running;
     }
+
+    /**
+     * Get which point are beeing playing
+     * @return Integer that represent point index of the current point
+     */
+    public Integer getCurrentPoint() {
+        return current;
+    }
 }
