@@ -1,4 +1,4 @@
-package nl.martenm.servertutorialplus.managers;
+package nl.martenm.servertutorialplus.hooks;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -9,11 +9,15 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.objects.TutorialController;
 
-public class PlaceholderapiManager extends PlaceholderExpansion {
+/**
+ * @author alan67160
+ * @since 30-09-2023.
+ */
+public class PlaceholderAPIExpansion extends PlaceholderExpansion {
     
     private final ServerTutorialPlus plugin;
     
-    public PlaceholderapiManager(ServerTutorialPlus plugin) {
+    public PlaceholderAPIExpansion(ServerTutorialPlus plugin) {
         this.plugin = plugin;
     }
     
