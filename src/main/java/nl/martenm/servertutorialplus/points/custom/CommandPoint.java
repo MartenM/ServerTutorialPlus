@@ -23,7 +23,7 @@ public class CommandPoint extends ServerTutorialPoint {
     private static Map<UUID, IPointCallBack> waiting = new WeakHashMap<>();
 
     public CommandPoint(ServerTutorialPlus plugin, Location loc) {
-        super(plugin, loc, PointType.COMMAND);
+        super(plugin, loc, PointType.COMMAND, true);
     }
 
     @Override

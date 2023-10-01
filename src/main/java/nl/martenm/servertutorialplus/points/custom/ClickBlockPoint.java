@@ -39,13 +39,13 @@ public class ClickBlockPoint extends ServerTutorialPoint {
     private Color particleColor;
 
     public ClickBlockPoint(ServerTutorialPlus plugin, Location loc) {
-        super(plugin, loc, PointType.CLICK_BLOCK);
+        super(plugin, loc, PointType.CLICK_BLOCK, false);
         particleColor = new Color(125, 255, 0);
         clickableBlock = loc.clone();
     }
 
     public ClickBlockPoint(ServerTutorialPlus plugin, Location loc, boolean enableParticles) {
-        super(plugin, loc, PointType.CLICK_BLOCK);
+        super(plugin, loc, PointType.CLICK_BLOCK, false);
         clickableBlock = loc.getBlock().getLocation();
         particleColor = new Color(125, 255, 0);
         this.enableParticles = enableParticles;

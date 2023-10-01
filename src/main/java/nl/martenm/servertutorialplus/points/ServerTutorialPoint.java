@@ -51,7 +51,7 @@ public abstract class ServerTutorialPoint{
     protected boolean flying;
     protected boolean teleport;
 
-    public ServerTutorialPoint(ServerTutorialPlus plugin, Location loc, PointType type) {
+    public ServerTutorialPoint(ServerTutorialPlus plugin, Location loc, PointType type, Boolean teleport) {
         this.plugin = plugin;
         this.loc = loc;
         this.type = type;
@@ -62,7 +62,7 @@ public abstract class ServerTutorialPoint{
         this.lockPlayer = false;
         this.lockView = false;
         this.pointionEffects = new ArrayList<>();
-        this.teleport = true;
+        this.teleport = teleport;
     }
 
     /**
@@ -203,7 +203,10 @@ public abstract class ServerTutorialPoint{
         lockPlayer = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".locplayer");
         lockView = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".locview");
         flying = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".setFly");
-        teleport = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".teleport", true);
+        String teleportConfigPath = "tutorials." + ID + ".points." + i + ".teleport";
+        if (tutorialSaves.isBoolean(teleportConfigPath)) {
+            teleport = tutorialSaves.getBoolean(teleportConfigPath);
+        }
         /*
            Fire work meta!
         */
@@ -269,7 +272,7 @@ public abstract class ServerTutorialPoint{
         tutorialSaves.set("tutorials." + key + ".points." + i + ".actionbar", message_actionBar);
         tutorialSaves.set("tutorials." + key + ".points." + i + ".commands", commands);
         if(flying) tutorialSaves.set("tutorials." + key + ".points." + i + ".setFly", flying);
-        if(!teleport) tutorialSaves.set("tutorials." + key + ".points." + i + ".teleport", teleport);
+        tutorialSaves.set("tutorials." + key + ".points." + i + ".teleport", teleport);
 
         if(titleInfo != null){
             tutorialSaves.set("tutorials." + key + ".points." + i + ".title.title", titleInfo.title);
