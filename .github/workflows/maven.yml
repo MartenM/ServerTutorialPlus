@@ -19,13 +19,13 @@ jobs:
     - name: Set up JDK 10
       uses: actions/setup-java@v2
       with:
-        java-version: '8'
+        java-version: '17'
         distribution: 'adopt'
         cache: maven
     - name: Compile Minecraft Spigot
       uses: SpraxDev/Action-SpigotMC@v3
       with:
-        versions: 1.12.2
+        versions: 1.20.2
         buildToolProvider: SpigotMC
 
     - name: Build with Maven
