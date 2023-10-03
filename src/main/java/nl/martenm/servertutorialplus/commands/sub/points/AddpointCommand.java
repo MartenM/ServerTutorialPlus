@@ -89,7 +89,7 @@ public class AddpointCommand extends SimpleCommand {
         }
 
         serverTutorial.points.add(point);
-        player.sendMessage(Lang.POINT_ADDED.toString());
+        player.sendMessage(Lang.POINT_ADDED.toString().replace("%index%", String.valueOf(serverTutorial.points.size())));
 
         return true;
     }

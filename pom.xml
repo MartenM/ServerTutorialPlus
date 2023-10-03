@@ -31,7 +31,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.12.2-R0.1-SNAPSHOT</version>
+            <version>1.20.2-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -61,7 +61,7 @@
         <dependency>
             <groupId>com.github.cryptomorin</groupId>
             <artifactId>XSeries</artifactId>
-            <version>8.5.0.1</version>
+            <version>9.5.0</version>
         </dependency>
 
         <dependency>
@@ -123,6 +123,10 @@
                           <pattern>org.bstats</pattern>
                           <!-- Replace this with your package! -->
                           <shadedPattern>nl.martenm.libs.bstats</shadedPattern>
+                      </relocation>
+                      <relocation>
+                          <pattern>com.cryptomorin.xseries</pattern>
+                          <shadedPattern>nl.martenm.libs.xseries</shadedPattern>
                       </relocation>
                     </relocations>
 

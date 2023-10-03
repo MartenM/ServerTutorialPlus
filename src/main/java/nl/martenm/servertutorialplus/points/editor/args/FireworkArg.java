@@ -73,7 +73,7 @@ public class FireworkArg extends PointArg {
                 }
 
                 player = (Player) sender;
-                if(player.getInventory().getItemInMainHand().getType() == Material.FIREWORK){
+                if(player.getInventory().getItemInMainHand().getType() == Material.FIREWORK_ROCKET){
                     ItemStack firework = player.getInventory().getItemInMainHand();
 
                     if(!(firework.getItemMeta() instanceof FireworkMeta)){

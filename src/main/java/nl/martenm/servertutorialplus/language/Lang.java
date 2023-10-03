@@ -118,7 +118,7 @@ public enum Lang {
     POINT_INVALID_TYPE("point-invalid-type", "&cInvalid point type!"),
     POINT_EXAMPLE_COMMAND_CLICK("point-example-command-click", "&eClick to show the &a%type%&e point command"),
     POINT_EXAMPLE_MESSAGE("point-example-message", "&eClick one of the following options to show the correct command: "),
-    POINT_ADDED("point-added", "&aSuccessfully added the new point."),
+    POINT_ADDED("point-added", "&aSuccessfully added the new point. (&e%index%&a)"),
 
     INFO_NONE_EXISTING("info-none-existing", "&eThere do not exist any server tutorials at the moment."),
     INFO_MORE_INFO("info-more-info", "&7&oUse /st info <id> to get more info."),
