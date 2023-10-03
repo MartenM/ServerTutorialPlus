@@ -8,7 +8,7 @@ import nl.martenm.servertutorialplus.data.MySqlDataSource;
 import nl.martenm.servertutorialplus.events.*;
 import nl.martenm.servertutorialplus.helpers.Config;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
-import nl.martenm.servertutorialplus.hooks.PlaceholderAPIExpansion;
+import nl.martenm.servertutorialplus.api.hooks.PlaceholderAPIExpansion;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.managers.FlatFileManager;
 import nl.martenm.servertutorialplus.managers.NPCManager;
