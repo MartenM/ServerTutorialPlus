@@ -8,6 +8,7 @@ import nl.martenm.servertutorialplus.data.MySqlDataSource;
 import nl.martenm.servertutorialplus.events.*;
 import nl.martenm.servertutorialplus.helpers.Config;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
+import nl.martenm.servertutorialplus.hooks.PlaceholderAPIExpansion;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.managers.FlatFileManager;
 import nl.martenm.servertutorialplus.managers.NPCManager;
@@ -124,6 +125,7 @@ public class ServerTutorialPlus extends JavaPlugin{
         if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
             logger.info("PlaceholderAPI has been found!");
             placeholderAPI = true;
+            new PlaceholderAPIExpansion(this).register();
         } else {
             logger.info("PlaceholderAPI was not found!");
             placeholderAPI = false;
