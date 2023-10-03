@@ -23,7 +23,7 @@ jobs:
         distribution: 'adopt'
         cache: maven
     - name: Compile Minecraft Spigot
-      uses: SpraxDev/Action-SpigotMC@v3
+      uses: SpraxDev/Action-SpigotMC@v4
       with:
         versions: 1.20.2
         buildToolProvider: SpigotMC
