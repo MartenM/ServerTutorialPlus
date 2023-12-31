@@ -49,8 +49,9 @@ public abstract class ServerTutorialPoint{
     protected boolean lockView;
     protected double time;
     protected boolean flying;
+    protected boolean teleport;
 
-    public ServerTutorialPoint(ServerTutorialPlus plugin, Location loc, PointType type) {
+    public ServerTutorialPoint(ServerTutorialPlus plugin, Location loc, PointType type, Boolean teleport) {
         this.plugin = plugin;
         this.loc = loc;
         this.type = type;
@@ -61,6 +62,7 @@ public abstract class ServerTutorialPoint{
         this.lockPlayer = false;
         this.lockView = false;
         this.pointionEffects = new ArrayList<>();
+        this.teleport = teleport;
     }
 
     /**
@@ -76,7 +78,7 @@ public abstract class ServerTutorialPoint{
 
             @Override
             public void start() {
-                playDefault(player, oldValuesPlayer, true);
+                playDefault(player, oldValuesPlayer);
 
                 timerTask = new BukkitRunnable() {
                     @Override
@@ -99,7 +101,7 @@ public abstract class ServerTutorialPoint{
      * @param player The targeted player.
      * @param oldValuesPlayer Old values of the player before starting the tutorial / point.
      */
-    protected void playDefault(Player player, OldValuesPlayer oldValuesPlayer, boolean teleport) {
+    protected void playDefault(Player player, OldValuesPlayer oldValuesPlayer) {
         if(teleport) player.teleport(loc);
 
         for (String message : message_chat) {
@@ -201,6 +203,10 @@ public abstract class ServerTutorialPoint{
         lockPlayer = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".locplayer");
         lockView = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".locview");
         flying = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".setFly");
+        String teleportConfigPath = "tutorials." + ID + ".points." + i + ".teleport";
+        if (tutorialSaves.isBoolean(teleportConfigPath)) {
+            teleport = tutorialSaves.getBoolean(teleportConfigPath);
+        }
         /*
            Fire work meta!
         */
@@ -266,6 +272,7 @@ public abstract class ServerTutorialPoint{
         tutorialSaves.set("tutorials." + key + ".points." + i + ".actionbar", message_actionBar);
         tutorialSaves.set("tutorials." + key + ".points." + i + ".commands", commands);
         if(flying) tutorialSaves.set("tutorials." + key + ".points." + i + ".setFly", flying);
+        tutorialSaves.set("tutorials." + key + ".points." + i + ".teleport", teleport);
 
         if(titleInfo != null){
             tutorialSaves.set("tutorials." + key + ".points." + i + ".title.title", titleInfo.title);
@@ -321,6 +328,7 @@ public abstract class ServerTutorialPoint{
         args.add(new PotionEffectArg());
         args.add(new SoundArg());
         args.add(new TitleArg());
+        args.add(new TeleportArg());
         return args;
     }
 
@@ -438,5 +446,13 @@ public abstract class ServerTutorialPoint{
 
     public void setFlying(boolean setFlying) {
         this.flying = setFlying;
+    }
+
+    public boolean isSetTeleport() {
+        return flying;
+    }
+
+    public void setTeleport(boolean setTeleport) {
+        this.teleport = setTeleport;
     }
 }

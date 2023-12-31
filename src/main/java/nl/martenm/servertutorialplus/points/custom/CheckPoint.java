@@ -43,7 +43,7 @@ public class CheckPoint extends ServerTutorialPoint {
     }
 
     public CheckPoint(ServerTutorialPlus plugin, Location loc) {
-        super(plugin, loc, PointType.CHECKPOINT);
+        super(plugin, loc, PointType.CHECKPOINT, false);
         animationType = AnimationType.CIRCLE;
         color = new Color(244, 153, 0);
         guideColor = new Color(244, 244, 244);
@@ -59,7 +59,7 @@ public class CheckPoint extends ServerTutorialPoint {
 
             @Override
             public void start() {
-                playDefault(player, oldValuesPlayer, false);
+                playDefault(player, oldValuesPlayer);
                 checker = new BukkitRunnable() {
                     int count;
 
