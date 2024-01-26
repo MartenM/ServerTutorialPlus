@@ -17,4 +17,11 @@ public interface DataSource {
     boolean removePlayedTutorial(UUID uuid, String id);
 
     boolean hasPlayedTutorial(UUID uuid, String id);
+
+    String getQuitTutorial(UUID uuid);
+
+    void setQuitTutorial(UUID uuid, String id);
+
+    boolean removeQuitTutorial(UUID uuid);
+
 }

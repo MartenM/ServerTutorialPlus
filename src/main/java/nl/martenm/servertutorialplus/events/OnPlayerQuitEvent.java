@@ -25,6 +25,8 @@ public class OnPlayerQuitEvent implements Listener {
             TutorialController tc = plugin.inTutorial.get(event.getPlayer().getUniqueId());
             tc.cancel(true);
 
+            plugin.getDataSource().setQuitTutorial(event.getPlayer().getUniqueId(), tc.getTutorial().getId());
+
             OldValuesPlayer oldValuesPlayer = tc.getOldValuesPlayer();
             oldValuesPlayer.restore(event.getPlayer());
         }

@@ -58,6 +58,17 @@ public class OnPlayerJoinEvent implements Listener{
             return;
         }
 
+        String quitTutorialId = plugin.getDataSource().getQuitTutorial(event.getPlayer().getUniqueId());
+        if (quitTutorialId != null) {
+            ServerTutorial serverTutorial = PluginUtils.getTutorial(plugin, quitTutorialId);
+            if (serverTutorial != null) {
+                plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+                    new TutorialController(plugin, event.getPlayer(), serverTutorial).start();
+                    plugin.getDataSource().removeQuitTutorial(event.getPlayer().getUniqueId());
+                }, 20L);
+            }
+        }
+
         new BukkitRunnable(){
             @Override
             public void run() {
