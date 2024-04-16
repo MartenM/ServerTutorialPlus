@@ -30,12 +30,11 @@ public class Protocol_1_14_V1 implements IProtocol {
             }
         }
 
-        Object[] dustParam = {org.bukkit.Color.fromBGR(color.getRed(), color.getGreen(), color.getBlue()), 1};
+        Object[] dustParam = {org.bukkit.Color.fromRGB(color.getRed(), color.getGreen(), color.getBlue()), 1};
 
         try {
             Object dust = dustConstructor.newInstance(dustParam);
-
-            player.spawnParticle(Particle.REDSTONE, location, 0, color.getRed() / 255, color.getGreen() / 255, color.getBlue() / 255, 1, dust);
+            player.spawnParticle(Particle.REDSTONE, location, 1, dust);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
