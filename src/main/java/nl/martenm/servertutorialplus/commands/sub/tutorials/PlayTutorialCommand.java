@@ -64,6 +64,11 @@ public class PlayTutorialCommand extends SimpleCommand  {
                 return true;
             }
 
+            if(!sender.hasPermission(getFullPermission() + ".self")) {
+                sender.sendMessage(Lang.NO_PERMS.toString());
+                return true;
+            }
+
             Player player = (Player) sender;
 
             target = player;
