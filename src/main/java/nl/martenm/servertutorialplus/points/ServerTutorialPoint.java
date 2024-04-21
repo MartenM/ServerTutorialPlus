@@ -216,7 +216,7 @@ public abstract class ServerTutorialPoint{
 
         message_actionBar = tutorialSaves.getString("tutorials." + ID + ".points." + i + ".actionbar.message");
         actionbar_show_after = tutorialSaves.getDouble("tutorials." + ID + ".points." + i + ".actionbar.show-after", 0);
-        actionbar_hide_after = tutorialSaves.getDouble("tutorials." + ID + ".points." + i + ".actionbar.hide-after", -1);
+        actionbar_hide_after = tutorialSaves.getDouble("tutorials." + ID + ".points." + i + ".actionbar.hide-after", time);
         lockPlayer = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".locplayer");
         lockView = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".locview");
         flying = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".setFly");
