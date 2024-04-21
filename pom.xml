@@ -26,10 +26,6 @@
             <url>https://jitpack.io</url>
         </repository>
 
-        <repository>
-            <id>minebench-repo</id>
-            <url>https://repo.minebench.de/</url>
-        </repository>
     </repositories>
     <dependencies>
         <!--Spigot API and NMS-->
@@ -79,13 +75,6 @@
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>3.0.0</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>de.themoep</groupId>
-            <artifactId>minedown</artifactId>
-            <version>1.7.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
 
