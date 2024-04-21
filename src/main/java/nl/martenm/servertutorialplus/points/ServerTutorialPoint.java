@@ -1,7 +1,6 @@
 package nl.martenm.servertutorialplus.points;
 
 import com.cryptomorin.xseries.messages.Titles;
-import de.themoep.minedown.MineDown;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.Config;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
@@ -163,7 +162,7 @@ public abstract class ServerTutorialPoint{
                 public void run() {
                     if (ticksPassed >= showAfterTicks && ticksPassed < hideAfterTicks) {
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
-                                new MineDown(PluginUtils.replaceVariables(plugin.placeholderAPI, player, message_actionBar)).toComponent());
+                                new TextComponent(PluginUtils.replaceVariables(plugin.placeholderAPI, player, message_actionBar)));
                     } else if (ticksPassed > hideAfterTicks || ticksPassed > time * 20) {
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(""));
                         this.cancel();
