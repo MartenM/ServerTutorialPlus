@@ -12,7 +12,7 @@ import org.bukkit.Location;
 public class TimedPoint extends ServerTutorialPoint {
 
     public TimedPoint(ServerTutorialPlus plugin, Location loc) {
-        super(plugin, loc, PointType.TIMED);
+        super(plugin, loc, PointType.TIMED, true);
     }
 
     //Timed point is basically just a default point without additions.
