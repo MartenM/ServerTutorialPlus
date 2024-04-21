@@ -1,6 +1,7 @@
 package nl.martenm.servertutorialplus.points;
 
 import com.cryptomorin.xseries.messages.Titles;
+import de.themoep.minedown.MineDown;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.Config;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
@@ -42,6 +43,8 @@ public abstract class ServerTutorialPoint{
     protected List<String> commands;
     protected List<FireWorkInfo> fireworks;
     protected String message_actionBar;
+    protected double actionbar_show_after;
+    protected double actionbar_hide_after;
     protected PlayerTitle titleInfo;
     protected PlayerSound soundInfo;
     protected List<PotionEffect> pointionEffects;
@@ -151,9 +154,23 @@ public abstract class ServerTutorialPoint{
         //endregion
 
         //region actionbar
-        if (message_actionBar != null) {
-            //NeedsReflection.sendActionBar(player, PluginUtils.replaceVariables(plugin.placeholderAPI, player, message_actionBar));
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(PluginUtils.replaceVariables(plugin.placeholderAPI, player, message_actionBar)));
+        if (message_actionBar != null && actionbar_hide_after > actionbar_show_after) {
+            new BukkitRunnable() {
+                final double showAfterTicks = actionbar_show_after * 20;
+                final double hideAfterTicks = actionbar_hide_after * 20;
+                int ticksPassed = 0;
+                @Override
+                public void run() {
+                    if (ticksPassed >= showAfterTicks && ticksPassed < hideAfterTicks) {
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR,
+                                new MineDown(PluginUtils.replaceVariables(plugin.placeholderAPI, player, message_actionBar)).toComponent());
+                    } else if (ticksPassed > hideAfterTicks || ticksPassed > time * 20) {
+                        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(""));
+                        this.cancel();
+                    }
+                    ticksPassed += 2;
+                }
+            }.runTaskTimer(plugin, 0, 2);
         }
         //endregion
 
@@ -197,7 +214,9 @@ public abstract class ServerTutorialPoint{
         message_chat = tutorialSaves.getStringList("tutorials." + ID + ".points." + i + ".messages");
         commands = tutorialSaves.getStringList("tutorials." + ID + ".points." + i + ".commands");
 
-        message_actionBar = tutorialSaves.getString("tutorials." + ID + ".points." + i + ".actionbar");
+        message_actionBar = tutorialSaves.getString("tutorials." + ID + ".points." + i + ".actionbar.message");
+        actionbar_show_after = tutorialSaves.getDouble("tutorials." + ID + ".points." + i + ".actionbar.show-after", 0);
+        actionbar_hide_after = tutorialSaves.getDouble("tutorials." + ID + ".points." + i + ".actionbar.hide-after", -1);
         lockPlayer = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".locplayer");
         lockView = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".locview");
         flying = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".setFly");
@@ -263,7 +282,9 @@ public abstract class ServerTutorialPoint{
         tutorialSaves.set("tutorials." + key + ".points." + i + ".locplayer", lockPlayer);
         tutorialSaves.set("tutorials." + key + ".points." + i + ".locview", lockView);
         tutorialSaves.set("tutorials." + key + ".points." + i + ".messages", message_chat);
-        tutorialSaves.set("tutorials." + key + ".points." + i + ".actionbar", message_actionBar);
+        tutorialSaves.set("tutorials." + key + ".points." + i + ".actionbar.message", message_actionBar);
+        tutorialSaves.set("tutorials." + key + ".points." + i + ".actionbar.show-after", actionbar_show_after);
+        tutorialSaves.set("tutorials." + key + ".points." + i + ".actionbar.hide-after", actionbar_hide_after);
         tutorialSaves.set("tutorials." + key + ".points." + i + ".commands", commands);
         if(flying) tutorialSaves.set("tutorials." + key + ".points." + i + ".setFly", flying);
 
