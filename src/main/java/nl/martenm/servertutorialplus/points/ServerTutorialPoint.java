@@ -172,8 +172,8 @@ public abstract class ServerTutorialPoint{
             }
 
             new BukkitRunnable() {
-                final BossBar bossBar = Bukkit.getServer().createBossBar(new NamespacedKey(plugin, "bossbar"), bossBarTitle,
-                        bossBarColor, bossBarStyle);
+                final BossBar bossBar = Bukkit.getServer().createBossBar(new NamespacedKey(plugin, "bossbar"),
+                        ChatColor.translateAlternateColorCodes('&', bossBarTitle), bossBarColor, bossBarStyle);
                 final int showAfterTicks = (int) (bossBarShowAfter * 20);
                 final int hideAfterTicks = (int) (bossBarHideAfter * 20);
                 int ticksPassed = 0;
