@@ -9,6 +9,8 @@ import nl.martenm.servertutorialplus.helpers.PluginUtils;
 import nl.martenm.servertutorialplus.helpers.dataholders.OldValuesPlayer;
 import nl.martenm.servertutorialplus.points.IPlayPoint;
 import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -104,6 +106,11 @@ public class TutorialController {
                 player.setGameMode(oldValuesPlayer.getGamemode());
                 if (originalLocation) {
                     player.teleport(oldValuesPlayer.getLoc());
+                }
+
+                BossBar bossBar = Bukkit.getBossBar(new NamespacedKey(plugin, "bossbar"));
+                if (bossBar != null) {
+                    bossBar.removeAll();
                 }
             // });
         }
