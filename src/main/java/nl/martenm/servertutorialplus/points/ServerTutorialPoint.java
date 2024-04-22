@@ -12,9 +12,10 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import nl.martenm.servertutorialplus.points.editor.PointArg;
 import nl.martenm.servertutorialplus.points.editor.args.*;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Sound;
+import org.bukkit.*;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
@@ -37,11 +38,19 @@ public abstract class ServerTutorialPoint{
     protected ServerTutorialPlus plugin;
     protected PointType type;
 
+    protected BukkitTask bossbarRunnable = null;
+
     protected Location loc;
     protected List<String> message_chat;
     protected List<String> commands;
     protected List<FireWorkInfo> fireworks;
     protected String message_actionBar;
+    protected String bossBarTitle;
+    protected double bossBarProgress;
+    protected BarColor bossBarColor;
+    protected BarStyle bossBarStyle;
+    protected double bossBarShowAfter;
+    protected double bossBarHideAfter;
     protected PlayerTitle titleInfo;
     protected PlayerSound soundInfo;
     protected List<PotionEffect> pointionEffects;
@@ -89,6 +98,7 @@ public abstract class ServerTutorialPoint{
             @Override
             public void stop() {
                 if(timerTask != null) timerTask.cancel();
+                if (bossbarRunnable != null) bossbarRunnable.cancel();
             }
         };
     }
@@ -157,6 +167,42 @@ public abstract class ServerTutorialPoint{
         }
         //endregion
 
+        if (bossBarTitle != null && bossBarHideAfter > bossBarShowAfter) {
+
+            BossBar oldBar = Bukkit.getBossBar(new NamespacedKey(plugin, "bossbar"));
+            if (oldBar != null) {
+                oldBar.removeAll();
+            }
+
+            bossbarRunnable = new BukkitRunnable() {
+                final BossBar bossBar = Bukkit.getServer().createBossBar(new NamespacedKey(plugin, "bossbar"),
+                        ChatColor.translateAlternateColorCodes('&', bossBarTitle), bossBarColor, bossBarStyle);
+                final int showAfterTicks = (int) (bossBarShowAfter * 20);
+                final int hideAfterTicks = (int) (bossBarHideAfter * 20);
+                int ticksPassed = 0;
+                {
+                    if (bossBarProgress > 1.0) {
+                        bossBarProgress = 1.0;
+                    }
+                    if (bossBarProgress < 0.0) {
+                        bossBarProgress = 0.0;
+                    }
+                    bossBar.setProgress(bossBarProgress);
+                }
+                @Override
+                public void run() {
+                    if (ticksPassed >= showAfterTicks && !bossBar.getPlayers().contains(player)) {
+                        bossBar.addPlayer(player);
+                    }
+                    if (ticksPassed >= hideAfterTicks || ticksPassed > time * 20) {
+                        bossBar.removePlayer(player);
+                        this.cancel();
+                    }
+                    ticksPassed += 2;
+                }
+            }.runTaskTimer(plugin, 0, 2);
+        }
+
         //region commands
         for (String command : commands) {
             Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), PluginUtils.replaceVariables(plugin.placeholderAPI, player, command));
@@ -198,9 +244,28 @@ public abstract class ServerTutorialPoint{
         commands = tutorialSaves.getStringList("tutorials." + ID + ".points." + i + ".commands");
 
         message_actionBar = tutorialSaves.getString("tutorials." + ID + ".points." + i + ".actionbar");
+        bossBarTitle = tutorialSaves.getString("tutorials." + ID + ".points." + i + ".bossbar.title");
+        bossBarProgress = tutorialSaves.getDouble("tutorials." + ID + ".points." + i + ".bossbar.progress", 1.0);
+        bossBarShowAfter = tutorialSaves.getDouble("tutorials." + ID + ".points." + i + ".bossbar.show-after", 0.0);
+        bossBarHideAfter = tutorialSaves.getDouble("tutorials." + ID + ".points." + i + ".bossbar.hide-after", time);
         lockPlayer = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".locplayer");
         lockView = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".locview");
         flying = tutorialSaves.getBoolean("tutorials." + ID + ".points." + i + ".setFly");
+
+        try {
+            String bossBarStyleString = tutorialSaves.getString("tutorials." + ID + ".points." + i + ".bossbar.style", "SOLID");
+            bossBarStyle = BarStyle.valueOf(bossBarStyleString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            bossBarStyle = BarStyle.SOLID;
+        }
+
+        try {
+            String bossBarColorString = tutorialSaves.getString("tutorials." + ID + ".points." + i + ".bossbar.color", "WHITE");
+            bossBarColor = BarColor.valueOf(bossBarColorString.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            bossBarColor = BarColor.WHITE;
+        }
+
         /*
            Fire work meta!
         */
@@ -267,6 +332,15 @@ public abstract class ServerTutorialPoint{
         tutorialSaves.set("tutorials." + key + ".points." + i + ".commands", commands);
         if(flying) tutorialSaves.set("tutorials." + key + ".points." + i + ".setFly", flying);
 
+        if (bossBarTitle != null) {
+            tutorialSaves.set("tutorials." + key + ".points." + i + ".bossbar.title", bossBarTitle);
+            tutorialSaves.set("tutorials." + key + ".points." + i + ".bossbar.color", bossBarColor.name());
+            tutorialSaves.set("tutorials." + key + ".points." + i + ".bossbar.style", bossBarStyle.name());
+            tutorialSaves.set("tutorials." + key + ".points." + i + ".bossbar.progress", bossBarProgress);
+            tutorialSaves.set("tutorials." + key + ".points." + i + ".bossbar.show-after", bossBarShowAfter);
+            tutorialSaves.set("tutorials." + key + ".points." + i + ".bossbar.hide-after", bossBarHideAfter);
+        }
+
         if(titleInfo != null){
             tutorialSaves.set("tutorials." + key + ".points." + i + ".title.title", titleInfo.title);
             tutorialSaves.set("tutorials." + key + ".points." + i + ".title.subtitle", titleInfo.subtitle);
@@ -317,6 +391,7 @@ public abstract class ServerTutorialPoint{
         args.add(new MessagesArg());
         args.add(new CommandsArg());
         args.add(new ActionbarArg());
+        args.add(new BossBarArg());
         args.add(new FireworkArg());
         args.add(new PotionEffectArg());
         args.add(new SoundArg());
@@ -438,5 +513,29 @@ public abstract class ServerTutorialPoint{
 
     public void setFlying(boolean setFlying) {
         this.flying = setFlying;
+    }
+
+    public void setBossBarTitle(String bossBarTitle) {
+        this.bossBarTitle = bossBarTitle;
+    }
+
+    public void setBossBarProgress(double bossBarProgress) {
+        this.bossBarProgress = bossBarProgress;
+    }
+
+    public void setBossBarColor(BarColor bossBarColor) {
+        this.bossBarColor = bossBarColor;
+    }
+
+    public void setBossBarStyle(BarStyle bossBarStyle) {
+        this.bossBarStyle = bossBarStyle;
+    }
+
+    public void setBossBarShowAfter(double bossBarShowAfter) {
+        this.bossBarShowAfter = bossBarShowAfter;
+    }
+
+    public void setBossBarHideAfter(double bossBarHideAfter) {
+        this.bossBarHideAfter = bossBarHideAfter;
     }
 }
