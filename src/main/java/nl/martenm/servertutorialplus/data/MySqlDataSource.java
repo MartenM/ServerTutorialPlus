@@ -53,7 +53,9 @@ public class MySqlDataSource implements DataSource {
             return false;
         }
 
-        return true;
+        return simpleSqlUpdate("CREATE TABLE IF NOT EXISTS Quit_Tutorials " +
+                "(uuid VARCHAR(64) PRIMARY KEY, " +
+                " tutorial VARCHAR(255) NOT NULL);");
     }
 
     public boolean simpleSqlUpdate(String sql)
@@ -143,13 +145,72 @@ public class MySqlDataSource implements DataSource {
     }
 
     @Override
+    public String getQuitTutorial(UUID uuid) {
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet result = null;
+
+        try{
+            connection = mySql.getConnection();
+            statement = connection.createStatement();
+
+            result = statement.executeQuery("select tutorial from Quit_Tutorials where uuid='" + uuid + "'");
+
+            if (result.next()){
+                return result.getString("tutorial");
+            }
+
+        } catch (Exception ex){
+            plugin.getLogger().warning("[!!!] An error occurred while to get a players played tutorials...");
+            ex.printStackTrace();
+            return null;
+        } finally {
+            if(connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(statement != null){
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if(result != null){
+                try {
+                    result.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return null;
+    }
+
+    @Override
     public boolean addPlayedTutorial(UUID uuid, String id) {
         return simpleSqlUpdate("insert into Tutorial_Players (uuid, tutorial) VALUES " + String.format("('%s', '%s')", uuid, id));
     }
 
     @Override
+    public void setQuitTutorial(UUID uuid, String id) {
+        simpleSqlUpdate("insert into Quit_Tutorials (uuid, tutorial) VALUES " + String.format("('%s', '%s')", uuid, id));
+    }
+
+    @Override
     public boolean removePlayedTutorial(UUID uuid, String id) {
         return simpleSqlUpdate("delete from tutorial_players where uuid='" + uuid + "' AND tutorial='" + id + "'");
+    }
+
+    @Override
+    public boolean removeQuitTutorial(UUID uuid) {
+        return simpleSqlUpdate("delete from Quit_Tutorials where uuid='" + uuid + "';");
     }
 
     @Override
