@@ -38,6 +38,8 @@ public abstract class ServerTutorialPoint{
     protected ServerTutorialPlus plugin;
     protected PointType type;
 
+    protected BukkitTask bossbarRunnable = null;
+
     protected Location loc;
     protected List<String> message_chat;
     protected List<String> commands;
@@ -96,6 +98,7 @@ public abstract class ServerTutorialPoint{
             @Override
             public void stop() {
                 if(timerTask != null) timerTask.cancel();
+                if (bossbarRunnable != null) bossbarRunnable.cancel();
             }
         };
     }
@@ -171,7 +174,7 @@ public abstract class ServerTutorialPoint{
                 oldBar.removeAll();
             }
 
-            new BukkitRunnable() {
+            bossbarRunnable = new BukkitRunnable() {
                 final BossBar bossBar = Bukkit.getServer().createBossBar(new NamespacedKey(plugin, "bossbar"),
                         ChatColor.translateAlternateColorCodes('&', bossBarTitle), bossBarColor, bossBarStyle);
                 final int showAfterTicks = (int) (bossBarShowAfter * 20);

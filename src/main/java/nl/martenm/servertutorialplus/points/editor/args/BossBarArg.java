@@ -37,11 +37,11 @@ public class BossBarArg extends PointArg {
                 try {
                     progress = Double.parseDouble(args[1]);
                     if (progress > 1.0 || progress < 0.0) {
-                        sender.sendMessage(Lang.ERROR_INVALID_NUMBNER + "/st editpoint <t> <p> bossbar progress <progress 0.0-1.0>");
+                        sender.sendMessage(Lang.ERROR_INVALID_NUMBNER.toString());
                         return false;
                     }
                 } catch (NumberFormatException e) {
-                    sender.sendMessage(Lang.ERROR_INVALID_NUMBNER + "/st editpoint <t> <p> bossbar progress <progress 0.0 - 1.0>");
+                    sender.sendMessage(Lang.ERROR_INVALID_NUMBNER.toString());
                     return false;
                 }
                 point.setBossBarProgress(progress);
@@ -51,7 +51,7 @@ public class BossBarArg extends PointArg {
                 try {
                     color = BarColor.valueOf(args[1]);
                 } catch (IllegalArgumentException e) {
-                    sender.sendMessage(Lang.INVALID_ARGS + "/st editpoint <t> <p> bossbar color <BarColor>");
+                    sender.sendMessage(Lang.INVALID_ARGS.toString());
                     return false;
                 }
                 point.setBossBarColor(color);
@@ -61,7 +61,7 @@ public class BossBarArg extends PointArg {
                 try {
                     style = BarStyle.valueOf(args[1]);
                 } catch (IllegalArgumentException e) {
-                    sender.sendMessage(Lang.INVALID_ARGS + "/st editpoint <t> <p> bossbar style <BarStyle>");
+                    sender.sendMessage(Lang.INVALID_ARGS.toString());
                     return false;
                 }
                 point.setBossBarStyle(style);
@@ -71,7 +71,7 @@ public class BossBarArg extends PointArg {
                 try {
                     showAfter = Double.parseDouble(args[1]);
                 } catch (NumberFormatException e) {
-                    sender.sendMessage(Lang.ERROR_INVALID_NUMBNER + "/st editpoint <t> <p> bossbar show-after <show-after seconds>");
+                    sender.sendMessage(Lang.ERROR_INVALID_NUMBNER.toString());
                     return false;
                 }
                 point.setBossBarShowAfter(showAfter);
@@ -81,7 +81,7 @@ public class BossBarArg extends PointArg {
                 try {
                     hideAfter = Double.parseDouble(args[1]);
                 } catch (NumberFormatException e) {
-                    sender.sendMessage(Lang.ERROR_INVALID_NUMBNER + "/st editpoint <t> <p> bossbar hide-after <hide-after seconds>");
+                    sender.sendMessage(Lang.ERROR_INVALID_NUMBNER.toString());
                     return false;
                 }
                 point.setBossBarHideAfter(hideAfter);
