@@ -388,6 +388,7 @@ public abstract class ServerTutorialPoint{
         args.add(new MessagesArg());
         args.add(new CommandsArg());
         args.add(new ActionbarArg());
+        args.add(new BossBarArg());
         args.add(new FireworkArg());
         args.add(new PotionEffectArg());
         args.add(new SoundArg());
@@ -509,5 +510,29 @@ public abstract class ServerTutorialPoint{
 
     public void setFlying(boolean setFlying) {
         this.flying = setFlying;
+    }
+
+    public void setBossBarTitle(String bossBarTitle) {
+        this.bossBarTitle = bossBarTitle;
+    }
+
+    public void setBossBarProgress(double bossBarProgress) {
+        this.bossBarProgress = bossBarProgress;
+    }
+
+    public void setBossBarColor(BarColor bossBarColor) {
+        this.bossBarColor = bossBarColor;
+    }
+
+    public void setBossBarStyle(BarStyle bossBarStyle) {
+        this.bossBarStyle = bossBarStyle;
+    }
+
+    public void setBossBarShowAfter(double bossBarShowAfter) {
+        this.bossBarShowAfter = bossBarShowAfter;
+    }
+
+    public void setBossBarHideAfter(double bossBarHideAfter) {
+        this.bossBarHideAfter = bossBarHideAfter;
     }
 }
