@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 /**
  * This class helps to provide support for multiple versions.
+ *
  * @author MartenM
  * @since 27-8-2018.
  */

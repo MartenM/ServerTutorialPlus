@@ -22,7 +22,7 @@ public class ChatEventListener implements Listener {
     public void onChatEvent(AsyncPlayerChatEvent event) {
         event.getRecipients().removeIf(player -> {
             TutorialController controller = plugin.inTutorial.get(player.getUniqueId());
-            if(controller != null) {
+            if (controller != null) {
                 return controller.getTutorial().isChatBlocked();
             }
             return false;

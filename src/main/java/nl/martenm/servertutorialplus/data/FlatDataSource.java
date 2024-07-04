@@ -19,7 +19,8 @@ import java.util.UUID;
 public class FlatDataSource implements DataSource {
 
     private ServerTutorialPlus plugin;
-    public FlatDataSource(ServerTutorialPlus plugin){
+
+    public FlatDataSource(ServerTutorialPlus plugin) {
         this.plugin = plugin;
     }
 
@@ -29,20 +30,20 @@ public class FlatDataSource implements DataSource {
         hostlocation.mkdirs();
 
         File file = new File(plugin.getDataFolder() + "/data/playerdata/" + uuid + ".json");
-        if(file.exists()){
+        if (file.exists()) {
             JSONParser parser = new JSONParser();
             JSONObject data = null;
             FileReader reader = null;
 
-            try{
+            try {
                 reader = new FileReader(file.getPath());
                 Object obj = parser.parse(reader);
                 data = (JSONObject) obj;
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
 
             } finally {
-                if(reader != null){
+                if (reader != null) {
                     try {
                         reader.close();
                     } catch (IOException e) {
@@ -52,8 +53,7 @@ public class FlatDataSource implements DataSource {
             }
 
             return (List<String>) data.get("tutorials");
-        }
-        else{
+        } else {
             return new ArrayList<>();
         }
     }
@@ -72,18 +72,18 @@ public class FlatDataSource implements DataSource {
         File file = new File(plugin.getDataFolder() + "/data/playerdata/" + uuid + ".json");
 
         FileWriter writer = null;
-        try{
+        try {
             writer = new FileWriter(file);
             writer.write(data.toJSONString());
-        } catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             return false;
         } finally {
-            if(writer != null){
+            if (writer != null) {
                 try {
                     writer.flush();
                     writer.close();
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
@@ -106,18 +106,18 @@ public class FlatDataSource implements DataSource {
         File file = new File(plugin.getDataFolder() + "/data/playerdata/" + uuid + ".json");
 
         FileWriter writer = null;
-        try{
+        try {
             writer = new FileWriter(file);
             writer.write(data.toJSONString());
-        } catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
             return false;
         } finally {
-            if(writer != null){
+            if (writer != null) {
                 try {
                     writer.flush();
                     writer.close();
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }

@@ -18,18 +18,18 @@ public class NpcRemoveCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         NPCManager npcManager = ServerTutorialPlus.getInstance().getNpcManager();
 
-        if(args.length == 0){
+        if (args.length == 0) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "Wrong usage. Use the command like this: /st npc remove <NPC id>");
             return true;
         }
 
         NPCInfo info = npcManager.getNPC(args[0]);
-        if(info == null){
+        if (info == null) {
             sender.sendMessage(Lang.NPC_ID_NOT_EXISTING.toString().replace("%id%", args[0]));
             return true;
         }
 
-        if(!info.getLocation().getChunk().isLoaded()) {
+        if (!info.getLocation().getChunk().isLoaded()) {
             sender.sendMessage(Lang.NPC_DELETE_CHUNK_UNLOADED.toString());
             return true;
         }

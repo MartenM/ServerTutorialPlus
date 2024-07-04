@@ -6,7 +6,6 @@ import nl.martenm.servertutorialplus.helpers.BukkitVersion;
 import nl.martenm.servertutorialplus.helpers.Config;
 import nl.martenm.servertutorialplus.helpers.SpigotUtils;
 import nl.martenm.servertutorialplus.objects.NPCInfo;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -65,12 +64,12 @@ public class NPCManager extends AbstractManager {
         entityList.remove(info.getArmorstandIDs()[1]);
     }
 
-    public void loadNPCs(){
-        if(!npcSaves.isConfigurationSection("npc")){
+    public void loadNPCs() {
+        if (!npcSaves.isConfigurationSection("npc")) {
             return;
         }
 
-        for(String ID : npcSaves.getConfigurationSection("npc").getKeys(false)){
+        for (String ID : npcSaves.getConfigurationSection("npc").getKeys(false)) {
             try {
                 UUID npcUuid = UUID.fromString(npcSaves.getString("npc." + ID + ".UUID_npc"));
                 UUID[] text = new UUID[2];
@@ -84,7 +83,7 @@ public class NPCManager extends AbstractManager {
                 addEntities(info);
 
                 //Load chunk!
-                if(!loc.getChunk().isLoaded()){
+                if (!loc.getChunk().isLoaded()) {
                     loc.getChunk().load();
                 }
 
@@ -92,8 +91,7 @@ public class NPCManager extends AbstractManager {
                     logger.info("Activating keep in place for minecraft 1.8/1.9/1.10");
                     keepInPlace(npcUuid);
                 }
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 logger.warning(" [!!] Could not load npc. Something in the NpcSaves.yml is messed up and prohibits the plugin from reading the data correctly!");
                 logger.warning(" [!!] Revert any changes you have made if you have manually edited the config.");
@@ -102,9 +100,9 @@ public class NPCManager extends AbstractManager {
 
     }
 
-    public void saveNPCs(){
+    public void saveNPCs() {
         npcSaves.set("npc", null);
-        for(Map.Entry<UUID, NPCInfo> entry : clickableNPCs.entrySet()){
+        for (Map.Entry<UUID, NPCInfo> entry : clickableNPCs.entrySet()) {
             NPCInfo info = entry.getValue();
             npcSaves.set("npc." + info.getId() + ".UUID_npc", entry.getKey().toString());
             npcSaves.set("npc." + info.getId() + ".UUID_text1", info.getArmorstandIDs()[0].toString());
@@ -124,7 +122,7 @@ public class NPCManager extends AbstractManager {
         new BukkitRunnable() {
             @Override
             public void run() {
-                if(entity.isDead()) {
+                if (entity.isDead()) {
                     deleteNPC(info);
                 }
             }
@@ -133,7 +131,7 @@ public class NPCManager extends AbstractManager {
 
     public NPCInfo createNPC(EntityType entityType, Location location, String npcId, String tutorialId) {
         Entity entity_npc = location.getWorld().spawnEntity(location, entityType);
-        if(!(entity_npc instanceof LivingEntity)){
+        if (!(entity_npc instanceof LivingEntity)) {
             entity_npc.remove();
             return null;
         }
@@ -166,14 +164,14 @@ public class NPCManager extends AbstractManager {
         armorStand_1.setCustomNameVisible(true);
         armorStand_2.setCustomNameVisible(true);
 
-        armorStand_1.setCustomName(ChatColor.YELLOW + ChatColor.BOLD.toString() +"Right click!");
-        armorStand_2.setCustomName(ChatColor.GREEN +  "Tutorial");
+        armorStand_1.setCustomName(ChatColor.YELLOW + ChatColor.BOLD.toString() + "Right click!");
+        armorStand_2.setCustomName(ChatColor.GREEN + "Tutorial");
 
         npc.setInvulnerable(true);
         armorStand_1.setInvulnerable(true);
         armorStand_2.setInvulnerable(true);
 
-        NPCInfo info = new NPCInfo(plugin, npcId, npc.getUniqueId(), new UUID[] {armorStand_1.getUniqueId(), armorStand_2.getUniqueId()}, tutorialId);
+        NPCInfo info = new NPCInfo(plugin, npcId, npc.getUniqueId(), new UUID[]{armorStand_1.getUniqueId(), armorStand_2.getUniqueId()}, tutorialId);
 
         // Configure heights.
         double npcHeight = npc.getHeight();
@@ -203,6 +201,7 @@ public class NPCManager extends AbstractManager {
 
     /**
      * Despawn an NPC. Keeps the NPC in the NPC list.
+     *
      * @param info
      */
     public void despawnNPC(NPCInfo info) {
@@ -214,10 +213,10 @@ public class NPCManager extends AbstractManager {
             logger.warning("Failed to remove the mob with UUID: " + info.getNpcId() + " (Hologram for NPC " + info.getId() + ")");
         }
 
-        for(UUID uuid : info.getArmorstandIDs()) {
+        for (UUID uuid : info.getArmorstandIDs()) {
             try {
                 SpigotUtils.getEntity(uuid).remove();
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 logger.warning("Failed to remove the armor stand with UUID: " + uuid + " (Hologram for NPC " + info.getId() + ") ");
             }
         }
@@ -225,6 +224,7 @@ public class NPCManager extends AbstractManager {
 
     /**
      * Legacy method to keep entities in place on older versions.
+     *
      * @param npc
      */
     private void keepInPlace(UUID npc) {
@@ -233,7 +233,7 @@ public class NPCManager extends AbstractManager {
 
             @Override
             public void run() {
-                if(entity == null || entity.isDead()) {
+                if (entity == null || entity.isDead()) {
                     this.cancel();
                     return;
                 }
@@ -246,12 +246,12 @@ public class NPCManager extends AbstractManager {
                         return;
                     }
 
-                    if(!loc.getChunk().isLoaded()){
+                    if (!loc.getChunk().isLoaded()) {
                         return;
                     }
 
                     Entity entity = SpigotUtils.getEntity(npc);
-                    if(entity == null){
+                    if (entity == null) {
                         return;
                     }
 

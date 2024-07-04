@@ -11,15 +11,15 @@ import java.util.UUID;
  */
 public class SpigotUtils {
 
-    private SpigotUtils(){
+    private SpigotUtils() {
         //Empty constructor.
     }
 
-    public static Entity getEntity(UUID uuid){
-        if(Bukkit.getVersion().contains("1.8") || Bukkit.getVersion().contains("1.9") || Bukkit.getVersion().contains("1.10")){
-            for(World world : Bukkit.getServer().getWorlds()){
-                for(Entity entity : world.getEntities()){
-                    if(entity.getUniqueId().equals(uuid)){
+    public static Entity getEntity(UUID uuid) {
+        if (Bukkit.getVersion().contains("1.8") || Bukkit.getVersion().contains("1.9") || Bukkit.getVersion().contains("1.10")) {
+            for (World world : Bukkit.getServer().getWorlds()) {
+                for (Entity entity : world.getEntities()) {
+                    if (entity.getUniqueId().equals(uuid)) {
                         return entity;
                     }
                 }

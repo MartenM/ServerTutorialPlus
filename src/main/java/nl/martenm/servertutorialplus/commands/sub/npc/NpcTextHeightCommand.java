@@ -19,25 +19,25 @@ public class NpcTextHeightCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         NPCManager npcManager = ServerTutorialPlus.getInstance().getNpcManager();
 
-        if(args.length < 2){
+        if (args.length < 2) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st npc height <NPC id> <value like 0.25>");
             return true;
         }
 
         NPCInfo info = npcManager.getNPC(args[0]);
-        if(info == null){
+        if (info == null) {
             sender.sendMessage(Lang.NPC_ID_NOT_EXISTING.toString());
             return true;
         }
 
         double height = 0;
-        try{
+        try {
             height = Double.parseDouble(args[1]);
-        } catch (Exception ex){
+        } catch (Exception ex) {
             sender.sendMessage(Lang.ERROR_INVALID_NUMBNER.toString());
         }
 
-        for(int i = 0; i < info.getArmorstandIDs().length; i++){
+        for (int i = 0; i < info.getArmorstandIDs().length; i++) {
             ArmorStand stand = (ArmorStand) SpigotUtils.getEntity(info.getArmorstandIDs()[i]);
             stand.teleport(SpigotUtils.getEntity(info.getNpcId()).getLocation().add(0, height + (-0.25 * i), 0));
         }

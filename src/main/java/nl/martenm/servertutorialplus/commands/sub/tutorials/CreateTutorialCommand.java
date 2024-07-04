@@ -12,21 +12,21 @@ public class CreateTutorialCommand extends SimpleCommand {
 
 
     public CreateTutorialCommand() {
-        super("create", Lang.HELP_CREATE.toString(),"+create", false);
+        super("create", Lang.HELP_CREATE.toString(), "+create", false);
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
-        if(args.length == 0){
+        if (args.length == 0) {
             sender.sendMessage(ChatColor.RED + "Wrong usage. Use the command like this: /st create <id>");
             return true;
         }
 
         String id = args[0];
-        for(ServerTutorial st : plugin.serverTutorials){
-            if(st.getId().equalsIgnoreCase(id)){
+        for (ServerTutorial st : plugin.serverTutorials) {
+            if (st.getId().equalsIgnoreCase(id)) {
                 sender.sendMessage(ChatColor.RED + "There already exists a server tutorial with that ID!");
                 return true;
             }

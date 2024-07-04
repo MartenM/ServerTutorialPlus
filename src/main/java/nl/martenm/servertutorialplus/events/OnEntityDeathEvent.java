@@ -17,7 +17,7 @@ public class OnEntityDeathEvent implements Listener {
     @EventHandler
     public void onDeathEvent(EntityDeathEvent event) {
         NPCInfo info = plugin.getNpcManager().getByUUID(event.getEntity().getUniqueId());
-        if(info == null) return;
+        if (info == null) return;
 
         plugin.getLogger().warning("[!!!] An NPC has been killed! It has been removed from the NPC list.");
         plugin.getNpcManager().deleteNPC(info);

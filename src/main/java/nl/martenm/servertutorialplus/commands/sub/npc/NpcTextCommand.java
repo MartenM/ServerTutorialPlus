@@ -21,21 +21,21 @@ public class NpcTextCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         NPCManager npcManager = ServerTutorialPlus.getInstance().getNpcManager();
 
-        if(args.length < 3){
+        if (args.length < 3) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st npc text <NPC id> <top/bot> <text>");
             return true;
         }
 
         NPCInfo info = npcManager.getNPC(args[0]);
-        if(info == null){
+        if (info == null) {
             sender.sendMessage(Lang.NPC_ID_NOT_EXISTING.toString());
             return true;
         }
 
         Entity stand;
-        if(args[1].equalsIgnoreCase("bot")){
+        if (args[1].equalsIgnoreCase("bot")) {
             stand = SpigotUtils.getEntity(info.getArmorstandIDs()[0]);
-        } else if(args[1].equalsIgnoreCase("top")){
+        } else if (args[1].equalsIgnoreCase("top")) {
             stand = SpigotUtils.getEntity(info.getArmorstandIDs()[1]);
         } else {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st npc text <NPC id> <top/bot> <text>");
@@ -43,7 +43,7 @@ public class NpcTextCommand extends SimpleCommand {
         }
 
         String message = "";
-        for(int i = 2; i < args.length; i++){
+        for (int i = 2; i < args.length; i++) {
             message = message + args[i] + (args.length - 1 != i ? " " : "");
         }
         message = ChatColor.translateAlternateColorCodes('&', message);

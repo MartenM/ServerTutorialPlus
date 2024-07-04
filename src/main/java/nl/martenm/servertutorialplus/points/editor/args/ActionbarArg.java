@@ -19,7 +19,7 @@ public class ActionbarArg extends PointArg {
 
     @Override
     public boolean run(ServerTutorial serverTutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
-        if(args.length < 1){
+        if (args.length < 1) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st editpoint <t> <p> actionbar <clear/set>");
             return false;
         }

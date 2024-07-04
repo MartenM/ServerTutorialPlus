@@ -20,7 +20,7 @@ public class QuitTutorialCommand extends SimpleCommand {
 
         Player player = (Player) sender;
 
-        if(plugin.inTutorial.containsKey(player.getUniqueId())){
+        if (plugin.inTutorial.containsKey(player.getUniqueId())) {
             TutorialController tc = plugin.inTutorial.get(player.getUniqueId());
             tc.cancel(true);
             player.sendMessage(Lang.COMMAND_SUCCESFULLY_LEFT.toString());

@@ -15,8 +15,8 @@ public class STFormatter extends SimpleHelpFormatter {
         sender.sendMessage(ChatColor.DARK_GRAY + "+──────┤ " + ChatColor.GREEN + ChatColor.BOLD + "Server Tutorial" + ChatColor.GOLD + " + " + ChatColor.DARK_GRAY + "├──────+");
         sender.sendMessage(" ");
 
-        for(SimpleCommand command : subCommands) {
-            if(!command.hasDescription()) continue;
+        for (SimpleCommand command : subCommands) {
+            if (!command.hasDescription()) continue;
             sender.sendMessage(formatCommand(command));
         }
 

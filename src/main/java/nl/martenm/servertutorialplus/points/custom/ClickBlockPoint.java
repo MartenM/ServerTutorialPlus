@@ -54,12 +54,12 @@ public class ClickBlockPoint extends ServerTutorialPoint {
 
     @Override
     public IPlayPoint createPlay(Player player, OldValuesPlayer oldValuesPlayer, IPointCallBack callBack) {
-        return new IPlayPoint(){
+        return new IPlayPoint() {
             @Override
             public void start() {
                 playDefault(player, oldValuesPlayer, teleport);
 
-                if(clickableBlock == null){
+                if (clickableBlock == null) {
                     player.sendMessage(ChatColor.RED + ChatColor.BOLD.toString() + "SKIPPED: " + ChatColor.RED + "Point has not been setup! Use the command " + ChatColor.YELLOW + "/st editpoint <id> <point> setblock" + ChatColor.RED + " to set the clickable block!");
                     callBack.finish();
                     return;
@@ -74,7 +74,7 @@ public class ClickBlockPoint extends ServerTutorialPoint {
                         if (!event.getClickedBlock().getLocation().equals(clickableBlock)) return;
 
                         event.setCancelled(true);
-                        if(enableParticles) {
+                        if (enableParticles) {
                             animationTask.cancel();
                         }
                         plugin.getClickManager().removeClickaction(player.getUniqueId());
@@ -106,7 +106,7 @@ public class ClickBlockPoint extends ServerTutorialPoint {
             @Override
             public void stop() {
                 plugin.getClickManager().removeClickaction(player.getUniqueId());
-                if(enableParticles) {
+                if (enableParticles) {
                     animationTask.cancel();
                 }
             }
@@ -136,7 +136,7 @@ public class ClickBlockPoint extends ServerTutorialPoint {
         args.add(new PointArg("setblock") {
             @Override
             public boolean run(ServerTutorial serverTutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
-                if(!(sender instanceof Player)){
+                if (!(sender instanceof Player)) {
                     sender.sendMessage(ChatColor.RED + "This is a player only command!");
                     return false;
                 }
@@ -147,8 +147,8 @@ public class ClickBlockPoint extends ServerTutorialPoint {
                 plugin.getClickManager().registerClickAction(player.getUniqueId(), new IClickAction() {
                     @Override
                     public void run(PlayerInteractEvent event) {
-                        if(event.getClickedBlock() == null) return;
-                        if(event.getClickedBlock().getType() == Material.AIR) return;
+                        if (event.getClickedBlock() == null) return;
+                        if (event.getClickedBlock().getType() == Material.AIR) return;
 
                         event.setCancelled(true);
                         clickableBlock = event.getClickedBlock().getLocation();
@@ -165,7 +165,7 @@ public class ClickBlockPoint extends ServerTutorialPoint {
             }
         });
 
-        args.add(new PointArg("colour", new String[] {"color"}) {
+        args.add(new PointArg("colour", new String[]{"color"}) {
             @Override
             public boolean run(ServerTutorial serverTutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
                 if (args.length < 1) {
@@ -173,7 +173,7 @@ public class ClickBlockPoint extends ServerTutorialPoint {
                     return false;
                 }
 
-                try{
+                try {
                     int red = Integer.parseInt(args[0]);
                     int green = Integer.parseInt(args[1]);
                     int blue = Integer.parseInt(args[2]);
@@ -181,7 +181,7 @@ public class ClickBlockPoint extends ServerTutorialPoint {
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&aTIP&8] &7If you set the values higher then the standard (255) RGB value, it will create a mix of colours!"));
 
                     particleColor.set(red, green, blue);
-                } catch (NumberFormatException ex){
+                } catch (NumberFormatException ex) {
                     sender.sendMessage(ChatColor.RED + "Invalid number. /st editpoint <t> <p> colour <red> <green> <blue> " + ChatColor.GRAY + "(RGB format, MAX is 255)");
                     return false;
                 }
@@ -198,9 +198,9 @@ public class ClickBlockPoint extends ServerTutorialPoint {
                     return false;
                 }
 
-                try{
+                try {
                     enableParticles = Boolean.valueOf(args[0]);
-                } catch (NumberFormatException ex){
+                } catch (NumberFormatException ex) {
                     sender.sendMessage(ChatColor.RED + "Wrong usage. /st editpoint <t> <p> particles <TRUE/FALSE>");
                     return false;
                 }
@@ -208,7 +208,7 @@ public class ClickBlockPoint extends ServerTutorialPoint {
             }
         });
 
-        args.add(new PointArg("teleport", new String[] {"tp"} ) {
+        args.add(new PointArg("teleport", new String[]{"tp"}) {
             @Override
             public boolean run(ServerTutorial serverTutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
                 if (args.length < 1) {
@@ -216,9 +216,9 @@ public class ClickBlockPoint extends ServerTutorialPoint {
                     return false;
                 }
 
-                try{
+                try {
                     teleport = Boolean.valueOf(args[0]);
-                } catch (NumberFormatException ex){
+                } catch (NumberFormatException ex) {
                     sender.sendMessage(ChatColor.RED + "Wrong usage. /st editpoint <t> <p> particles <TRUE/FALSE>");
                     return false;
                 }

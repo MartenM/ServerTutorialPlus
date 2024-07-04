@@ -8,6 +8,7 @@ import org.bukkit.event.HandlerList;
 
 /**
  * An event that is fired when a ServerTutorial is started.
+ *
  * @author MartenM
  * @since 17-11-2017
  */
@@ -19,9 +20,13 @@ public class TutorialStartEvent extends Event implements Cancellable {
     private ServerTutorial tutorial;
     private Player player;
 
-    public TutorialStartEvent(ServerTutorial tutorial, Player player){
+    public TutorialStartEvent(ServerTutorial tutorial, Player player) {
         this.tutorial = tutorial;
         this.player = player;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
@@ -39,12 +44,9 @@ public class TutorialStartEvent extends Event implements Cancellable {
         return handlers;
     }
 
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
-
     /**
      * Returns the serverTutorial.
+     *
      * @return ServerTutorial
      */
     public ServerTutorial getTutorial() {
@@ -53,6 +55,7 @@ public class TutorialStartEvent extends Event implements Cancellable {
 
     /**
      * Returns the player playing the tutorial.
+     *
      * @return Player
      */
     public Player getPlayer() {

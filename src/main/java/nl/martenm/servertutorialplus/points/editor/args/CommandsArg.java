@@ -1,10 +1,10 @@
 package nl.martenm.servertutorialplus.points.editor.args;
 
+import net.md_5.bungee.api.ChatColor;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
 import nl.martenm.servertutorialplus.points.editor.PointArg;
-import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.command.CommandSender;
 
@@ -21,7 +21,7 @@ public class CommandsArg extends PointArg {
     @Override
     public boolean run(ServerTutorial serverTutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
 
-        if(args.length < 1){
+        if (args.length < 1) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT.toString() + "/st editpoint <t> <p> commands <add/remove/clear/list>");
             return false;
         }

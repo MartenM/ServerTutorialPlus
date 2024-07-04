@@ -17,13 +17,13 @@ public class RemoveTutorialCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
-        if(args.length == 0){
+        if (args.length == 0) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st remove <id>");
             return true;
         }
 
-        for(ServerTutorial st : plugin.serverTutorials){
-            if(st.getId().equalsIgnoreCase(args[0])){
+        for (ServerTutorial st : plugin.serverTutorials) {
+            if (st.getId().equalsIgnoreCase(args[0])) {
                 plugin.serverTutorials.remove(st);
                 sender.sendMessage(Lang.TUTORIAL_REMOVED.toString().replace("%id%", args[0]));
                 plugin.tutorialSaves.set("tutorials." + st.getId(), null);

@@ -19,14 +19,14 @@ public class LockViewArg extends PointArg {
     @Override
     public boolean run(ServerTutorial serverTutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
 
-        if(args.length < 1){
+        if (args.length < 1) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st editpoint <t> <p> lockview <false/true>");
             return false;
         }
 
-        try{
+        try {
             point.setLockView(Boolean.parseBoolean(args[0]));
-        } catch (Exception ex){
+        } catch (Exception ex) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st editpoint <t> <p> lockview <false/true>");
             return false;
         }

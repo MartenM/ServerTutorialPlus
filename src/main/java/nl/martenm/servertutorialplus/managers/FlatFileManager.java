@@ -1,5 +1,6 @@
 package nl.martenm.servertutorialplus.managers;
 
+import com.google.gson.JsonParser;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
 import nl.martenm.servertutorialplus.helpers.dataholders.OldValuesPlayer;
@@ -7,7 +8,6 @@ import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.io.File;
 import java.io.FileReader;
@@ -18,36 +18,35 @@ import java.util.UUID;
  * Created by Marten on 7-6-2017.
  */
 @SuppressWarnings("ALL")
-public class FlatFileManager{
+public class FlatFileManager {
 
-    public static JSONObject getPlayerData(ServerTutorialPlus plugin, UUID uuid){
+    public static JSONObject getPlayerData(ServerTutorialPlus plugin, UUID uuid) {
         File hostlocation = new File(plugin.getDataFolder() + "/playerdata");
         hostlocation.mkdirs();
 
         File file = new File(plugin.getDataFolder() + "/playerdata/" + uuid + ".json");
-        if(file.exists()){
-            JSONParser parser = new JSONParser();
+        if (file.exists()) {
+            JsonParser parser = new JsonParser();
             JSONObject data = null;
-            try{
+            try {
                 FileReader reader = new FileReader(file.getPath());
                 Object obj = parser.parse(reader);
                 data = (JSONObject) obj;
                 reader.close();
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 ex.printStackTrace();
                 return null;
             }
             return data;
-        }
-        else{
+        } else {
             //Nothing we only get data that exists ;p
         }
         return null;
     }
 
-    public static void setPlayerData(ServerTutorialPlus plugin, Player player, JSONObject object){
-        if(object == null) return;
-        new BukkitRunnable(){
+    public static void setPlayerData(ServerTutorialPlus plugin, Player player, JSONObject object) {
+        if (object == null) return;
+        new BukkitRunnable() {
             @Override
             public void run() {
                 plugin.getLogger().info("Restoring player status for player: " + player.getName());
@@ -63,16 +62,16 @@ public class FlatFileManager{
         }.runTask(plugin);
     }
 
-    public static void deleteFile(ServerTutorialPlus plugin, UUID uuid){
+    public static void deleteFile(ServerTutorialPlus plugin, UUID uuid) {
         File file = new File(plugin.getDataFolder() + "/playerdata/" + uuid + ".json");
-        if(file.exists()){
+        if (file.exists()) {
             file.delete();
-        } else{
+        } else {
             System.out.println("[Server Tutorial Plus] Error, file not found.");
         }
     }
 
-    public static void saveJson(ServerTutorialPlus plugin, OldValuesPlayer info){
+    public static void saveJson(ServerTutorialPlus plugin, OldValuesPlayer info) {
         File hostlocation = new File(plugin.getDataFolder() + "/playerdata");
         hostlocation.mkdirs();
 
@@ -87,18 +86,18 @@ public class FlatFileManager{
         File file = new File(plugin.getDataFolder() + "/playerdata/" + info.getUuid() + ".json");
 
         FileWriter writer = null;
-        try{
+        try {
             writer = new FileWriter(file);
             writer.write(data.toJSONString());
             System.out.println("[Server Tutorial Plus] A player left while in the tutorial. Old data has been saved.");
-        } catch (Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
-            if(writer != null){
+            if (writer != null) {
                 try {
                     writer.flush();
                     writer.close();
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }

@@ -15,6 +15,7 @@ import java.util.WeakHashMap;
 
 /**
  * A point that is finished when the command /st next is used.
+ *
  * @author MartenM
  * @since 22-6-2018.
  */
@@ -24,6 +25,13 @@ public class CommandPoint extends ServerTutorialPoint {
 
     public CommandPoint(ServerTutorialPlus plugin, Location loc) {
         super(plugin, loc, PointType.COMMAND);
+    }
+
+    public static void handle(UUID uuid) {
+        IPointCallBack callBack = waiting.get(uuid);
+        if (callBack != null) {
+            callBack.finish();
+        }
     }
 
     @Override
@@ -40,12 +48,5 @@ public class CommandPoint extends ServerTutorialPoint {
                 waiting.remove(player.getUniqueId(), callBack);
             }
         };
-    }
-
-    public static void handle(UUID uuid) {
-        IPointCallBack callBack = waiting.get(uuid);
-        if(callBack != null) {
-            callBack.finish();
-        }
     }
 }

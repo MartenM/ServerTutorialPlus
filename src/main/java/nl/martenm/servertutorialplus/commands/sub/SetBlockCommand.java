@@ -21,14 +21,14 @@ public class SetBlockCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
-        if(args.length < 1){
+        if (args.length < 1) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st setblock <id>");
             return true;
         }
 
         Player player = (Player) sender;
         Block block = player.getTargetBlock(null, 20);
-        if(block.getType().equals(Material.AIR)){
+        if (block.getType().equals(Material.AIR)) {
             sender.sendMessage(Lang.COMMAND_SETBLOCK_FAIL.toString());
             return true;
         }

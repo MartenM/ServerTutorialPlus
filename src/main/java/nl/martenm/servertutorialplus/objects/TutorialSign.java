@@ -11,7 +11,7 @@ public class TutorialSign {
     public Block block;
     public String ServerTutorialId;
 
-    public TutorialSign(Block block, String serverTutorialId){
+    public TutorialSign(Block block, String serverTutorialId) {
         this.block = block;
         this.ServerTutorialId = serverTutorialId;
     }

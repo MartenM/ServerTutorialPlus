@@ -8,18 +8,20 @@ import org.bukkit.event.player.PlayerToggleFlightEvent;
 /**
  * Player toggle flight listener.
  * Cancel toggle when locked flight.
+ *
  * @author MartenM
  */
-public class OnPlayerToggleFlight implements Listener{
+public class OnPlayerToggleFlight implements Listener {
 
     private ServerTutorialPlus plugin;
-    public OnPlayerToggleFlight(ServerTutorialPlus plugin){
+
+    public OnPlayerToggleFlight(ServerTutorialPlus plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void OnPlayerToggleFlightEvent(PlayerToggleFlightEvent event){
-        if(plugin.lockedPlayers.contains(event.getPlayer().getUniqueId())){
+    public void OnPlayerToggleFlightEvent(PlayerToggleFlightEvent event) {
+        if (plugin.lockedPlayers.contains(event.getPlayer().getUniqueId())) {
             event.setCancelled(true);
         }
     }

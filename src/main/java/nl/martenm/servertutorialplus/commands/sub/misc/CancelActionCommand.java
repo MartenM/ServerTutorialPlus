@@ -17,12 +17,12 @@ public class CancelActionCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
-        if(!(sender instanceof Player)) return true;
+        if (!(sender instanceof Player)) return true;
         Player player = (Player) sender;
 
-        if(!plugin.getClickManager().hasClickaction(player.getUniqueId())){
+        if (!plugin.getClickManager().hasClickaction(player.getUniqueId())) {
             player.sendMessage(Lang.NOTHING_TO_CANCEL.toString());
-        } else{
+        } else {
             plugin.getClickManager().removeClickaction(player.getUniqueId());
             player.sendMessage(Lang.ACTION_CANCELLED.toString());
         }

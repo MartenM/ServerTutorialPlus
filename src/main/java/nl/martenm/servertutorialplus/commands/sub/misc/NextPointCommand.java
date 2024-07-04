@@ -18,7 +18,7 @@ public class NextPointCommand extends SimpleCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String s, String[] strings) {
-        if(!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             sender.sendMessage(Lang.PLAYER_ONLY_COMMAND.toString());
             return true;
         }

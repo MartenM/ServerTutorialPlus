@@ -14,6 +14,7 @@ import org.bukkit.inventory.EquipmentSlot;
 /**
  * Player interact entity event for mc versions > 1.8
  * Used to check if player clicks a NPC.
+ *
  * @author MartenM
  */
 public class OnPlayerInteractEntityEvent implements Listener {

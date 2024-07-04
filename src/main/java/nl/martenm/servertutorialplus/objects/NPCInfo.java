@@ -9,6 +9,7 @@ import java.util.UUID;
 /**
  * This class holds info about NPCs.
  * It also contains the UUIDs of the armorstands (holograms)
+ *
  * @author MartenM
  */
 public class NPCInfo {
@@ -23,22 +24,22 @@ public class NPCInfo {
 
     private Location location;
 
-    public NPCInfo(ServerTutorialPlus plugin, String id, UUID npcId, UUID[] armorstandIDs, String serverTutorialID){
+    public NPCInfo(ServerTutorialPlus plugin, String id, UUID npcId, UUID[] armorstandIDs, String serverTutorialID) {
         this.plugin = plugin;
         this.id = id;
         this.npcId = npcId;
         this.armorstandIDs = armorstandIDs;
         this.serverTutorialID = serverTutorialID;
 
-        try{
+        try {
             location = SpigotUtils.getEntity(npcId).getLocation();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex.getStackTrace());
             //Welp what happend!
         }
     }
 
-    public NPCInfo(ServerTutorialPlus plugin, String id, UUID npcId, UUID[] armorstandIDs, String serverTutorialID, Location location){
+    public NPCInfo(ServerTutorialPlus plugin, String id, UUID npcId, UUID[] armorstandIDs, String serverTutorialID, Location location) {
         this.plugin = plugin;
         this.id = id;
         this.npcId = npcId;

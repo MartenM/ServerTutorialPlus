@@ -17,34 +17,33 @@ public class RemovePointCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
-        if(args.length < 2){
+        if (args.length < 2) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st removepoint <server tutorial ID> <point index>");
             return true;
         }
 
         ServerTutorial serverTutorial = null;
-        for(ServerTutorial st : plugin.serverTutorials){
-            if(st.getId().equalsIgnoreCase(args[0])){
+        for (ServerTutorial st : plugin.serverTutorials) {
+            if (st.getId().equalsIgnoreCase(args[0])) {
                 serverTutorial = st;
                 break;
             }
         }
 
-        if(serverTutorial == null){
+        if (serverTutorial == null) {
             sender.sendMessage(Lang.TUTORIAL_ID_NOT_FOUND.toString());
             return true;
         }
 
         int index;
-        try{
+        try {
             index = Integer.valueOf(args[1]);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             sender.sendMessage(Lang.COMMAND_HASTOBE_NUMBER.toString());
             return true;
         }
 
-        if(index - 1 < 0 || index > serverTutorial.points.size() ){
+        if (index - 1 < 0 || index > serverTutorial.points.size()) {
             sender.sendMessage(Lang.COMMAND_INVALID_INDEX.toString());
             return true;
         }

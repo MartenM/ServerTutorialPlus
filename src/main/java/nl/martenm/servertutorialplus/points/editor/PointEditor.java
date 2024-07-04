@@ -17,20 +17,28 @@ public class PointEditor {
 
     private List<PointArg> arguments;
 
-    private PointEditor(){
+    private PointEditor() {
         arguments = new ArrayList<>();
     }
 
-    public boolean execute(ServerTutorial tutorial, ServerTutorialPoint point, CommandSender sender, String[] args){
+    public static PointEditor getPointeditor(ServerTutorialPoint point) {
+        PointEditor editor = new PointEditor();
+        editor.arguments.addAll(point.getArgs());
 
-        for(PointArg argument : arguments) {
+
+        return editor;
+    }
+
+    public boolean execute(ServerTutorial tutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
+
+        for (PointArg argument : arguments) {
             if (argument.getName().equalsIgnoreCase(args[2]) || argument.isAlias(args[2])) {
 
                 String[] editorArgs = Arrays.copyOfRange(args, 3, args.length);
-                if(argument.run(tutorial, point, sender, editorArgs)){
+                if (argument.run(tutorial, point, sender, editorArgs)) {
                     sender.sendMessage(Lang.SETTING_EDITED.toString().replace("%setting%", argument.getName()));
                     return true;
-                } else{
+                } else {
                     return false;
                 }
             }
@@ -44,13 +52,5 @@ public class PointEditor {
 
         sender.sendMessage(Lang.UNKOWN_ARGUMENT + possible);
         return false;
-    }
-
-    public static PointEditor getPointeditor(ServerTutorialPoint point){
-        PointEditor editor = new PointEditor();
-        editor.arguments.addAll(point.getArgs());
-
-
-        return editor;
     }
 }

@@ -15,18 +15,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 10
-      uses: actions/setup-java@v2
-      with:
-        java-version: '17'
-        distribution: 'adopt'
-        cache: maven
-    - name: Compile Minecraft Spigot
-      uses: SpraxDev/Action-SpigotMC@v4
-      with:
-        versions: 1.20.2
-        buildToolProvider: SpigotMC
+      - uses: actions/checkout@v2
+      - name: Set up JDK 10
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+          cache: maven
+      - name: Compile Minecraft Spigot
+        uses: SpraxDev/Action-SpigotMC@v4
+        with:
+          versions: 1.20.2
+          buildToolProvider: SpigotMC
 
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml

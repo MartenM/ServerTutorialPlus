@@ -6,6 +6,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 /**
  * Interface that can be used for the ClickManager.
  * Allows for both playerInteract events with and without entities.
+ *
  * @author MartenM
  * @since 17-1-2018.
  */

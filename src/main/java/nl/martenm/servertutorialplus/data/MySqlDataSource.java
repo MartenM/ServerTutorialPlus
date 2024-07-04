@@ -22,7 +22,7 @@ public class MySqlDataSource implements DataSource {
     private HikariConfig config = new HikariConfig();
     private HikariDataSource mySql;
 
-    public MySqlDataSource(ServerTutorialPlus plugin){
+    public MySqlDataSource(ServerTutorialPlus plugin) {
         this.plugin = plugin;
         setup();
     }
@@ -46,33 +46,32 @@ public class MySqlDataSource implements DataSource {
         mySql = new HikariDataSource(config);
 
         plugin.getLogger().info("Creating Tutorial_Players table.");
-        if(!simpleSqlUpdate("CREATE TABLE IF NOT EXISTS Tutorial_Players " +
+        if (!simpleSqlUpdate("CREATE TABLE IF NOT EXISTS Tutorial_Players " +
                 "(uuid VARCHAR(64) not NULL, " +
                 " tutorial VARCHAR(255), " +
-                " PRIMARY KEY ( uuid, tutorial))" )){
+                " PRIMARY KEY ( uuid, tutorial))")) {
             return false;
         }
 
         return true;
     }
 
-    public boolean simpleSqlUpdate(String sql)
-    {
+    public boolean simpleSqlUpdate(String sql) {
         Connection connection = null;
         Statement statement = null;
 
-        try{
+        try {
             connection = mySql.getConnection();
 
             statement = connection.createStatement();
             statement.executeUpdate(sql);
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
             plugin.getLogger().warning("[!!!] Error while performing an SQL query!");
             ex.printStackTrace();
             return false;
         } finally {
-            if(connection != null){
+            if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
@@ -80,7 +79,7 @@ public class MySqlDataSource implements DataSource {
                 }
             }
 
-            if(statement != null){
+            if (statement != null) {
                 try {
                     statement.close();
                 } catch (SQLException e) {
@@ -99,22 +98,22 @@ public class MySqlDataSource implements DataSource {
         Statement statement = null;
         ResultSet result = null;
 
-        try{
+        try {
             connection = mySql.getConnection();
             statement = connection.createStatement();
 
             result = statement.executeQuery("select distinct tutorial from Tutorial_Players where uuid='" + uuid + "'");
 
-            while (result.next()){
+            while (result.next()) {
                 tutorials.add(result.getString(1));
             }
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
             plugin.getLogger().warning("[!!!] An error occurred while to get a players played tutorials...");
             ex.printStackTrace();
             return null;
         } finally {
-            if(connection != null){
+            if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
@@ -122,7 +121,7 @@ public class MySqlDataSource implements DataSource {
                 }
             }
 
-            if(statement != null){
+            if (statement != null) {
                 try {
                     statement.close();
                 } catch (SQLException e) {
@@ -130,7 +129,7 @@ public class MySqlDataSource implements DataSource {
                 }
             }
 
-            if(result != null){
+            if (result != null) {
                 try {
                     result.close();
                 } catch (SQLException e) {
@@ -155,7 +154,7 @@ public class MySqlDataSource implements DataSource {
     @Override
     public boolean hasPlayedTutorial(UUID uuid, String id) {
         List<String> tutorials = getPlayedTutorials(uuid);
-        if(tutorials == null){
+        if (tutorials == null) {
             //Replay later for the rewards!
             return true;
         }

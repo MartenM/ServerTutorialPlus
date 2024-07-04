@@ -1,11 +1,11 @@
 package nl.martenm.servertutorialplus.points.editor.args;
 
+import net.md_5.bungee.api.ChatColor;
 import nl.martenm.servertutorialplus.helpers.dataholders.PlayerTitle;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
 import nl.martenm.servertutorialplus.points.editor.PointArg;
-import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.command.CommandSender;
 
@@ -22,7 +22,7 @@ public class TitleArg extends PointArg {
     @Override
     public boolean run(ServerTutorial serverTutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
 
-        if(args.length < 1){
+        if (args.length < 1) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st editpoint <t> <p> title <title / subtitle /reset / fadein / fadeout / stay>");
             return false;
         }
@@ -38,7 +38,7 @@ public class TitleArg extends PointArg {
                     return true;
                 }
 
-                if(point.getTitleInfo() == null){
+                if (point.getTitleInfo() == null) {
                     point.setTitleInfo(new PlayerTitle());
                 }
 
@@ -52,7 +52,7 @@ public class TitleArg extends PointArg {
                     return true;
                 }
 
-                if(point.getTitleInfo() == null){
+                if (point.getTitleInfo() == null) {
                     point.setTitleInfo(new PlayerTitle());
                 }
 
@@ -63,12 +63,12 @@ public class TitleArg extends PointArg {
             case "fadein":
                 int time;
 
-                if(point.getTitleInfo() == null){
+                if (point.getTitleInfo() == null) {
                     sender.sendMessage(Lang.TITLE_NOTITLE_SET.toString());
                     return false;
                 }
 
-                if(args.length < 2){
+                if (args.length < 2) {
                     sender.sendMessage(Lang.TITLE_CURRENT.toString().replace("%type%", args[0]).replace("%ticks%", point.getTitleInfo().fadeIn + ""));
                     return false;
                 }
@@ -80,7 +80,7 @@ public class TitleArg extends PointArg {
                     return false;
                 }
 
-                if(point.getTitleInfo() == null){
+                if (point.getTitleInfo() == null) {
                     point.setTitleInfo(new PlayerTitle());
                 }
 
@@ -88,12 +88,12 @@ public class TitleArg extends PointArg {
                 break;
 
             case "fadeout":
-                if(point.getTitleInfo() == null){
+                if (point.getTitleInfo() == null) {
                     sender.sendMessage(Lang.TITLE_NOTITLE_SET.toString());
                     return false;
                 }
 
-                if(args.length < 2){
+                if (args.length < 2) {
                     sender.sendMessage(Lang.TITLE_CURRENT.toString().replace("%type%", args[0]).replace("%ticks%", point.getTitleInfo().fadeOut + ""));
                     return false;
                 }
@@ -105,7 +105,7 @@ public class TitleArg extends PointArg {
                     return false;
                 }
 
-                if(point.getTitleInfo() == null){
+                if (point.getTitleInfo() == null) {
                     point.setTitleInfo(new PlayerTitle());
                 }
 
@@ -114,12 +114,12 @@ public class TitleArg extends PointArg {
 
             case "stay":
 
-                if(point.getTitleInfo() == null){
+                if (point.getTitleInfo() == null) {
                     sender.sendMessage(Lang.TITLE_NOTITLE_SET.toString());
                     return false;
                 }
 
-                if(args.length < 2){
+                if (args.length < 2) {
                     sender.sendMessage(Lang.TITLE_CURRENT.toString().replace("%type%", args[0]).replace("%ticks%", point.getTitleInfo().time + ""));
                     return false;
                 }
@@ -132,7 +132,7 @@ public class TitleArg extends PointArg {
                     return false;
                 }
 
-                if(point.getTitleInfo() == null){
+                if (point.getTitleInfo() == null) {
                     point.setTitleInfo(new PlayerTitle());
                 }
 

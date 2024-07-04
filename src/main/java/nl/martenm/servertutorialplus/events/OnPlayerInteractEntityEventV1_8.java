@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 /**
  * Player interact entity event for mc versions = 1.8
  * Used to check if player clicks a NPC.
+ *
  * @author MartenM
  */
 public class OnPlayerInteractEntityEventV1_8 implements Listener {

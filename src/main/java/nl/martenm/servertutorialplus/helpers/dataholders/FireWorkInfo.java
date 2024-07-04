@@ -11,7 +11,7 @@ public class FireWorkInfo {
     private Location location;
     private FireworkMeta fireworkMeta;
 
-    public FireWorkInfo(Location location, FireworkMeta fireworkMeta){
+    public FireWorkInfo(Location location, FireworkMeta fireworkMeta) {
         this.fireworkMeta = fireworkMeta;
         this.location = location;
     }

@@ -21,14 +21,14 @@ public class EditTutorialCommand extends SimpleCommand {
         // TODO: Convert this into a parsed command
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
-        if(args.length < 3){
+        if (args.length < 3) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT.toString() + "/st edit <server tutorial ID> <invisible/rewards/permission/blockcommands/commands/chatblock>");
             return true;
         }
 
         ServerTutorial serverTutorial = PluginUtils.getTutorial(plugin, args[0]);
 
-        if(serverTutorial == null){
+        if (serverTutorial == null) {
             sender.sendMessage(Lang.TUTORIAL_ID_NOT_FOUND.toString());
             return true;
         }
@@ -74,7 +74,7 @@ public class EditTutorialCommand extends SimpleCommand {
                 break;
 
             case "rewards":
-                if(args.length < 2){
+                if (args.length < 2) {
                     sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st edit <server tutorial ID> rewards add/remove/list/clear");
                     return false;
                 }
@@ -129,7 +129,7 @@ public class EditTutorialCommand extends SimpleCommand {
                 }
 
             case "commands":
-                if(args.length < 2){
+                if (args.length < 2) {
                     sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st edit <server tutorial ID> commands add/remove/list/clear");
                     return false;
                 }

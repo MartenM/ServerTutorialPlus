@@ -16,30 +16,32 @@ import org.json.simple.JSONObject;
  * Player join event listener.
  * Will start the first-join-tutorial if set and the user is new on the server.
  * This class will check if a player should have his old properties back (saved in player quit event).
+ *
  * @author MartenM
  */
 // TODO: Make it so that it checks the datasource (if mysql) instead of the .hasPlayedBefore();
-public class OnPlayerJoinEvent implements Listener{
+public class OnPlayerJoinEvent implements Listener {
 
     private ServerTutorialPlus plugin;
-    public OnPlayerJoinEvent(ServerTutorialPlus plugin){
+
+    public OnPlayerJoinEvent(ServerTutorialPlus plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void onPlayerJoinEvent(PlayerJoinEvent event){
+    public void onPlayerJoinEvent(PlayerJoinEvent event) {
 
         plugin.inTutorial.keySet().stream().forEach(uuid -> {
             Player toHide = plugin.getServer().getPlayer(uuid);
-            if(toHide == null) return;
+            if (toHide == null) return;
 
             event.getPlayer().hidePlayer(plugin.getServer().getPlayer(uuid));
         });
 
-        if(!event.getPlayer().hasPlayedBefore()) {
-            if(plugin.getConfig().getBoolean("enable first join tutorial")){
+        if (!event.getPlayer().hasPlayedBefore()) {
+            if (plugin.getConfig().getBoolean("enable first join tutorial")) {
                 ServerTutorial st = PluginUtils.getTutorial(plugin, plugin.getConfig().getString("first join tutorial id"));
-                if(st == null){
+                if (st == null) {
                     return;
                 }
 
@@ -58,11 +60,11 @@ public class OnPlayerJoinEvent implements Listener{
             return;
         }
 
-        new BukkitRunnable(){
+        new BukkitRunnable() {
             @Override
             public void run() {
                 JSONObject object = FlatFileManager.getPlayerData(plugin, event.getPlayer().getUniqueId());
-                if(object == null){
+                if (object == null) {
                     this.cancel();
                     return;
                 }
@@ -71,7 +73,6 @@ public class OnPlayerJoinEvent implements Listener{
             }
         }.runTaskAsynchronously(plugin);
     }
-
 
 
 }

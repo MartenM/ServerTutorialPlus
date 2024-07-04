@@ -21,19 +21,19 @@ public class EditAllPointsCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
-        if(args.length < 1){
+        if (args.length < 1) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st editall <server tutorial ID> <args>");
             return true;
         }
 
         ServerTutorial serverTutorial = PluginUtils.getTutorial(plugin, args[0]);
 
-        if(serverTutorial == null){
+        if (serverTutorial == null) {
             sender.sendMessage(Lang.TUTORIAL_ID_NOT_FOUND.toString());
             return true;
         }
 
-        if(args.length == 1){
+        if (args.length == 1) {
             sender.sendMessage(Lang.COMMAND_EDITALL_CANBE.toString().replace("%args%", ServerTutorialPoint.getArgsString(new TimedPoint(null, null).getArgs())));
             return true;
         }
@@ -41,9 +41,9 @@ public class EditAllPointsCommand extends SimpleCommand {
         String[] arguments = new String[args.length + 1];
         System.arraycopy(args, 0, arguments, 1, args.length);
 
-        for(ServerTutorialPoint point : serverTutorial.points){
+        for (ServerTutorialPoint point : serverTutorial.points) {
             PointEditor pointEditor = PointEditor.getPointeditor(point);
-            if(!pointEditor.execute(serverTutorial, point, sender, arguments)){
+            if (!pointEditor.execute(serverTutorial, point, sender, arguments)) {
                 sender.sendMessage(Lang.ERROR_EDITALL_FAIL.toString());
                 return true;
             }

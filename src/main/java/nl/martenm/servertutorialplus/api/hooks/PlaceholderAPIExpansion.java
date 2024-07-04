@@ -1,31 +1,30 @@
 package nl.martenm.servertutorialplus.api.hooks;
 
-import java.util.HashMap;
-import java.util.UUID;
-
-import org.bukkit.OfflinePlayer;
-
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.objects.TutorialController;
+import org.bukkit.OfflinePlayer;
+
+import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * @author alan67160
  * @since 30-09-2023.
  */
 public class PlaceholderAPIExpansion extends PlaceholderExpansion {
-    
+
     private final ServerTutorialPlus plugin;
-    
+
     public PlaceholderAPIExpansion(ServerTutorialPlus plugin) {
         this.plugin = plugin;
     }
-    
+
     @Override
     public String getAuthor() {
         return plugin.getDescription().getAuthors().toString();
     }
-    
+
     @Override
     public String getIdentifier() {
         return plugin.getDescription().getName();
@@ -35,12 +34,12 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
     public String getVersion() {
         return plugin.getDescription().getVersion();
     }
-    
+
     @Override
     public boolean persist() {
         return true; // This is required or else PlaceholderAPI will unregister the Expansion on reload
     }
-    
+
     @Override
     public String onRequest(OfflinePlayer player, String params) {
         // the following part is for online player only
@@ -60,7 +59,8 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
 
     /**
      * Placeholders that are available when a TC is found.
-     * @param tc The tutorial controller of the player. Can be NULL.
+     *
+     * @param tc     The tutorial controller of the player. Can be NULL.
      * @param params The parameter.
      * @return A string if the placeholder is found.
      */
@@ -69,13 +69,13 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
             return tc == null ? "true" : "false";
         }
 
-        if(params.equalsIgnoreCase("getTutorial")) {
+        if (params.equalsIgnoreCase("getTutorial")) {
             // get the tutorial name of the current tutorial
             if (tc == null) return "Unavailable";
             return tc.getTutorial().getId();
         }
 
-        if(params.equalsIgnoreCase("getPoint")) {
+        if (params.equalsIgnoreCase("getPoint")) {
             // get the point index of the current tutorial
             if (tc == null) return "Unavailable";
 
@@ -83,10 +83,10 @@ public class PlaceholderAPIExpansion extends PlaceholderExpansion {
             return String.valueOf(tc.getCurrentPoint() + 1);
         }
 
-        if(params.equalsIgnoreCase("getMaxPoints")) {
+        if (params.equalsIgnoreCase("getMaxPoints")) {
             // get the max point index of the current tutorial
             if (tc == null) return "Unavailable";
-            return String.valueOf(tc.getTutorial().points.size() -1);
+            return String.valueOf(tc.getTutorial().points.size() - 1);
         }
 
         return null;

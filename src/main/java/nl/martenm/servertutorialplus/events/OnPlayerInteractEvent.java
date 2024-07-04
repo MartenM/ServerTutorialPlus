@@ -15,45 +15,47 @@ import org.bukkit.inventory.EquipmentSlot;
 /**
  * Player interact event for versions > 1.8
  * Used for clickable blocks and signs.
+ *
  * @author MartenM
  */
-public class OnPlayerInteractEvent implements Listener{
+public class OnPlayerInteractEvent implements Listener {
 
     private ServerTutorialPlus plugin;
-    public OnPlayerInteractEvent(ServerTutorialPlus plugin){
+
+    public OnPlayerInteractEvent(ServerTutorialPlus plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void onPlayerInteractEvent(PlayerInteractEvent event){
+    public void onPlayerInteractEvent(PlayerInteractEvent event) {
         // Pass message to clickhandler.
         plugin.getClickManager().handleClickAction(event);
 
-        if(event.getClickedBlock() == null || event.getAction() == Action.LEFT_CLICK_BLOCK){
+        if (event.getClickedBlock() == null || event.getAction() == Action.LEFT_CLICK_BLOCK) {
             return;
         }
 
-        if(event.getHand() != EquipmentSlot.HAND){
+        if (event.getHand() != EquipmentSlot.HAND) {
             return;
         }
 
-        if(!plugin.enabled){
+        if (!plugin.enabled) {
             return;
         }
 
-        for(TutorialSign ts : plugin.tutorialSigns){
-            if(!ts.block.equals(event.getClickedBlock())){
+        for (TutorialSign ts : plugin.tutorialSigns) {
+            if (!ts.block.equals(event.getClickedBlock())) {
                 continue;
             }
             ServerTutorial serverTutorial = PluginUtils.getTutorial(plugin, ts.ServerTutorialId);
 
-            if(serverTutorial == null){
+            if (serverTutorial == null) {
                 // Just in here to fix stuff but PluginUtils... Whyyyyyy ;-;
                 event.getPlayer().sendMessage(Lang.ERROR_FAILED_FINDING_TUTORIAL_ADMIN.toString().replace("%id%", ts.ServerTutorialId));
                 return;
             }
 
-            if(plugin.inTutorial.containsKey(event.getPlayer().getUniqueId())){
+            if (plugin.inTutorial.containsKey(event.getPlayer().getUniqueId())) {
                 event.getPlayer().sendMessage(Lang.ERROR_WAIT_TO_END_TUTORIAL.toString());
                 return;
             }

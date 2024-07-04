@@ -11,6 +11,7 @@ import java.util.UUID;
 
 /**
  * Contains all API methods that can be safely used.
+ *
  * @author MartenM
  * @since 17-11-2017
  */
@@ -18,33 +19,44 @@ public class ServerTutorialApi {
 
     private ServerTutorialPlus plugin;
 
-    public ServerTutorialApi(ServerTutorialPlus plugin){
+    public ServerTutorialApi(ServerTutorialPlus plugin) {
         this.plugin = plugin;
     }
 
     /**
-    * Starts a server tutorial for the defined player.
-    * Returns true if the tutorial has been started. False in all other cases
-    * @param id     Id of the server tutorial.
-    * @param player The player.
-    * @return       A boolean that represents if the tutorial has been started.
+     * This method is used to fetch the API with ease.
+     *
+     * @return An Api Object
      */
-    public boolean startTutorial(String id, Player player){
+    public static ServerTutorialApi getApi() {
+        ServerTutorialPlus plugin = (ServerTutorialPlus) Bukkit.getServer().getPluginManager().getPlugin("ServerTutorialPlus");
+        return plugin.getApi();
+    }
 
-        if(plugin.blockPlayers.contains(player.getUniqueId())){
+    /**
+     * Starts a server tutorial for the defined player.
+     * Returns true if the tutorial has been started. False in all other cases
+     *
+     * @param id     Id of the server tutorial.
+     * @param player The player.
+     * @return A boolean that represents if the tutorial has been started.
+     */
+    public boolean startTutorial(String id, Player player) {
+
+        if (plugin.blockPlayers.contains(player.getUniqueId())) {
             return false;
         }
 
         ServerTutorial serverTutorial = PluginUtils.getTutorial(plugin, id);
-        if(serverTutorial == null){
+        if (serverTutorial == null) {
             return false;
         }
 
-        if(plugin.inTutorial.containsKey(player.getUniqueId())){
+        if (plugin.inTutorial.containsKey(player.getUniqueId())) {
             return false;
         }
 
-        if(!plugin.enabled){
+        if (!plugin.enabled) {
             return false;
         }
 
@@ -54,21 +66,23 @@ public class ServerTutorialApi {
     }
 
     /**
-    * Returns if the player is currently in a server tutorial.
-    * @param uuid  The players UUID
-    * @return      A boolean
+     * Returns if the player is currently in a server tutorial.
+     *
+     * @param uuid The players UUID
+     * @return A boolean
      */
-    public boolean isInTutorial(UUID uuid){
+    public boolean isInTutorial(UUID uuid) {
         return plugin.inTutorial.containsKey(uuid);
     }
 
     /**
-    * Get the current servertutorial of a player.
-    * @param uuid  The UUID of the player
-    * @return      The servertutorial or null if not in one.
+     * Get the current servertutorial of a player.
+     *
+     * @param uuid The UUID of the player
+     * @return The servertutorial or null if not in one.
      */
-    public ServerTutorial getCurrentTutorial(UUID uuid){
-        if(plugin.inTutorial.containsKey(uuid)){
+    public ServerTutorial getCurrentTutorial(UUID uuid) {
+        if (plugin.inTutorial.containsKey(uuid)) {
             return plugin.inTutorial.get(uuid).getTutorial();
         }
         return null;
@@ -76,22 +90,14 @@ public class ServerTutorialApi {
 
     /**
      * Gets the controller object that manges the players tutorial.
+     *
      * @param uuid Uuid of the targeted player.
      * @return The controller object. Null if not in a tutorial.
      */
-    public TutorialController getController(UUID uuid){
-        if(plugin.inTutorial.containsKey(uuid)){
+    public TutorialController getController(UUID uuid) {
+        if (plugin.inTutorial.containsKey(uuid)) {
             return plugin.inTutorial.get(uuid);
         }
         return null;
-    }
-
-    /**
-     * This method is used to fetch the API with ease.
-     * @return An Api Object
-     */
-    public static ServerTutorialApi getApi(){
-        ServerTutorialPlus plugin = (ServerTutorialPlus) Bukkit.getServer().getPluginManager().getPlugin("ServerTutorialPlus");
-        return plugin.getApi();
     }
 }

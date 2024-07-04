@@ -23,38 +23,38 @@ public class PlayPointCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
-        if(args.length < 2){
+        if (args.length < 2) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st playpoint <id> <point>");
             return true;
         }
 
-        if(plugin.blockPlayers.contains(((Player) sender).getUniqueId())){
+        if (plugin.blockPlayers.contains(((Player) sender).getUniqueId())) {
             sender.sendMessage(Lang.ERROR_WAIT_TO_END.toString());
             return true;
         }
 
         ServerTutorial serverTutorial = PluginUtils.getTutorial(plugin, args[0]);
-        if(serverTutorial == null){
+        if (serverTutorial == null) {
             sender.sendMessage(Lang.TUTORIAL_ID_NOT_FOUND.toString());
             return true;
         }
 
         int index;
-        try{
+        try {
             index = Integer.parseInt(args[1]);
-        } catch (Exception e){
+        } catch (Exception e) {
             sender.sendMessage(Lang.ERROR_INVALID_INDEX.toString());
             return true;
         }
 
-        if(index > serverTutorial.points.size() || index <= 0){
+        if (index > serverTutorial.points.size() || index <= 0) {
             sender.sendMessage(Lang.ERROR_INVALID_POINT.toString());
             return true;
         }
 
         Player player = (Player) sender;
 
-        if(plugin.inTutorial.containsKey(player.getUniqueId())){
+        if (plugin.inTutorial.containsKey(player.getUniqueId())) {
             player.sendMessage(Lang.ERROR_WAIT_TO_END_TUTORIAL.toString());
             return true;
         }

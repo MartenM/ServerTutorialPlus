@@ -19,7 +19,7 @@ public class NpcInfoCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         NPCManager npcManager = ServerTutorialPlus.getInstance().getNpcManager();
 
-        if(args.length == 0) {
+        if (args.length == 0) {
             sender.sendMessage(ChatColor.DARK_GRAY + "+──────────┤ " + ChatColor.GREEN + ChatColor.BOLD + "NPCs" + ChatColor.DARK_GRAY + "├──────────+");
             sender.sendMessage(" ");
             if (npcManager.getNPCs().size() == 0) {
@@ -37,7 +37,7 @@ public class NpcInfoCommand extends SimpleCommand {
         }
 
         NPCInfo info = npcManager.getNPC(args[0]);
-        if(info == null){
+        if (info == null) {
             sender.sendMessage(Lang.NPC_ID_NOT_EXISTING.toString());
             return true;
         }
@@ -45,14 +45,14 @@ public class NpcInfoCommand extends SimpleCommand {
         sender.sendMessage(ChatColor.DARK_GRAY + "+──────────┤ " + ChatColor.GREEN + ChatColor.BOLD + "NPC" + ChatColor.DARK_GRAY + "├──────────+");
         sender.sendMessage(" ");
         sender.sendMessage(formatInfo(Lang.ID.toString(), info.getId()));
-        sender.sendMessage(formatInfo(Lang.SERVERTUTORIAL_ID.toString() , info.getServerTutorialID()));
+        sender.sendMessage(formatInfo(Lang.SERVERTUTORIAL_ID.toString(), info.getServerTutorialID()));
         sender.sendMessage(ChatColor.GRAY + String.format("  %s %s %s %s", info.getLocation().getWorld().getName(), info.getLocation().getBlockX(), info.getLocation().getBlockY(), info.getLocation().getBlockZ()));
         sender.sendMessage(" ");
         sender.sendMessage(ChatColor.DARK_GRAY + "+─────────────────────────+");
         return true;
     }
 
-    private String formatInfo(String command, String description){
+    private String formatInfo(String command, String description) {
         return ChatColor.GREEN + "  " + command + ChatColor.DARK_GRAY + " : " + ChatColor.YELLOW + description;
     }
 }

@@ -9,21 +9,23 @@ import org.bukkit.event.block.BlockBreakEvent;
 
 /**
  * Handles block break events. Used to remove click-able blocks.
+ *
  * @author MartenM
  */
 public class OnBlockBreakEvent implements Listener {
 
     private ServerTutorialPlus plugin;
-    public OnBlockBreakEvent(ServerTutorialPlus plugin){
+
+    public OnBlockBreakEvent(ServerTutorialPlus plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void onBlockBreakEvent(BlockBreakEvent event){
+    public void onBlockBreakEvent(BlockBreakEvent event) {
 
-        for(TutorialSign ts : plugin.tutorialSigns){
-            if(ts.block.getLocation().equals(event.getBlock().getLocation())){
-                if(!event.getPlayer().hasPermission("servertutorial.action.removeblock")){
+        for (TutorialSign ts : plugin.tutorialSigns) {
+            if (ts.block.getLocation().equals(event.getBlock().getLocation())) {
+                if (!event.getPlayer().hasPermission("servertutorial.action.removeblock")) {
                     event.getPlayer().sendMessage(Lang.EVENT_BLOCK_REMOVE_PERMISSION.toString());
                     event.setCancelled(true);
                     return;
@@ -33,10 +35,6 @@ public class OnBlockBreakEvent implements Listener {
                 break;
             }
         }
-
-
-
-
 
 
     }

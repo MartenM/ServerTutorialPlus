@@ -2,11 +2,14 @@ package nl.martenm.servertutorialplus.objects;
 
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.language.Lang;
-import org.bukkit.entity.*;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 /**
  * This object is used to hold certain data when a player is trying to bind an entity as NPC.
+ *
  * @author MartenM
  */
 public class TutorialEntitySelector {
@@ -15,7 +18,7 @@ public class TutorialEntitySelector {
     private String npcId;
     private ServerTutorial tutorial;
 
-    public TutorialEntitySelector(Player player, ServerTutorial tutorial, String npcId){
+    public TutorialEntitySelector(Player player, ServerTutorial tutorial, String npcId) {
         this.player = player;
         this.npcId = npcId;
         this.tutorial = tutorial;
@@ -33,18 +36,18 @@ public class TutorialEntitySelector {
         return tutorial;
     }
 
-    public void create(ServerTutorialPlus plugin, PlayerInteractEntityEvent event){
+    public void create(ServerTutorialPlus plugin, PlayerInteractEntityEvent event) {
 
-        if(!(event.getRightClicked() instanceof LivingEntity)){
+        if (!(event.getRightClicked() instanceof LivingEntity)) {
             player.sendMessage(Lang.NPC_INVALID_ENTITY.toString());
             return;
         }
 
-        if(event.getRightClicked() instanceof HumanEntity){
+        if (event.getRightClicked() instanceof HumanEntity) {
             HumanEntity humanEntity = (HumanEntity) event.getRightClicked();
 
             Player target = plugin.getServer().getPlayer(event.getRightClicked().getUniqueId());
-            if(target != null){
+            if (target != null) {
                 player.sendMessage(Lang.NPC_PLAYER_SELECTED.toString());
                 return;
             }

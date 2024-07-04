@@ -1,5 +1,8 @@
 package nl.martenm.servertutorialplus.points.custom;
 
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.helpers.Color;
 import nl.martenm.servertutorialplus.helpers.Config;
@@ -11,9 +14,6 @@ import nl.martenm.servertutorialplus.points.IPointCallBack;
 import nl.martenm.servertutorialplus.points.PointType;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
 import nl.martenm.servertutorialplus.points.editor.PointArg;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -36,11 +36,6 @@ public class CheckPoint extends ServerTutorialPoint {
     private double distance;
     private boolean repeatActionbar;
     private boolean drawGuide;
-
-    public enum AnimationType {
-        CIRCLE,
-        LINE
-    }
 
     public CheckPoint(ServerTutorialPlus plugin, Location loc) {
         super(plugin, loc, PointType.CHECKPOINT);
@@ -80,10 +75,10 @@ public class CheckPoint extends ServerTutorialPoint {
 
                                         for (int d = 0; d < 5; d++) {
                                             plugin.getProtocol().playRedstoneParticle(player, new Location(
-                                                    loc.getWorld(),
-                                                    loc.getX() + x,
-                                                    loc.getY() + count * 0.1,
-                                                    loc.getZ() + z),
+                                                            loc.getWorld(),
+                                                            loc.getX() + x,
+                                                            loc.getY() + count * 0.1,
+                                                            loc.getZ() + z),
                                                     color);
 
                                         }
@@ -95,15 +90,15 @@ public class CheckPoint extends ServerTutorialPoint {
                                 case LINE:
                                     for (int y = 0; y < 20; y++) {
                                         plugin.getProtocol().playRedstoneParticle(player, new Location(
-                                                loc.getWorld(),
-                                                loc.getX(),
-                                                loc.getY() + y * 0.1, loc.getZ()),
+                                                        loc.getWorld(),
+                                                        loc.getX(),
+                                                        loc.getY() + y * 0.1, loc.getZ()),
                                                 color);
                                     }
                                     break;
                             }
 
-                            if(drawGuide) {
+                            if (drawGuide) {
                                 Location playerLocation = player.getLocation();
                                 Vector direction = loc.toVector().subtract(playerLocation.toVector());
                                 direction.normalize();
@@ -115,7 +110,7 @@ public class CheckPoint extends ServerTutorialPoint {
                                     for (double a = 0; a < 2; a++) {
                                         double y = playerLocation.getY();
 
-                                        for(int attempts = 0; attempts < 5; attempts++) {
+                                        for (int attempts = 0; attempts < 5; attempts++) {
                                             if (playerLocation.getWorld().getBlockAt(playerLocation.getBlockX(), (int) y, playerLocation.getBlockZ()).getType() != Material.AIR) {
                                                 if (playerLocation.getWorld().getBlockAt(playerLocation.getBlockX(), (int) y + attempts, playerLocation.getBlockZ()).getType() == Material.AIR) {
                                                     y = y + attempts;
@@ -125,9 +120,9 @@ public class CheckPoint extends ServerTutorialPoint {
                                         }
 
                                         plugin.getProtocol().playRedstoneParticle(player, new Location(loc.getWorld(),
-                                                playerLocation.getX(),
-                                                y + 0.1,
-                                                playerLocation.getZ()),
+                                                        playerLocation.getX(),
+                                                        y + 0.1,
+                                                        playerLocation.getZ()),
                                                 color);
                                     }
 
@@ -145,12 +140,12 @@ public class CheckPoint extends ServerTutorialPoint {
                         }
                     }
 
-                }.runTaskTimer(plugin, 2,2);
+                }.runTaskTimer(plugin, 2, 2);
             }
 
             @Override
             public void stop() {
-                if(checker != null){
+                if (checker != null) {
                     checker.cancel();
                 }
             }
@@ -190,7 +185,7 @@ public class CheckPoint extends ServerTutorialPoint {
             @Override
             public boolean run(ServerTutorial serverTutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
                 String animations = "";
-                for(AnimationType type : AnimationType.values()){
+                for (AnimationType type : AnimationType.values()) {
                     animations += type.toString() + ", ";
                 }
                 animations = animations.substring(0, animations.length() - 2);
@@ -200,10 +195,10 @@ public class CheckPoint extends ServerTutorialPoint {
                     return false;
                 }
 
-                try{
+                try {
                     animationType = AnimationType.valueOf(args[0]);
                     return true;
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     plugin.getLogger().warning("Invalid animation type. Using default (TIMED) instead.");
                 }
 
@@ -220,9 +215,9 @@ public class CheckPoint extends ServerTutorialPoint {
                     return false;
                 }
 
-                try{
+                try {
                     distance = Double.parseDouble(args[0]);
-                } catch (NumberFormatException ex){
+                } catch (NumberFormatException ex) {
                     sender.sendMessage(ChatColor.RED + "Invalid number. /st editpoint <t> <p> distance <value>");
                     return false;
                 }
@@ -231,7 +226,7 @@ public class CheckPoint extends ServerTutorialPoint {
             }
         });
 
-        args.add(new PointArg("colour", new String[] {"color"}) {
+        args.add(new PointArg("colour", new String[]{"color"}) {
             @Override
             public boolean run(ServerTutorial serverTutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
                 if (args.length < 1) {
@@ -239,7 +234,7 @@ public class CheckPoint extends ServerTutorialPoint {
                     return false;
                 }
 
-                try{
+                try {
                     int red = Integer.parseInt(args[0]);
                     int green = Integer.parseInt(args[1]);
                     int blue = Integer.parseInt(args[2]);
@@ -247,7 +242,7 @@ public class CheckPoint extends ServerTutorialPoint {
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&aTIP&8] &7If you set the values higher then the standard (255) RGB value, it will create a mix of colours!"));
 
                     color.set(red, green, blue);
-                } catch (NumberFormatException ex){
+                } catch (NumberFormatException ex) {
                     sender.sendMessage(ChatColor.RED + "Invalid number. /st editpoint <t> <p> colour <red> <green> <blue> " + ChatColor.GRAY + "(RGB format, MAX is 255)");
                     return false;
                 }
@@ -256,7 +251,7 @@ public class CheckPoint extends ServerTutorialPoint {
             }
         });
 
-        args.add(new PointArg("guidecolour", new String[] {"guidecolor"}) {
+        args.add(new PointArg("guidecolour", new String[]{"guidecolor"}) {
             @Override
             public boolean run(ServerTutorial serverTutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
                 if (args.length < 1) {
@@ -264,7 +259,7 @@ public class CheckPoint extends ServerTutorialPoint {
                     return false;
                 }
 
-                try{
+                try {
                     int red = Integer.parseInt(args[0]);
                     int green = Integer.parseInt(args[1]);
                     int blue = Integer.parseInt(args[2]);
@@ -272,7 +267,7 @@ public class CheckPoint extends ServerTutorialPoint {
                     sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&aTIP&8] &7If you set the values higher then the standard (255) RGB value, it will create a mix of colours!"));
 
                     guideColor.set(red, green, blue);
-                } catch (NumberFormatException ex){
+                } catch (NumberFormatException ex) {
                     sender.sendMessage(ChatColor.RED + "Invalid number. /st editpoint <t> <p> guidecolor <red> <green> <blue> " + ChatColor.GRAY + "(RGB format, MAX is 255)");
                     return false;
                 }
@@ -289,9 +284,9 @@ public class CheckPoint extends ServerTutorialPoint {
                     return false;
                 }
 
-                try{
+                try {
                     repeatActionbar = Boolean.valueOf(args[0]);
-                } catch (NumberFormatException ex){
+                } catch (NumberFormatException ex) {
                     sender.sendMessage(ChatColor.RED + "Wrong usage. /st editpoint <t> <p> repeatActionbar <TRUE/FALSE>");
                     return false;
                 }
@@ -307,9 +302,9 @@ public class CheckPoint extends ServerTutorialPoint {
                     return false;
                 }
 
-                try{
+                try {
                     drawGuide = Boolean.valueOf(args[0]);
-                } catch (NumberFormatException ex){
+                } catch (NumberFormatException ex) {
                     sender.sendMessage(ChatColor.RED + "Wrong usage. /st editpoint <t> <p> drawguider <TRUE/FALSE>");
                     return false;
                 }
@@ -334,5 +329,10 @@ public class CheckPoint extends ServerTutorialPoint {
 
     public void setDrawGuide(boolean drawGuide) {
         this.drawGuide = drawGuide;
+    }
+
+    public enum AnimationType {
+        CIRCLE,
+        LINE
     }
 }

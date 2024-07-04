@@ -1,6 +1,7 @@
 package nl.martenm.servertutorialplus;
 
 import nl.martenm.servertutorialplus.api.ServerTutorialApi;
+import nl.martenm.servertutorialplus.api.hooks.PlaceholderAPIExpansion;
 import nl.martenm.servertutorialplus.commands.ServerTutorialRootCommand;
 import nl.martenm.servertutorialplus.data.DataSource;
 import nl.martenm.servertutorialplus.data.FlatDataSource;
@@ -8,12 +9,14 @@ import nl.martenm.servertutorialplus.data.MySqlDataSource;
 import nl.martenm.servertutorialplus.events.*;
 import nl.martenm.servertutorialplus.helpers.Config;
 import nl.martenm.servertutorialplus.helpers.PluginUtils;
-import nl.martenm.servertutorialplus.api.hooks.PlaceholderAPIExpansion;
 import nl.martenm.servertutorialplus.language.Lang;
 import nl.martenm.servertutorialplus.managers.FlatFileManager;
 import nl.martenm.servertutorialplus.managers.NPCManager;
 import nl.martenm.servertutorialplus.managers.clickactions.ClickManager;
-import nl.martenm.servertutorialplus.objects.*;
+import nl.martenm.servertutorialplus.objects.ServerTutorial;
+import nl.martenm.servertutorialplus.objects.TutorialController;
+import nl.martenm.servertutorialplus.objects.TutorialEntitySelector;
+import nl.martenm.servertutorialplus.objects.TutorialSign;
 import nl.martenm.servertutorialplus.points.PointType;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
 import nl.martenm.servertutorialplus.points.custom.CheckPoint;
@@ -35,49 +38,43 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.json.simple.JSONObject;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 /**
  * ServerTutorialPlus
  * Created by Marten on 5-3-2017.
  */
-public class ServerTutorialPlus extends JavaPlugin{
+public class ServerTutorialPlus extends JavaPlugin {
 
+    private static ServerTutorialPlus instance;
     public Logger logger;
-
     public List<ServerTutorial> serverTutorials;
     public List<TutorialSign> tutorialSigns;
     public List<UUID> blockPlayers;
     public List<UUID> lockedPlayers;
     public List<UUID> lockedViews;
-
     public HashMap<UUID, TutorialController> inTutorial;
     public HashMap<UUID, TutorialEntitySelector> selectingNpc;
-
-    private IProtocol protocol;
-
     public Config tutorialSaves;
     public Config signSaves;
-    private Config languageFile;
-
     public boolean enabled;
     public boolean placeholderAPI;
-
+    private IProtocol protocol;
+    private Config languageFile;
     private DataSource dataSource;
-
     private ClickManager clickManager;
     private NPCManager npcManager;
-
     private Metrics metrics;
-
-    private static ServerTutorialPlus instance;
 
     public static ServerTutorialPlus getInstance() {
         return instance;
     }
 
-    public void onEnable(){
+    public void onEnable() {
         instance = this;
 
         logger = getLogger();
@@ -104,12 +101,12 @@ public class ServerTutorialPlus extends JavaPlugin{
         registerEvents();
 
         //DATASOURCE
-        if(getConfig().getBoolean("datasource.mysql.enabled")){
+        if (getConfig().getBoolean("datasource.mysql.enabled")) {
             logger.info("Using MySql as datasource...");
 
             dataSource = new MySqlDataSource(this);
 
-        }else{
+        } else {
             logger.info("Using FlatFile as datasource...");
 
             dataSource = new FlatDataSource(this);
@@ -122,7 +119,7 @@ public class ServerTutorialPlus extends JavaPlugin{
         loadSigns();
         npcManager.loadNPCs();
 
-        if(Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")){
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             logger.info("PlaceholderAPI has been found!");
             placeholderAPI = true;
             new PlaceholderAPIExpansion(this).register();
@@ -131,21 +128,21 @@ public class ServerTutorialPlus extends JavaPlugin{
             placeholderAPI = false;
         }
 
-        if(getServer().getOnlinePlayers().size() > 0){
-            for(int i = 0; i < 2; i++){
+        if (getServer().getOnlinePlayers().size() > 0) {
+            for (int i = 0; i < 2; i++) {
                 logger.warning("");
             }
             logger.warning("[!!!] Reload detected. Getting file data for players...");
-            for(int i = 0; i < 2; i++){
+            for (int i = 0; i < 2; i++) {
                 logger.warning("");
             }
 
-            for(Player player : getServer().getOnlinePlayers()){
-                new BukkitRunnable(){
+            for (Player player : getServer().getOnlinePlayers()) {
+                new BukkitRunnable() {
                     @Override
                     public void run() {
                         JSONObject object = FlatFileManager.getPlayerData(instance, player.getUniqueId());
-                        if(object == null){
+                        if (object == null) {
                             this.cancel();
                             return;
                         }
@@ -163,12 +160,12 @@ public class ServerTutorialPlus extends JavaPlugin{
         logger.info("Servertutorial enabled successfully!");
     }
 
-    public void onDisable(){
+    public void onDisable() {
         enabled = false;
         logger.info("Disabling server tutorial...");
 
         //Try to safely disable the current tutorials.
-        for(TutorialController tc : inTutorial.values()){
+        for (TutorialController tc : inTutorial.values()) {
             tc.cancel(true);
             tc.getOldValuesPlayer().restore(tc.getPlayer());
             //FlatFileManager.saveJson(this, tc.getOldValuesPlayer());
@@ -183,19 +180,19 @@ public class ServerTutorialPlus extends JavaPlugin{
         logger.info("Successfully disabled server tutorial! Thanks for using this plugin.");
     }
 
-    private void registerConfigs(){
+    private void registerConfigs() {
         getConfig().options().copyHeader(true);
         getConfig().options().copyDefaults(true);
         saveConfig();
     }
 
-    private void registerCommands(){
+    private void registerCommands() {
         new ServerTutorialRootCommand().registerCommand(this);
     }
 
-    private void registerEvents(){
+    private void registerEvents() {
         PluginManager pm = getServer().getPluginManager();
-        if(Bukkit.getVersion().contains("1.8")){
+        if (Bukkit.getVersion().contains("1.8")) {
             pm.registerEvents(new OnPlayerInteractEventV1_8(this), this);
             pm.registerEvents(new OnPlayerInteractEntityEventV1_8(this), this);
         } else {
@@ -212,13 +209,13 @@ public class ServerTutorialPlus extends JavaPlugin{
         pm.registerEvents(new ChatEventListener(this), this);
     }
 
-    public void loadTutorials(){
+    public void loadTutorials() {
 
-        if(!tutorialSaves.isConfigurationSection("tutorials")){
+        if (!tutorialSaves.isConfigurationSection("tutorials")) {
             return;
         }
 
-        for(String ID : tutorialSaves.getConfigurationSection("tutorials").getKeys(false)){
+        for (String ID : tutorialSaves.getConfigurationSection("tutorials").getKeys(false)) {
             try {
 
                 logger.info("Loading server tutorial: " + ID);
@@ -236,9 +233,9 @@ public class ServerTutorialPlus extends JavaPlugin{
                     for (String key : tutorialSaves.getConfigurationSection("tutorials." + ID + ".points").getKeys(false)) {
                         try {
                             PointType type;
-                            try{
+                            try {
                                 type = PointType.valueOf(tutorialSaves.getString("tutorials." + ID + ".points." + key + ".type"));
-                            } catch (Exception ex){
+                            } catch (Exception ex) {
                                 type = PointType.TIMED;
                             }
 
@@ -260,8 +257,7 @@ public class ServerTutorialPlus extends JavaPlugin{
 
                             point.readSaveData(tutorialSaves, ID, key);
                             serverTutorial.points.add(point);
-                        }
-                        catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                             logger.warning(" [!!] Could not a point from server tutorial " + ID + " point index " + key + ".");
                             logger.warning(" [!!] Something in the tutorialsaves.yml is messed up and prohibits the plugin from reading the data correctly!");
@@ -270,8 +266,7 @@ public class ServerTutorialPlus extends JavaPlugin{
                     }
                 }
                 serverTutorials.add(serverTutorial);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 logger.warning(" [!!] Could not load server tutorial " + ID + ". Something in the tutorialsaves.yml is messed up and prohibits the plugin from reading the data correctly!");
                 logger.warning(" [!!] Revert any changes you have made if you have manually edited the config.");
@@ -279,8 +274,8 @@ public class ServerTutorialPlus extends JavaPlugin{
         }
     }
 
-    public void saveTutorials(){
-        for(ServerTutorial serverTutorial : serverTutorials){
+    public void saveTutorials() {
+        for (ServerTutorial serverTutorial : serverTutorials) {
             tutorialSaves.set("tutorials." + serverTutorial.getId(), null);
 
             tutorialSaves.set("tutorials." + serverTutorial.getId() + ".stats.plays", serverTutorial.plays);
@@ -292,7 +287,7 @@ public class ServerTutorialPlus extends JavaPlugin{
             tutorialSaves.set("tutorials." + serverTutorial.getId() + ".rewards", serverTutorial.getRewards());
             tutorialSaves.set("tutorials." + serverTutorial.getId() + ".command-whitelist", serverTutorial.getCommandWhiteList());
 
-            for(int i = 0; i < serverTutorial.points.size(); i++){
+            for (int i = 0; i < serverTutorial.points.size(); i++) {
                 ServerTutorialPoint tutorialPoint = serverTutorial.points.get(i);
                 tutorialPoint.saveData(tutorialSaves, serverTutorial.getId(), i + "");
             }
@@ -300,17 +295,17 @@ public class ServerTutorialPlus extends JavaPlugin{
         tutorialSaves.save();
     }
 
-    public void loadSigns(){
-        if(!signSaves.isConfigurationSection("signs")){
+    public void loadSigns() {
+        if (!signSaves.isConfigurationSection("signs")) {
             return;
         }
 
-        for(String key : signSaves.getConfigurationSection("signs").getKeys(false)) {
-            try{
+        for (String key : signSaves.getConfigurationSection("signs").getKeys(false)) {
+            try {
                 Block block = PluginUtils.fromString(this, signSaves.getString("signs." + key + ".location")).getBlock();
                 String ID = signSaves.getString("signs." + key + ".servertutorialplus");
                 tutorialSigns.add(new TutorialSign(block, ID));
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
                 logger.warning(" [!!] Could not load bound block. Something in the blocksaves.yml is messed up and prohibits the plugin from reading the data correctly!");
                 logger.warning(" [!!] Revert any changes you have made if you have manually edited the config.");
@@ -320,9 +315,9 @@ public class ServerTutorialPlus extends JavaPlugin{
 
     }
 
-    public void saveSigns(){
+    public void saveSigns() {
         signSaves.set("signs", null);
-        for(int i = 0; i < tutorialSigns.size(); i++){
+        for (int i = 0; i < tutorialSigns.size(); i++) {
             TutorialSign ts = tutorialSigns.get(i);
             signSaves.set("signs." + i + ".location", PluginUtils.fromLocation(ts.block.getLocation()));
             signSaves.set("signs." + i + ".servertutorialplus", ts.ServerTutorialId);
@@ -334,18 +329,18 @@ public class ServerTutorialPlus extends JavaPlugin{
         return npcManager;
     }
 
-    private void createLanguageFiles(){
+    private void createLanguageFiles() {
 
         File folder = new File(getDataFolder() + "/language");
         folder.mkdirs();
 
-        if(folder.listFiles().length == 0){
+        if (folder.listFiles().length == 0) {
             // Create default language files
         }
 
         languageFile = new Config(this, "/language/" + getConfig().getString("language"));
 
-        for(Lang l : Lang.values()){
+        for (Lang l : Lang.values()) {
             languageFile.addDefault(l.getPath(), l.getDefaultMessage());
         }
 
@@ -355,7 +350,7 @@ public class ServerTutorialPlus extends JavaPlugin{
         Lang.setFile(languageFile);
     }
 
-    public ServerTutorialApi getApi(){
+    public ServerTutorialApi getApi() {
         return new ServerTutorialApi(this);
     }
 

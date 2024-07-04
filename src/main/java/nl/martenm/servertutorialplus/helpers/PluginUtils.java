@@ -1,12 +1,12 @@
 package nl.martenm.servertutorialplus.helpers;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import nl.martenm.servertutorialplus.ServerTutorialPlus;
 import nl.martenm.servertutorialplus.objects.ServerTutorial;
-import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +20,11 @@ import static org.bukkit.ChatColor.COLOR_CHAR;
  */
 public abstract class PluginUtils {
 
-    public static String translateHexColorCodes(String startTag, String endTag, String message)
-    {
+    public static String translateHexColorCodes(String startTag, String endTag, String message) {
         final Pattern hexPattern = Pattern.compile(startTag + "([A-Fa-f0-9]{6})" + endTag);
         Matcher matcher = hexPattern.matcher(message);
         StringBuffer buffer = new StringBuffer(message.length() + 4 * 8);
-        while (matcher.find())
-        {
+        while (matcher.find()) {
             String group = matcher.group(1);
             matcher.appendReplacement(buffer, COLOR_CHAR + "x"
                     + COLOR_CHAR + group.charAt(0) + COLOR_CHAR + group.charAt(1)

@@ -2,6 +2,7 @@ package nl.martenm.servertutorialplus.points;
 
 /**
  * Enum for all the point types.
+ *
  * @author MartenM
  * @since 24-11-2017.
  */

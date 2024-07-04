@@ -18,7 +18,7 @@ public class ReloadPluginCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
-        for(TutorialController tc : plugin.inTutorial.values()){
+        for (TutorialController tc : plugin.inTutorial.values()) {
             tc.cancel(true);
             tc.getPlayer().sendMessage(Lang.RELOAD_STOPTUTORIAL.toString());
         }

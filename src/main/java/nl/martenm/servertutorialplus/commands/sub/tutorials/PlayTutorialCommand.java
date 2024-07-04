@@ -11,7 +11,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class PlayTutorialCommand extends SimpleCommand  {
+public class PlayTutorialCommand extends SimpleCommand {
 
     public PlayTutorialCommand() {
         super("play", Lang.HELP_PLAY.toString(), "+play", false);
@@ -21,45 +21,45 @@ public class PlayTutorialCommand extends SimpleCommand  {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
-        if(args.length < 1){
+        if (args.length < 1) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st play <id>");
             return true;
         }
 
         ServerTutorial serverTutorial = PluginUtils.getTutorial(plugin, args[0]);
-        if(serverTutorial == null){
+        if (serverTutorial == null) {
             sender.sendMessage(Lang.TUTORIAL_ID_NOT_FOUND.toString());
             return true;
         }
 
         Player target = null;
-        if(args.length != 1) {
-            if(!sender.hasPermission(getFullPermission() + ".others")) {
+        if (args.length != 1) {
+            if (!sender.hasPermission(getFullPermission() + ".others")) {
                 sender.sendMessage(Lang.NO_PERMS.toString());
                 return true;
             }
 
             target = Bukkit.getPlayer(args[1]);
-            if(target == null){
+            if (target == null) {
                 sender.sendMessage(Lang.ERROR_PLAYER_OFFLINE.toString());
                 return true;
             }
 
-            if(plugin.blockPlayers.contains((target).getUniqueId())){
+            if (plugin.blockPlayers.contains((target).getUniqueId())) {
                 sender.sendMessage(Lang.ERROR_WAIT_TO_END.toString());
                 return true;
             }
 
             TutorialController controller = plugin.inTutorial.get(target.getUniqueId());
-            if(controller != null){
+            if (controller != null) {
                 controller.cancel(true, false);
                 sender.sendMessage(Lang.WARNING_TUTORIAL_OTHER_CANCELLED.toString()
-                .replace("%username%", target.getName())
-                .replace("%tutorial%", serverTutorial.getId()));
+                        .replace("%username%", target.getName())
+                        .replace("%tutorial%", serverTutorial.getId()));
             }
 
         } else {
-            if(!(sender instanceof Player)){
+            if (!(sender instanceof Player)) {
                 sender.sendMessage(Lang.PLAYER_ONLY_COMMAND.toString());
                 return true;
             }
@@ -68,13 +68,13 @@ public class PlayTutorialCommand extends SimpleCommand  {
 
             target = player;
 
-            if(plugin.inTutorial.containsKey(player.getUniqueId())){
+            if (plugin.inTutorial.containsKey(player.getUniqueId())) {
                 player.sendMessage(Lang.ERROR_WAIT_TO_END_TUTORIAL.toString());
                 return true;
             }
         }
 
-        if(!plugin.enabled){
+        if (!plugin.enabled) {
             return true;
         }
 

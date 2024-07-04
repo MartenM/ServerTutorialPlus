@@ -23,8 +23,8 @@ public class NpcAddCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         NPCManager npcManager = ServerTutorialPlus.getInstance().getNpcManager();
 
-        if(Bukkit.getVersion().contains("1.8") || Bukkit.getVersion().contains("1.9")){
-            for(int i = 0; i < 3; i++) sender.sendMessage(" ");
+        if (Bukkit.getVersion().contains("1.8") || Bukkit.getVersion().contains("1.9")) {
+            for (int i = 0; i < 3; i++) sender.sendMessage(" ");
             String warningPrefix = ChatColor.translateAlternateColorCodes('&', "&8[&4&l!&r&8]&r ");
 
             sender.sendMessage(warningPrefix + ChatColor.GREEN + "Hey there!" + ChatColor.RESET + " We noticed that you are trying to use ST NPCs on a version lower then 1.10 :(");
@@ -32,26 +32,26 @@ public class NpcAddCommand extends SimpleCommand {
             sender.sendMessage(warningPrefix + ChatColor.translateAlternateColorCodes('&', "&cSadly&r, this also means that some things might not work on lower versions. ST NPCs do not work on versions lower then 1.10..."));
             sender.sendMessage(warningPrefix + ChatColor.translateAlternateColorCodes('&', "It would require &ca lot of time&r to keep updating for backwards compatibility and it would remove the ability to create &anew&r features that use new methods."));
             sender.sendMessage(" ");
-            sender.sendMessage(warningPrefix + ChatColor.translateAlternateColorCodes('&',ChatColor.YELLOW + "To create an NPC you could use another plugin to spawn the NPC and use the command &r/st npc bind <npc id> <server tutorial>&e to bind it to a tutorial."));
+            sender.sendMessage(warningPrefix + ChatColor.translateAlternateColorCodes('&', ChatColor.YELLOW + "To create an NPC you could use another plugin to spawn the NPC and use the command &r/st npc bind <npc id> <server tutorial>&e to bind it to a tutorial."));
             return true;
         }
 
-        if(args.length < 3){
+        if (args.length < 3) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st npc add <NPC id> <ServerTutorial> <livingEntity>");
             return true;
         }
 
         Player player = (Player) sender;
 
-        if(npcManager.getNPC(args[0]) != null){
+        if (npcManager.getNPC(args[0]) != null) {
             sender.sendMessage(Lang.NPC_ID_EXIST.toString());
             return true;
         }
 
         EntityType et;
-        try{
+        try {
             et = EntityType.valueOf(args[2]);
-        } catch (Exception e){
+        } catch (Exception e) {
             sender.sendMessage(Lang.NPC_TESTED_MOBS + PluginUtils.allMobs());
             sender.sendMessage(Lang.NPC_WRONG_TYPE.toString().replace("%type%", args[2]));
             return true;

@@ -21,20 +21,20 @@ public class NpcBindCommand extends SimpleCommand {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
         Player player = (Player) sender;
-        if(plugin.selectingNpc.containsKey(player.getUniqueId())){
+        if (plugin.selectingNpc.containsKey(player.getUniqueId())) {
             plugin.selectingNpc.remove(player.getUniqueId());
             sender.sendMessage(Lang.NPC_SELECTION_CANCELLED.toString());
             return true;
         }
 
-        if(args.length < 2){
+        if (args.length < 2) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st npc bind <NPC id> <ServerTutorial>");
             return true;
         }
 
         ServerTutorial tutorial;
         tutorial = PluginUtils.getTutorial(plugin, args[1]);
-        if(tutorial == null){
+        if (tutorial == null) {
             sender.sendMessage(Lang.TUTORIAL_ID_NOT_FOUND.toString());
             return true;
         }

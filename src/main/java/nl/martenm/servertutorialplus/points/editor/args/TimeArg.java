@@ -19,14 +19,14 @@ public class TimeArg extends PointArg {
     @Override
     public boolean run(ServerTutorial serverTutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
 
-        if(args.length < 1){
+        if (args.length < 1) {
             sender.sendMessage(Lang.TIME_CURRENT.toString().replace("%time%", point.getTime() + ""));
             return true;
         }
 
         try {
             point.setTime(Integer.parseInt(args[0]));
-        } catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             sender.sendMessage(Lang.ERROR_INVALID_NUMBNER.toString());
             return false;
         }

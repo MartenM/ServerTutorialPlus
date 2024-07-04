@@ -81,7 +81,7 @@ public enum Lang {
     COMMAND_EDITALL_CANBE("command-editall-canbe", "&eArguments that can be mass edited: &7%args%"),
     COMMAND_EDITALL_SUCCES("command-editall-succes", "&aSuccessfully edited all points"),
 
-    COMMAND_LOOKUP_DEFINE_PLAYER("command-lookup-define-player","&ePlease define a player to check. &7/st player <name>"),
+    COMMAND_LOOKUP_DEFINE_PLAYER("command-lookup-define-player", "&ePlease define a player to check. &7/st player <name>"),
     COMMAND_LOOKUP_UUID_ERROR("command-lookup-uuid-error", "&cUnable to get the UUID of the targed player. Are you sure he/she has played on this server before?"),
     COMMAND_LOOKUP_NEVER_PLAYED("command-lookup-never-played", "&cThat player has never joined the server."),
     COMMAND_LOOKUP_SET("command-lookup-set", "&aSuccessfully set the tutorial to completed."),
@@ -187,29 +187,28 @@ public enum Lang {
     UNKOWN_ARGUMENT("unkown-argument", "&cUnknown arg. Possible args: &7"),
     PLAYER_NOT_FOUND("player-not-found", "&cUnable to find that player on this server.");
 
+    private static Config languageFile;
     private String path;
     private String defaultMessage;
 
-    private static Config languageFile;
-
-    Lang(String path, String defaultMessage){
+    Lang(String path, String defaultMessage) {
         this.path = path;
         this.defaultMessage = defaultMessage;
     }
 
-    public static void setFile(Config config){
+    public static void setFile(Config config) {
         languageFile = config;
     }
 
-    public String getPath(){
+    public String getPath() {
         return path;
     }
 
-    public String getDefaultMessage(){
+    public String getDefaultMessage() {
         return defaultMessage;
     }
 
-    public String getConfigMessage(String key){
+    public String getConfigMessage(String key) {
         return ChatColor.translateAlternateColorCodes('&', languageFile.get(key).toString());
     }
 

@@ -21,53 +21,53 @@ public class EditPointCommand extends SimpleCommand {
     public boolean onCommand(CommandSender sender, Command command, String s, String[] args) {
         ServerTutorialPlus plugin = ServerTutorialPlus.getInstance();
 
-        if(args.length < 2){
+        if (args.length < 2) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st editpoint <server tutorial ID> <point index> <args>");
             return true;
         }
 
         int index;
-        try{
+        try {
             index = Integer.parseInt(args[1]);
-        } catch (Exception e){
+        } catch (Exception e) {
             sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st editpoint <server tutorial ID> <point index> <args>");
             return true;
         }
 
         ServerTutorial serverTutorial = PluginUtils.getTutorial(plugin, args[0]);
 
-        if(serverTutorial == null){
+        if (serverTutorial == null) {
             sender.sendMessage(Lang.TUTORIAL_ID_NOT_FOUND.toString());
             return true;
         }
 
-        if(index - 1 >= serverTutorial.points.size()){
+        if (index - 1 >= serverTutorial.points.size()) {
             sender.sendMessage(Lang.ERROR_INVALID_POINT.toString());
             return true;
         }
 
-        if(index < 1){
+        if (index < 1) {
             sender.sendMessage(Lang.ERROR_INVALID_INDEX.toString());
             return true;
         }
 
         ServerTutorialPoint tutorialPoint = serverTutorial.points.get(index - 1);
 
-        if(args.length == 2){
+        if (args.length == 2) {
             sender.sendMessage(Lang.UNKOWN_ARGUMENT.toString() + ChatColor.GRAY + tutorialPoint.getArgsString());
             return true;
         }
 
-        if(args[2].equalsIgnoreCase("switch")){
-            if(args.length < 4){
+        if (args[2].equalsIgnoreCase("switch")) {
+            if (args.length < 4) {
                 sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/steditpoint <id> <p> switch <to>");
                 return true;
             }
 
             int to;
-            try{
+            try {
                 to = Integer.parseInt(args[3]);
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st editpoint <id> <p> switch <to>");
                 return true;
             }
@@ -79,16 +79,16 @@ public class EditPointCommand extends SimpleCommand {
             return true;
         }
 
-        if(args[2].equalsIgnoreCase("infront")){
-            if(args.length < 4){
+        if (args[2].equalsIgnoreCase("infront")) {
+            if (args.length < 4) {
                 sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st editpoint <id> <p> infront <p>");
                 return true;
             }
 
             int to;
-            try{
+            try {
                 to = Integer.parseInt(args[3]);
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 sender.sendMessage(Lang.WRONG_COMMAND_FORMAT + "/st editpoint <id> <p> infront <p>");
                 return true;
             }

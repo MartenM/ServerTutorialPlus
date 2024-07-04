@@ -8,77 +8,71 @@ import java.util.List;
 /**
  * The ServerTutorial class represents a single sever tutorial. It contains all the data about the tutorial.
  * The object contains a List which contains TutorialPoints. These points store the unique data for each point.
+ *
  * @author MartenM
  * @since 5-3-2017.
  */
 public class ServerTutorial {
 
-    public ServerTutorial(String id){
+    /**
+     * Public variable for tracking plays.
+     */
+    public int plays;
+    public boolean invisiblePlayer;
+    /**
+     * The list of TutorialPoints for this tutorial.
+     */
+    public List<ServerTutorialPoint> points;
+    private String id;
+    private boolean blocksCommands;
+    private List<String> commandWhiteList;
+    /**
+     * List of rewards that are given when the tutorial is completed for the first time.
+     */
+    private List<String> rewards;
+    /**
+     * If the user should have the permission 'servertutorialplus.tutorial.ID to play this tutorial.
+     */
+    private boolean needsPermission;
+    /**
+     * If set to true the incoming chat messages to the player will be blocked.
+     */
+    private boolean blockChat;
+
+    public ServerTutorial(String id) {
         this.id = id;
         this.points = new ArrayList<>();
         this.rewards = new ArrayList<>();
         this.commandWhiteList = new ArrayList<>();
     }
 
-    public ServerTutorial(String id, List<ServerTutorialPoint> points){
+    public ServerTutorial(String id, List<ServerTutorialPoint> points) {
         this.id = id;
         this.points = points;
         this.rewards = new ArrayList<>();
         this.commandWhiteList = new ArrayList<>();
     }
 
-    public ServerTutorial(String id, List<ServerTutorialPoint> points, List<String> rewards){
+    public ServerTutorial(String id, List<ServerTutorialPoint> points, List<String> rewards) {
         this.id = id;
         this.points = points;
         this.rewards = rewards;
         this.commandWhiteList = new ArrayList<>();
     }
 
-
-    private String id;
-
     /**
-     * Public variable for tracking plays.
-     */
-    public int plays;
-
-    public boolean invisiblePlayer;
-
-    private boolean blocksCommands;
-
-    private List<String> commandWhiteList;
-
-    /**
-    * The list of TutorialPoints for this tutorial.
-     */
-    public List<ServerTutorialPoint> points;
-
-    /**
-     * List of rewards that are given when the tutorial is completed for the first time.
-     */
-    private List<String> rewards;
-
-    /**
-     * If the user should have the permission 'servertutorialplus.tutorial.ID to play this tutorial.
-     */
-    private boolean needsPermission;
-
-    /**
-     * If set to true the incoming chat messages to the player will be blocked.
-     */
-    private boolean blockChat;
-
-    /**
-    * The unique id of the server tutorial.
-    * @return id
+     * The unique id of the server tutorial.
+     *
+     * @return id
      */
     public String getId() {
         return id;
     }
 
     /**
-    * Sets the unique id of a server tutorial.
-    * USE WITH CAUTION!
+     * Sets the unique id of a server tutorial.
+     * USE WITH CAUTION!
+     *
      * @param id The new ID.
      */
     public void setId(String id) {
@@ -90,13 +84,14 @@ public class ServerTutorial {
     }
 
     public void setRewards(List<String> rewards) {
-        if(rewards == null) this.rewards = new ArrayList<>();
+        if (rewards == null) this.rewards = new ArrayList<>();
 
         this.rewards = rewards;
     }
 
     /**
      * Gets if you need permission to play this tutorial.
+     *
      * @return If permission is needed.
      */
     public boolean getNeedsPermission() {
@@ -105,6 +100,7 @@ public class ServerTutorial {
 
     /**
      * Sets if you need permission to play this tutorial.
+     *
      * @param needsPermission true means permission is needed.
      */
     public void setNeedsPermission(boolean needsPermission) {
@@ -113,6 +109,7 @@ public class ServerTutorial {
 
     /**
      * Get whether this tutorial blocks commands by other plugins and Bukkit/Spigot it self.
+     *
      * @return true if blocks commands
      */
     public boolean isBlockingCommands() {
@@ -131,7 +128,7 @@ public class ServerTutorial {
     }
 
     public void setCommandWhiteList(List<String> commandWhiteList) {
-        if(commandWhiteList == null) this.commandWhiteList = new ArrayList<>();
+        if (commandWhiteList == null) this.commandWhiteList = new ArrayList<>();
         this.commandWhiteList = commandWhiteList;
     }
 

@@ -7,11 +7,11 @@ import org.bukkit.Bukkit;
  */
 public class BukkitVersion {
 
+    private static BukkitVersion instance;
     int majorVersion;
     int minorVersion;
     int patchVersion;
 
-    private static BukkitVersion instance;
     private BukkitVersion() {
         String versionString = Bukkit.getBukkitVersion();
         String[] split = versionString.split("-")[0].split("\\.");
@@ -26,7 +26,7 @@ public class BukkitVersion {
     }
 
     public static BukkitVersion getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new BukkitVersion();
         }
         return instance;
@@ -37,12 +37,12 @@ public class BukkitVersion {
     }
 
     public boolean versionEqualOrHigher(int majorVersion, int minorVersion) {
-        if(!versionEqualOrHigher(majorVersion)) return false;
+        if (!versionEqualOrHigher(majorVersion)) return false;
         return this.minorVersion >= minorVersion;
     }
 
     public boolean versionEqualOrHigher(int majorVersion, int minorVersion, int patchVersion) {
-        if(!versionEqualOrHigher(majorVersion, minorVersion)) return false;
+        if (!versionEqualOrHigher(majorVersion, minorVersion)) return false;
         return this.patchVersion >= patchVersion;
     }
 
@@ -51,12 +51,12 @@ public class BukkitVersion {
     }
 
     public boolean versionEqualOrLower(int majorVersion, int minorVersion) {
-        if(!versionEqualOrLower(majorVersion)) return false;
+        if (!versionEqualOrLower(majorVersion)) return false;
         return this.minorVersion <= minorVersion;
     }
 
     public boolean versionEqualOrLower(int majorVersion, int minorVersion, int patchVersion) {
-        if(!versionEqualOrLower(majorVersion, minorVersion)) return false;
+        if (!versionEqualOrLower(majorVersion, minorVersion)) return false;
         return this.patchVersion <= patchVersion;
     }
 }

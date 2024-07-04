@@ -19,7 +19,7 @@ public class OldValuesPlayer {
     private Location loc;
     private GameMode gamemode;
 
-    public OldValuesPlayer(Player player){
+    public OldValuesPlayer(Player player) {
         this.uuid = player.getUniqueId();
         this.original_flySpeed = player.getFlySpeed();
         this.original_walkSpeed = player.getWalkSpeed();

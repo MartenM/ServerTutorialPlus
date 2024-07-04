@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 /**
  * Argument to change the point location.
+ *
  * @author MartenM
  * @since 29-11-2017.
  */
@@ -20,7 +21,7 @@ public class LocationArg extends PointArg {
     @Override
     public boolean run(ServerTutorial serverTutorial, ServerTutorialPoint point, CommandSender sender, String[] args) {
 
-        if(!(sender instanceof Player)){
+        if (!(sender instanceof Player)) {
             return false;
         }
 

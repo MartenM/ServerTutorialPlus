@@ -1,15 +1,16 @@
 package nl.martenm.servertutorialplus.helpers;
-import java.io.File;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Config extends YamlConfiguration{
+import java.io.File;
+
+public class Config extends YamlConfiguration {
 
     private JavaPlugin plugin;
     private String fileName;
 
-    public Config(JavaPlugin plugin, String fileName){
+    public Config(JavaPlugin plugin, String fileName) {
         this.plugin = plugin;
         this.fileName = fileName + (fileName.endsWith(".yml") ? "" : ".yml");
         createFile();
@@ -18,13 +19,13 @@ public class Config extends YamlConfiguration{
     private void createFile() {
         try {
             File file = new File(plugin.getDataFolder(), fileName);
-            if (!file.exists()){
-                if (plugin.getResource(fileName) != null){
+            if (!file.exists()) {
+                if (plugin.getResource(fileName) != null) {
                     plugin.saveResource(fileName, false);
-                }else{
+                } else {
                     save(file);
                 }
-            }else{
+            } else {
                 load(file);
                 save(file);
             }
@@ -33,7 +34,7 @@ public class Config extends YamlConfiguration{
         }
     }
 
-    public void save(){
+    public void save() {
         try {
             save(new File(plugin.getDataFolder(), fileName));
         } catch (Exception ex) {

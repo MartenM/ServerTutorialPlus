@@ -1,7 +1,9 @@
 package nl.martenm.servertutorialplus.commands;
 
 import nl.martenm.servertutorialplus.commands.help.STFormatter;
-import nl.martenm.servertutorialplus.commands.sub.*;
+import nl.martenm.servertutorialplus.commands.sub.NpcCommand;
+import nl.martenm.servertutorialplus.commands.sub.PlayerCommand;
+import nl.martenm.servertutorialplus.commands.sub.SetBlockCommand;
 import nl.martenm.servertutorialplus.commands.sub.manage.ReloadPluginCommand;
 import nl.martenm.servertutorialplus.commands.sub.manage.SaveCommand;
 import nl.martenm.servertutorialplus.commands.sub.misc.CancelActionCommand;
