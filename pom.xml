@@ -6,7 +6,7 @@
 
     <groupId>nl.martenm</groupId>
     <artifactId>ServerTutorialPlus</artifactId>
-    <version>1.25.2</version>
+    <version>1.25.3</version>
   
     <repositories>
         <!-- Spigot.MC repo -->
@@ -18,7 +18,7 @@
         <!-- PlaceHolderApi repo -->
         <repository>
             <id>placeholderapi</id>
-            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+            <url>https://repo.extendedclip.com/releases/</url>
         </repository>
 
         <repository>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.20.2-R0.1-SNAPSHOT</version>
+            <version>1.21.10-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -39,7 +39,7 @@
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
-            <version>2.10.9</version>
+            <version>2.11.7</version>
             <scope>provided</scope>
         </dependency>
 
