@@ -6,6 +6,8 @@ import nl.martenm.servertutorialplus.objects.ServerTutorial;
 import nl.martenm.servertutorialplus.points.ServerTutorialPoint;
 import nl.martenm.servertutorialplus.points.editor.PointArg;
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Registry;
 import org.bukkit.Sound;
 import org.bukkit.command.CommandSender;
 
@@ -40,11 +42,13 @@ public class SoundArg extends PointArg {
 
                 try {
                     // loc, sound, volume, pitch <-- I forget that all the damm time.
-                    sound = Sound.valueOf(args[1].toUpperCase());
+                    String soundKey = args[1].toLowerCase();
+                    Registry.SOUNDS.get(NamespacedKey.fromString(soundKey));
+
                     float volume = Float.parseFloat(args[2]);
                     float pitch = Float.parseFloat(args[3]);
 
-                    PlayerSound soundInfo = new PlayerSound(sound, pitch, volume);
+                    PlayerSound soundInfo = new PlayerSound(soundKey, pitch, volume);
                     point.setSoundInfo(soundInfo);
                 } catch (IllegalArgumentException ex) {
                     if(sound == null) {

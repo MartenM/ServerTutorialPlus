@@ -110,7 +110,7 @@ public abstract class ServerTutorialPoint{
         if (lockPlayer) {
             if (!plugin.lockedPlayers.contains(player.getUniqueId())) {
                 plugin.lockedPlayers.add(player.getUniqueId());
-                player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP, (int) (time * 20), 128, false, false));
+                player.addPotionEffect(new PotionEffect(PotionEffectType.JUMP_BOOST, (int) (time * 20), 128, false, false));
                 player.setFlySpeed(0.0f);
                 player.setWalkSpeed(0.0f);
             }
@@ -166,7 +166,7 @@ public abstract class ServerTutorialPoint{
         //region fireworks
         if(fireworks != null){
             for(FireWorkInfo fireWorkInfo : fireworks){
-                Firework firework = (Firework) player.getWorld().spawnEntity(fireWorkInfo.getLoc(), EntityType.FIREWORK);
+                Firework firework = (Firework) player.getWorld().spawnEntity(fireWorkInfo.getLoc(), EntityType.FIREWORK_ROCKET);
                 firework.setFireworkMeta(fireWorkInfo.getFireworkMeta());
             }
         }
@@ -186,7 +186,7 @@ public abstract class ServerTutorialPoint{
 
         if (soundInfo != null) {
             // loc, sound, volume, pitch <-- I forget that all the damm time.
-            player.playSound(player.getLocation(), soundInfo.sound, soundInfo.volume, soundInfo.pitch);
+            player.playSound(player.getLocation(), soundInfo.soundKey, soundInfo.volume, soundInfo.pitch);
         }
     }
 
@@ -216,10 +216,10 @@ public abstract class ServerTutorialPoint{
         }
 
         if (tutorialSaves.isConfigurationSection("tutorials." + ID + ".points." + i + ".sound")) {
-            Sound sound = Sound.valueOf(tutorialSaves.getString("tutorials." + ID + ".points." + i + ".sound.sound"));
+            String soundKey = tutorialSaves.getString("tutorials." + ID + ".points." + i + ".sound.sound");
             float pitch = Float.parseFloat(tutorialSaves.getString("tutorials." + ID + ".points." + i + ".sound.pitch"));
             float volume = Float.parseFloat(tutorialSaves.getString("tutorials." + ID + ".points." + i + ".sound.volume"));
-            soundInfo = new PlayerSound(sound, pitch, volume);
+            soundInfo = new PlayerSound(soundKey, pitch, volume);
         }
 
         if (tutorialSaves.isConfigurationSection("tutorials." + ID + ".points." + i + ".fireworks")) {
@@ -276,7 +276,7 @@ public abstract class ServerTutorialPoint{
         }
 
         if(soundInfo != null){
-            tutorialSaves.set("tutorials." + key + ".points." + i + ".sound.sound", soundInfo.sound.toString());
+            tutorialSaves.set("tutorials." + key + ".points." + i + ".sound.sound", soundInfo.soundKey);
             tutorialSaves.set("tutorials." + key + ".points." + i + ".sound.pitch", soundInfo.pitch);
             tutorialSaves.set("tutorials." + key + ".points." + i + ".sound.volume", soundInfo.volume);
         }

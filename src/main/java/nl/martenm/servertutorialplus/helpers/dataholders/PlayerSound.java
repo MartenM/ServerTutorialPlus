@@ -7,13 +7,13 @@ import org.bukkit.Sound;
  */
 public class PlayerSound {
 
-    public PlayerSound(Sound sound, float pitch, float volume){
-        this.sound = sound;
+    public PlayerSound(String soundKey, float pitch, float volume){
+        this.soundKey = soundKey.toLowerCase();
         this.pitch = pitch;
         this.volume = volume;
     }
 
-    public Sound sound;
+    public String soundKey;
     public float pitch;
     public float volume;
 
