@@ -3,7 +3,7 @@ name: ServerTutorialPlus
 prefix: Server Tutorial Plus
 author: MartenM
 version: ${project.version}
-api-version: "1.20"
+api-version: "1.20.4"
 description: "§6The plugin to guide players around your server using tutorials."
 softdepend: [PlaceholderAPI, Multiverse-Core, MultiWorld]
 commands:

@@ -53,10 +53,17 @@ public class TutorialController {
         //FIRE event!
         TutorialStartEvent event = new TutorialStartEvent(serverTutorial, player);
         plugin.getServer().getPluginManager().callEvent(event);
+        if (!(plugin.getServer().getPluginManager().getPlugin("TAB") == null)) {
+            player.performCommand("tab scoreboard off " + player.getName() + " -s");
+        }
+
         if(event.isCancelled()){
             plugin.inTutorial.remove(player.getUniqueId());
             plugin.lockedPlayers.remove(player.getUniqueId());
             plugin.lockedViews.remove(player.getUniqueId());
+            if (!(plugin.getServer().getPluginManager().getPlugin("TAB") == null)) {
+                player.performCommand("tab scoreboard on " + player.getName() + " -s");
+            }
             return;
         }
 
@@ -136,6 +143,9 @@ public class TutorialController {
         if(current == serverTutorial.points.size() - 1){
             //Tutorial has been finished!
             finish();
+            if (!(plugin.getServer().getPluginManager().getPlugin("TAB") == null)) {
+                player.performCommand("tab scoreboard on " + player.getName() + " -s");
+            }
         } else{
             current++;
             playedPoint = serverTutorial.points.get(current).createPlay(player, oldValuesPlayer, this::finishPoint);
