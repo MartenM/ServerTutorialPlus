@@ -70,7 +70,6 @@ public class ServerTutorialPlus extends JavaPlugin{
     private Metrics metrics;
 
     private static ServerTutorialPlus instance;
-
     public static ServerTutorialPlus getInstance() {
         return instance;
     }
